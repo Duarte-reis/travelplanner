@@ -17,6 +17,7 @@ function Homepage() {
             <FeaturesSection />
             <ProsConsSection />
             <Footer />
+            <p>Olá</p>
         </>
     )
 }
