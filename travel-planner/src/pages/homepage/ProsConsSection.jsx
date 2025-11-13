@@ -1,7 +1,7 @@
 import "../../index.css"
-import CtaBtns from "../../generalComponents/CtaBtns"
-import Pros from "./homepageComponents/Pros"
-import Cons from "./homepageComponents/Cons"
+import CtaBtns from "../../components/homepage_components/CtaBtns"
+import Pros from "../../components/homepage_components/Pros"
+import Cons from "../../components/homepage_components/Cons"
 
 function ProsConsSection() {
     return (

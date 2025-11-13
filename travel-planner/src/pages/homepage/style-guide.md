@@ -28,6 +28,8 @@
 - Pros-bg: #104462
 - Shadow-default: 0px 1px 4px #00000026
 - Shadow-header: 0px 4px 21px -1px #1E293B26
+- Shadow-bar: 0px 4px 21px -1px #1E293B26
+- Inner-Shadow-bar: inset 0px 16px 14px 0 #1E293B26
 
 ## Screens
 - Smaller: 1024px

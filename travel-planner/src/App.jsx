@@ -1,10 +1,11 @@
-import Homepage from "./pages/homepage/Homepage"
+//import Homepage from "./pages/homepage/Homepage"
+import BudgetForm from "./pages/budget_form/BudgetForm"
 
 function App() {
 
   return (
     <>
-      <Homepage />
+      <BudgetForm />
     </>
   )
 }

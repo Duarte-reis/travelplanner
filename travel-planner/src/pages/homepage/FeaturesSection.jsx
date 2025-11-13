@@ -1,6 +1,6 @@
 import "../../index.css"
-import CtaBtns from "../../generalComponents/CtaBtns"
-import ResourcesDetails from "./homepageComponents/ResourcesDetails"
+import CtaBtns from "../../components/homepage_components/CtaBtns"
+import ResourcesDetails from "../../components/homepage_components/ResourcesDetails"
 
 function FeaturesSection() {
     return (

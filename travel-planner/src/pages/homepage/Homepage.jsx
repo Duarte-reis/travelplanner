@@ -1,4 +1,4 @@
-import Header from "../../generalComponents/Header"
+import Header from "../../components/website_header/Header"
 import HeroSection from "./HeroSection"
 import PresentationSection from "./PresentationSection"
 import SolutionSection from "./SolutionSection"
@@ -17,7 +17,6 @@ function Homepage() {
             <FeaturesSection />
             <ProsConsSection />
             <Footer />
-            <p>Olá</p>
         </>
     )
 }

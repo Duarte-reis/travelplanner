@@ -1,8 +1,8 @@
 import "../../index.css"
-import FooterFeatures from "./homepageComponents/FooterFeatures"
-import FooterResources from "./homepageComponents/FooterResources"
-import FooterAboutUs from "./homepageComponents/FooterAboutUs"
-import FooterHelpCenter from "./homepageComponents/FooterHelpCenter"
+import FooterFeatures from "../../components/homepage_components/FooterFeatures"
+import FooterResources from "../../components/homepage_components/FooterResources"
+import FooterAboutUs from "../../components/homepage_components/FooterAboutUs"
+import FooterHelpCenter from "../../components/homepage_components/FooterHelpCenter"
 
 
 function footer() {

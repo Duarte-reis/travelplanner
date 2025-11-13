@@ -1,5 +1,5 @@
 import "../../index.css"
-import CtaBtns from "../../generalComponents/CtaBtns"
+import CtaBtns from "../../components/homepage_components/CtaBtns"
 
 function HeroSection() {
     return (

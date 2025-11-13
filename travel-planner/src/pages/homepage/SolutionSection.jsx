@@ -1,6 +1,6 @@
 import "../../index.css"
-import CtaBtns from "../../generalComponents/CtaBtns"
-import SolutionProblemCards from "./homepageComponents/SolutionProblemCards"
+import CtaBtns from "../../components/homepage_components/CtaBtns"
+import SolutionProblemCards from "../../components/homepage_components/SolutionProblemCards"
 
 function SolutionSection() {
     return (
