@@ -1,18 +1,11 @@
 import "../../index.css"
+import Selector from "../Selector"
 
 function HeaderLanguageDropDown() {
     return (
         <div className="selector_dropdown" id="header_language_dropdown">
             <img src="./src/images/web-icon.svg" alt="languages icon" />
-            <form action="/change-language" method="get">
-                <label value="language" className="sr-only">Language:</label>
-                    <select name="language" id="language">
-                        <option value="en">English</option>
-                        <option value="pt">Portuguese</option>
-                        <option value="es">Spanish</option>
-                        <option value="fr">French</option>
-                    </select>
-            </form>
+            <Selector />
                  
             <div className="flags">
                 <img src="./src/images/uk-flag.svg" alt="English flag" className="flag-en" />

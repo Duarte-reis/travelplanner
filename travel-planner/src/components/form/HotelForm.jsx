@@ -1,7 +1,8 @@
 import "../../index.css"
 import TextBox from "../TextBox"
-import YesNoDropDown from "../YesNoDropDown"
-import MealPlanDropDown from "../MealPlanDropDown"
+import Selector from "../Selector"
+//import YesNoDropDown from "../YesNoDropDown"
+//import MealPlanDropDown from "../MealPlanDropDown"
 
 
 function HotelForm() {
@@ -22,7 +23,7 @@ function HotelForm() {
                 <TextBox />
             </div>
             <div className="meal_plan">
-                <MealPlanDropDown />
+                <Selector />
             </div>
             <div className="dinner_text_box">
                 <TextBox />
@@ -33,8 +34,8 @@ function HotelForm() {
                 <TextBox />
             </div>
             <div className="guide_driver_dropdown">
-                <YesNoDropDown />
-                <YesNoDropDown />
+                <Selector />
+                <Selector />
             </div>
         </section>
     )

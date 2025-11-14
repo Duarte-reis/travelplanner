@@ -1,7 +1,7 @@
 import "../../index.css"
 import TextBox from "../TextBox"
 import OptionalButton from "../OptionalButton"
-import YesNoDropDown from "../YesNoDropDown"
+import Selector from "../Selector"
 
 function FlightTrainForm() {
     return (
@@ -11,7 +11,7 @@ function FlightTrainForm() {
                 <TextBox />
                 <TextBox />
                 <TextBox />
-                <YesNoDropDown />
+                <Selector />
                 <OptionalButton />
         </section>
     )

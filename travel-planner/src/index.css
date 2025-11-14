@@ -172,6 +172,8 @@ p, a, select, button, ::placeholder {
 /* ---- Content Box ---- */
 
 .content_box {
+    display: flex;
+    align-items: center;
     padding: 8px 24px;
     border-radius: 8px;
     background-color: var(--Neutral);
@@ -183,6 +185,7 @@ p, a, select, button, ::placeholder {
 .text_box {
     display: flex;
     width: 100%;
+    height: 32px;
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
     border-radius: 6px;
@@ -198,6 +201,7 @@ p, a, select, button, ::placeholder {
 
 #pax_tier {
     display: flex;
+    align-items: center;
     gap: 8px;
 }
 
@@ -205,6 +209,13 @@ p, a, select, button, ::placeholder {
 
 #multiplication {
     display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#multiaplication_result {
+    display: flex;
+    align-items: center;
     gap: 8px;
 }
 
@@ -232,6 +243,28 @@ p, a, select, button, ::placeholder {
     color: var(--Neutral)
 }
 
+/* ---- Select Pax and Free ----*/
+
+#select_pax_and_free {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#select_pax_and_free .pax_and_free, .include {
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
+#select_pax_and_free .pax_and_free {
+    max-width: 148px;
+}
+
 /* ---- Elements ---- */
 
 #header_logo {
@@ -257,12 +290,13 @@ li {
 
 .selector_dropdown select {
     -webkit-appearance: none;
-    appearance: none;
+    /*appearance: none;
     background-image: url("./images/chevron-down.svg");
     background-size: 20px;
     background-repeat: no-repeat;
-    background-position: calc(100% - 8px) center;
+    background-position: calc(100% - 8px) center; */
     padding: 4px 8px;
+    height: 32px;
     box-shadow: var(--Shadow-default);
     background-color: var(--Neutral);
     border-radius: 8px;
@@ -855,34 +889,36 @@ footer .legal_section .legal_section_links > a {
 #form_header_container {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
+    margin-top: 24px;
     text-align: center;
-    width: 100%;
-    margin: 24px 0px;
 }
 
 .form_header_content_container {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 8px;
 }
 
-.form_header_content_container input {
-    flex: 1;
-    width: fit-content;
-}
-
-.date_container {
+.form_header_content {
     display: flex;
-    flex-wrap: wrap;
-    flex: 1;
+    flex-direction: column;
     gap: 8px;
 }
 
-.select_text_box {
+.form_header_content .top_section, .middle_section, .bottom_section {
     display: flex;
-    flex-wrap: wrap;
     gap: 8px;
+}
+
+.top_section, .middle_section, .bottom_section {
+    width: 100%;
+}
+
+.empty_box * {
+    width: 248px;
+    max-width: 100%;
+    height: 100%;
 }
 
 /* ---- Form Complete ---- */
@@ -930,12 +966,8 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
 }
 
-.meal_plan {
-    display: flex;
-}
-
 .meal_plan > :first-child {
-    max-width: 55px;
+    width: 50px;
 }
 
 #hotel_form_bar {
@@ -959,7 +991,7 @@ footer .legal_section .legal_section_links > a {
 .hotel_form_complete {
     display: flex;
     flex-direction: column;
-    margin: 0px 24px;
+    margin: 24px 24px 0px 24px;
 }
 
 .hotel_form_complete > :last-child, .local_guides_form_complete > :last-child {
@@ -975,7 +1007,6 @@ footer .legal_section .legal_section_links > a {
     padding: 8px;
     gap: 8px;
     background-color: var(--Neutral);
-    max-width: max-content;
     box-shadow: var(--Shadow-default);
 }
 
@@ -1190,6 +1221,12 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
 }
 
+.free_button_container * {
+    display: flex;
+    align-items: center;
+    height: 32px;
+}
+
 #price_tiers_form_small_screen .bar {
     border-radius: 8px;
 }
@@ -1221,7 +1258,6 @@ footer .legal_section .legal_section_links > a {
     padding: 8px;
 }
 
-
 .price_tiers_form_complete {
     display: flex;
     margin: 8px 24px 24px 24px;
@@ -1231,7 +1267,263 @@ footer .legal_section .legal_section_links > a {
     border-radius: 8px;;
 }
 
+/* ---- Details ---- */
 
+.price_tiers_hotel_inclusions_container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    margin-top: 8px;
+    gap: 8px;
+}
 
+/* ---- Details Complete ---- */
 
+#details_complete {
+    margin: 0px 24px;
+    padding-bottom: 16px;
+}
+
+/* ---- Price Tiers Details ---- */
+
+#price_tiers_details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#price_tiers_details .pax_and_free_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pax_and_free_container * {
+    max-width: 100%;
+}
+
+#inclusions_details_bar {
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+#price_tiers_details .price_per_room_type {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ---- Hotel Inclusions ---- */
+
+#hotel_inclusions {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+    padding: 8px;
+    gap: 8px;
+    border-radius: 8px;
+    height: 100%;
+}
+
+.hotel_details_container {
+    flex: 1;
+    justify-content: center;
+}
+
+#hotel_inclusions .accommodation_optional {
+    display: flex;
+    gap: 8px;
+}
+
+#hotel_inclusions .hotel_details_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#hotel_inclusions .hotel_details_container .hotel_details_line {
+    display: flex;
+    gap: 8px;
+}
+
+.hotel_extras_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.city_tax_meal_plan_wrapper, .beverages_bellman_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    border: solid red;
+}
+
+.hotel_extras_city_tax > :last-child {
+    flex: 1;
+    border: solid green;
+}
+
+.hotel_extras_meal_plan * {
+    width: 100%
+}
+
+.hotel_extras_city_tax, .hotel_extras_meal_plan, .hotel_extras_beverages, .hotel_extras_bellman, .hotel_extras_supplement {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ---- Services Inclusions ---- */
+
+.service_inclusions_complete {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    padding: 8px;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+    border-radius: 8px;
+}
+
+#services_inclusions {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+#services_inclusions * {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#services_inclusions .transportation_inclusions, .tour_guide_inclusions, .flights_inclusions, .train_inclusion, .headsets_inclusions, .gratuities_inclusions {
+    flex: 1;
+}
+
+.local_guides_line p {
+    white-space: nowrap;
+}
+
+/* ---- Notes Container Details ---- */
+
+.notes_container_details_complete {
+    margin: 8px 0px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+}
+
+#notes_container_details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.free_description_child_discount_line {
+    display: flex;
+    gap: 8px;
+}
+
+.free_description_child_discount_line * {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    align-items: center;
+}
+
+.free_description_child_discount_line .child_discount {
+    white-space: nowrap;
+}
+
+.free_description_child_discount_line .free_description {
+    border: solid red;
+}
+
+#notes_container_details .notes_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 104px;
+    max-height: 100%;
+}
+
+#notes_container_details .notes_container > :last-child {
+    flex: 1;
+}
+
+/* ---- General Terms Details ---- */
+
+.general_terms_details_complete {
+    margin-top: 8px;
+    border-radius: 8px;
+    padding: 8px;
+    height: 264px;
+    max-height: 100%;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+}
+
+#general_terms_details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.cancelation_policy_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cancelation_policy_selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#general_terms_details .cancelation_policy_container > :last-child {
+    flex: 1;
+    min-height: 208px;
+    max-height: 100%;
+}
+
+.payment_bank_container, .payment_terms_container {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.bank_details_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.payment_bank_container .payment_terms_container .payment_terms_selector, .bank_details_container .bank_details_selector {
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
+.payment_terms_container {
+    flex: 1;
+}
+
+.payment_terms_container > :last-child {
+    height: 100%;
+}
+
+.bank_details_container, .bank_details_container > :last-child  {
+    flex: 1;
+}
 

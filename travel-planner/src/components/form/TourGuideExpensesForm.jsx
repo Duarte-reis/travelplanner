@@ -1,5 +1,6 @@
 import "../../index.css"
 import TextBox from "../TextBox"
+import Multiplication from "../Multiplication"
 
 function TourGuideExpensesForm() {
     return (
@@ -10,15 +11,11 @@ function TourGuideExpensesForm() {
             </div>
             <div className="meals">
                 <p>Meals</p>
-                <TextBox />
-                <p>x</p>
-                <TextBox />
+                <Multiplication />
             </div>
             <div className="meals">
                 <p>Hotel</p>
-                <TextBox />
-                <p>x</p>
-                <TextBox />
+                <Multiplication />
             </div>
         </section>
     )
