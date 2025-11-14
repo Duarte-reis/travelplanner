@@ -57,6 +57,7 @@ function HotelInclusions() {
                     <div className="hotel_extras_meal_plan">
                         <p>Meal Plan</p>
                         <Selector/>
+                        <TextBox />
                     </div>
                 </div>
                 

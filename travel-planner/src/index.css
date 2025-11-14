@@ -186,6 +186,8 @@ p, a, select, button, ::placeholder {
     display: flex;
     width: 100%;
     height: 32px;
+    padding: 8px;
+    color: var(--P--color);
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
     border-radius: 6px;
@@ -226,6 +228,73 @@ p, a, select, button, ::placeholder {
     gap: 8px;
 }
 
+/* ---- Final Offer Navigation Btns ---- */
+
+.final_offer_navigation_btns {
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 8px;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+}
+
+/* ---- Carousel ---- */
+
+.carousel {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-item {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.carousel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: var(--Neutral);
+  color: var(--P--color);
+  font-size: 22px;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: var(--Shadow-default);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.carousel-btn:hover {
+  background: var(--Borders);
+  transform: scale(1.1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 /* ---- Form Bar ---- */
 
 .bar {
@@ -241,6 +310,14 @@ p, a, select, button, ::placeholder {
 
 .bar p {
     color: var(--Neutral)
+}
+
+/* ---- Double Bar ---- */
+
+.double_bar > :first-child {
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-left-radius: 8px;
 }
 
 /* ---- Select Pax and Free ----*/
@@ -289,8 +366,8 @@ li {
 }
 
 .selector_dropdown select {
-    -webkit-appearance: none;
-    /*appearance: none;
+    /*-webkit-appearance: none;
+    appearance: none;
     background-image: url("./images/chevron-down.svg");
     background-size: 20px;
     background-repeat: no-repeat;
@@ -1359,26 +1436,23 @@ footer .legal_section .legal_section_links > a {
 }
 
 .city_tax_meal_plan_wrapper, .beverages_bellman_wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     gap: 8px;
-    width: 100%;
-    border: solid red;
-}
-
-.hotel_extras_city_tax > :last-child {
-    flex: 1;
-    border: solid green;
-}
-
-.hotel_extras_meal_plan * {
-    width: 100%
 }
 
 .hotel_extras_city_tax, .hotel_extras_meal_plan, .hotel_extras_beverages, .hotel_extras_bellman, .hotel_extras_supplement {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.hotel_extras_meal_plan {
+    white-space: nowrap;
+    flex: 1;
+}
+
+.hotel_extras_bellman {
+    flex: 1;
 }
 
 /* ---- Services Inclusions ---- */
@@ -1437,16 +1511,12 @@ footer .legal_section .legal_section_links > a {
 .free_description_child_discount_line * {
     display: flex;
     gap: 8px;
-    flex: 1;
     align-items: center;
 }
 
 .free_description_child_discount_line .child_discount {
     white-space: nowrap;
-}
-
-.free_description_child_discount_line .free_description {
-    border: solid red;
+    flex: 1;
 }
 
 #notes_container_details .notes_container {
@@ -1526,4 +1596,183 @@ footer .legal_section .legal_section_links > a {
 .bank_details_container, .bank_details_container > :last-child  {
     flex: 1;
 }
+
+/* ---- Itinerary ---- */
+
+#itinerary_complete {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-inline: 24px;
+    padding-bottom: 16px;
+}
+
+#itinerary_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: fit-content;
+}
+
+.itinerary_title > :first-child {
+    height: 32px;
+    max-width: fit-content;
+}
+
+#itinerary_container .itinerary_title > :first-child {
+    border-radius: 8px;
+}
+
+#itinerary_container .itinerary_title {
+    display: flex;
+    flex: 1;
+    gap: 8px;
+}
+
+#itinerary_container .itinerary_title > :last-child {
+    flex: 1;
+}
+
+#itinerary_container .itinerary_text_area {
+    height: 208px;
+}
+
+#itinerary_container .itinerary_text_area * {
+    height: 100%;
+}
+
+/* ---- Final Offer ---- */
+
+#final_offer_complete {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 1020px;
+    margin-inline: 24px;
+    padding-bottom: 8px;
+}
+
+.final_offer_page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 568px;
+    gap: 16px;
+    border-radius: 8px;
+    background-color: var(--Neutral);
+}
+
+.final_offer_page .image_container {
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url("./src/images/final-offer-cover.png");
+    position: relative;
+    overflow: hidden;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.final_offer_page .image_container img {
+    position: absolute;
+}
+
+.final_offer_page .client_info_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.final_offer_page .client_info_container * {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.final_offer_page .content_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+}
+
+.final_offer_page .content_container .title_text_container, .nav_btns_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.final_offer_page .content_container .title_text_container {
+    flex: 1;
+}
+
+.final_offer_page .content_container .title_text_container > :last-child {
+    flex: 1;
+}
+
+/* ---- Final Offer Overview ---- */
+
+.final_offer_page .overview_nav_btns_container {
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* ---- Final Offer Trip Day ---- */
+
+.trip_day_content_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+}
+
+.trip_day_content_container .trip_day_text_content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ---- Final Offer Pricing and Details ---- */
+
+.pricing_content_container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 8px;
+}
+
+.pricing_tiers > :first-child, .inclusions > :first-child, .exclusions > :first-child, .optional > :first-child {
+    border-radius: 8px;
+}
+
+.pricing_tiers, .inclusions, .exclusions, .optional {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ---- Final Offer General Terms ---- */
+
+.general_terms_content_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+}
+
+.terms_boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+}
+
+.terms_boxes * {
+    flex: 1;
+}
+
+
+
 

@@ -2,7 +2,7 @@ import "../index.css"
 
 function TextBox() {
     return (
-        <input type="text" name="destination" value="" className="text_box"/>
+        <input type="text" name="destination" className="text_box"/>
     )
 }
 
