@@ -17,8 +17,12 @@ function LocalGuidesForm() {
                 <TextBox />
                 <TextBox />
                 <TextBox />
+                
             </div>
+            
+            <div className="optional_button_container">
                 <OptionalButton />
+            </div>
         </section>
     )
 }

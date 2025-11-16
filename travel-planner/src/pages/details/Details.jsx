@@ -6,7 +6,7 @@ function Details() {
     return (
         <>
             <FeaturesHeader />
-            <BudgetNavigation />
+            <BudgetNavigation page="details"/>
             <DetailsComplete />
         </>
     )

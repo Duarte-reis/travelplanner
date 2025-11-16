@@ -7,7 +7,9 @@ function TourGuideForm() {
         <section id="tour_guide_form">
             <div className="price_container">
                 <MultiplicationResult />
-                <OptionalButton />
+                <div className="optional_button_container">
+                    <OptionalButton />
+                </div>
             </div>
         </section>
     )

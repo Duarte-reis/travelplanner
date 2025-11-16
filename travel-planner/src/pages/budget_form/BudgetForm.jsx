@@ -3,12 +3,11 @@ import BudgetNavigation from "../../components/features_navigation/BudgetNavigat
 import FormComplete from "../../components/form/FormComplete"
 
 
-
 function BudgetForm() {
     return (
         <>
             <FeaturesHeader />
-            <BudgetNavigation />
+            <BudgetNavigation page="budgetform"/>
             <FormComplete />
         </>
     )

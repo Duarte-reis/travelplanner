@@ -196,7 +196,22 @@ p, a, select, button, ::placeholder {
 /* ---- Optional Button ---- */
 
 #optional_button {
-    display: flex;
+    width: 24px;
+    height: 100%;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+}
+
+input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+    background: var(--Neutral);
+    border-radius: 2px;
+    box-shadow: var(--Shadow-default);
+    outline: none;
+    cursor: pointer;
 }
 
 /* ---- Pax Tiers ---- */
@@ -365,18 +380,57 @@ li {
     list-style: none;
 }
 
+/* ---- Selector ---- */
+
 .selector_dropdown select {
-    /*-webkit-appearance: none;
+    -webkit-appearance: none;
     appearance: none;
     background-image: url("./images/chevron-down.svg");
     background-size: 20px;
     background-repeat: no-repeat;
-    background-position: calc(100% - 8px) center; */
+    background-position: calc(100% - 8px) center;
     padding: 4px 8px;
     height: 32px;
     box-shadow: var(--Shadow-default);
     background-color: var(--Neutral);
     border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ---- Trip Type Selector ---- */
+
+.trip_type_selector select {
+    width: 128px;
+    max-width: 100%;
+}
+
+/* ---- Meal Plan Selector ---- */
+
+.meal_plan > :first-child select {
+    width: 100%;
+    background-image: url("");
+}
+
+/* ---- Yes No Selector ---- */
+
+.yes_no_selector select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("");
+}
+
+/* ---- Language Selector ----- */
+
+.language_selector select {
+    width: 128px;
+    max-width: 100%;
+}
+
+/* ---- Currency Selector ----- */
+
+.currency_selector select {
+    width: 96px;
+    max-width: 100%;
 }
 
 /* ---- Header ---- */
@@ -906,14 +960,20 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
 }
 
-.menu li:first-child {
+/* ---- Menu BudgetForm ---- */
+
+.menu_budgetform > :first-child, .menu_details > :nth-child(2), .menu_itinerary > :nth-child(3), .menu_finaloffer > :nth-child(4) {
     background-color: var(--Btn-clicked);
-    box-shadow: var(--Shadow-default);
 }
 
-.menu li:first-child > a {
+.menu_budgetform > :first-child p, .menu_details > :nth-child(2) p, .menu_itinerary > :nth-child(3) p, .menu_finaloffer > :nth-child(4) p{
     color: var(--Neutral)
 }
+
+.menu_budgetform > :first-child img, .menu_details > :nth-child(2) img, .menu_itinerary > :nth-child(3) img, .menu_finaloffer > :nth-child(4) img {
+  filter: brightness(0) invert(1)
+}
+
 
 .navigation_btns {
     display: flex;
@@ -983,7 +1043,25 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
 }
 
-.form_header_content .top_section, .middle_section, .bottom_section {
+.form_header_content .top_section {
+    display: flex;
+    gap: 8px;
+}
+
+.form_header_content .top_section .text_content {
+    display: flex;
+    flex: 4;
+    gap: 8px;
+}
+
+.form_header_content .top_section .selector_content {
+    display: flex;
+    flex: 3;
+    gap: 8px;    
+}
+
+.form_header_content .middle_section, 
+.form_header_content .bottom_section {
     display: flex;
     gap: 8px;
 }
@@ -1006,8 +1084,8 @@ footer .legal_section .legal_section_links > a {
 /* ---- Hotel Form ---- */
 
 #hotel_form {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
     padding: 8px;
     gap: 8px;
     background-color: var(--Neutral);
@@ -1015,37 +1093,48 @@ footer .legal_section .legal_section_links > a {
     box-shadow: var(--Shadow-default);
 }
 
-#hotel_form .travel_date, .city_text_box, .hotel_text_box, .single_suplement, .dinner_text_box, .lunch_text_box {
+.meal_plan > :first-child select {
+    width: 100%;
+}
+
+#hotel_form .travel_date,
+#hotel_form .guide_driver_dropdown {
+    width: 100%;
     display: flex;
-    height: 30px;
-    max-height: 100%;
-}
-
-#hotel_form .travel_date {
-    max-width: 100px;
     gap: 8px;
+    grid-column: span 1;
 }
 
+#hotel_form .hotel_text_box {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    gap: 8px;
+    width: 100%; 
+}
+
+#hotel_form .dinner_text_box,
+#hotel_form .lunch_text_box {
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    gap: 8px;
+    width: 100%; 
+}
+
+#hotel_form .dinner_text_box {
+    flex: 1;
+    width: 100%;
+}
+
+#hotel_form .dinner_text_box,
+#hotel_form .lunch_text_box,
 #hotel_form .city_text_box {
-    gap: 8px;
+    grid-column: span 2;
 }
 
-#hotel_form .hotel_text_box, .dinner_text_box, .lunch_text_box {
-    gap: 8px
+#hotel_form .hotel_text_box {
+    grid-column: span 4;
 }
 
-#hotel_form .hotel_text_box > :last-child, .dinner_text_box > :last-child, .lunch_text_box > :last-child, .single_suplement {
-    max-width: 50px;
-}
-
-.guide_driver_dropdown {
-    display: flex;
-    gap: 8px;
-}
-
-.meal_plan > :first-child {
-    width: 50px;
-}
 
 #hotel_form_bar {
     justify-content: space-between;
@@ -1080,20 +1169,29 @@ footer .legal_section .legal_section_links > a {
 
 #local_guides_form {
     display: flex;
-    justify-content: space-between;
     padding: 8px;
     gap: 8px;
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
 }
 
-#local_guides_form .type_of_service, .price_tier_container {
-    display: flex;
+#local_guides_form .type_of_service {
+    display: grid;
     gap: 8px;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
-.type_of_service > :first-child {
-    width: 40%;
+#local_guides_form .type_of_service > :first-child {
+    grid-column: span 1;
+}
+
+#local_guides_form .type_of_service > :last-child {
+    grid-column: span 2;
+}
+
+#local_guides_form .price_tier_container {
+    display: flex;
+    gap: 8px;
 }
 
 #local_guides_form_bar_title {
@@ -1184,13 +1282,25 @@ footer .legal_section .legal_section_links > a {
 
 #activities_form {
     display: flex;
-    flex: 1;
-    justify-content: space-between;
     padding: 8px;
     gap: 8px;
     background-color: var(--Neutral);
-    max-width: max-content;
     box-shadow: var(--Shadow-default);
+    width: 416px;
+}
+
+#activities_form .choose_country, 
+#activities_form .activity_price, 
+#activities_form .optional_button_container {
+    flex: 1;
+}
+
+#activities_form .activity_name {
+    flex: 5;
+}
+
+#activities_form .optional_button_container {
+    max-width: max-content;
 }
 
 #activities_form_bar {

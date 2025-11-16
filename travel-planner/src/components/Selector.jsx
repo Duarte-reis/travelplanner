@@ -1,17 +1,20 @@
 import "../index.css"
 
-function Selector() {
-    return (
-        <div className="selector_dropdown" id="travel_selector_dropdown" >
-            <form action="" method="get">
-                <label value="language" className="sr-only">Language:</label>
-                    <select name="selector" id="selector">
-                        <option value="">text</option>
-                        <option value="">text</option>
-                    </select>
-            </form>
-        </div>
-    )
+function Selector({ options = [], defaultValue, className="" }) {
+  return (
+    <div className={`selector_dropdown ${className}`} id="travel_selector_dropdown">
+      <form action="" method="post">
+        <label htmlFor="selector" className="sr-only">Trip Type:</label>
+        <select name="selector" id="selector" defaultValue={defaultValue}>
+          {options.map((option, i) => (
+            <option key={i} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </form>
+    </div>
+  )
 }
 
-export default Selector
+export default Selector;

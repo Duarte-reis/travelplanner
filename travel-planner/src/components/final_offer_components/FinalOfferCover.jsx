@@ -22,7 +22,7 @@ function FinalOfferCover() {
                     </div>
                 </div>
             </div>
-            <div class="content_container">
+            <div className="content_container">
                 <div className="title_text_container">
                     <h4>About the destination</h4>
                     <Textbox />

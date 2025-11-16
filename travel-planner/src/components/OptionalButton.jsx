@@ -2,14 +2,13 @@ import "../index.css"
 
 function OptionalButton() {
     return (
-        <div id="optional_button">
+        <button id="optional_button" type="submit" aria-label="click">
             <form>
                 <label>
-                    <input type="checkbox" id="optional" name="optional button" value="" />
+                    <input type="checkbox" id="optional" name="optional button" />
                 </label>
-                <button type="submit"></button>
-            </form>    
-        </div>
+            </form>
+        </button>    
     )
 }
 

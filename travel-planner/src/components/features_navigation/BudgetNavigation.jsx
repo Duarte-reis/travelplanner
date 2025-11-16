@@ -5,11 +5,11 @@ import ActionBtns from "./ActionBtns"
 import FormHeader from "../form_header/FormHeader"
 
 
-function BudgetNavigation() {
+function BudgetNavigation({page}) {
     return (
         <section id="budget_navigation">
             <div className="menu_wrapper">
-                <Menu />
+                <Menu page={page}/>
             </div>
             
             <div className="navigation_form_wrapper">

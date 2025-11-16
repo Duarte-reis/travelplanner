@@ -5,10 +5,18 @@ import OptionalButton from "../OptionalButton"
 function ActivitiesForm() {
     return (
         <section id="activities_form">
-                <TextBox />
-                <TextBox />
-                <TextBox />
-                <OptionalButton />
+                <div className="choose_country">
+                    <TextBox />
+                </div>
+                <div className="activity_name">
+                    <TextBox />
+                </div>
+                <div className="activity_price">
+                    <TextBox />
+                </div>
+                <div className="optional_button_container">
+                    <OptionalButton />
+                </div>
         </section>
     )
 }
