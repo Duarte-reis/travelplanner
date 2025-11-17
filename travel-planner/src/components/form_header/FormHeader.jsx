@@ -13,10 +13,10 @@ const currency = [
     {value:"Dollar $", label:"Dollar $"},
 ]
 
-function FormHeader() {
+function FormHeader({pageTitle}) {
     return (
         <section id="form_header_container">
-            <h3>Title</h3>
+            <h3 className="page_title">{pageTitle}</h3>
             <div className="form_header_content_container">
                 <div className="form_header_content">
                     <div className="top_section">
@@ -37,19 +37,20 @@ function FormHeader() {
                                 className="currency_selector"
                             />
                         </div>
-                        
-                        
+
                     </div> 
                     <div className="middle_section">
                         <TextBox />
                         <TextBox />
                         <TextBox />
-                    </div>  
+                    </div>
+
                     <div className="bottom_section">
                         
                         <TextBox />
                     </div>   
                 </div>
+
                 <div className="empty_box">
                     <TextBox />
                 </div>

@@ -4,8 +4,7 @@ import NavigationBtns from "../features_navigation/NavigationBtns"
 import ActionBtns from "./ActionBtns"
 import FormHeader from "../form_header/FormHeader"
 
-
-function BudgetNavigation({page}) {
+function BudgetNavigation({page, pageTitle}) {
     return (
         <section id="budget_navigation">
             <div className="menu_wrapper">
@@ -17,7 +16,9 @@ function BudgetNavigation({page}) {
                     <NavigationBtns />
                     <ActionBtns />
                  </div>
-                <FormHeader />
+                <FormHeader 
+                    pageTitle = {pageTitle}
+                />
             </div>      
         </section>
 

@@ -2,21 +2,16 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import Selector from "../Selector"
 
-const mealPlan = [
-    {value:"", label:""},
-    {value:"RO", label:"RO"},
-    {value:"BB", label:"BB"},
-    {value:"HB", label:"HB"},
-    {value:"FB", label:"FB"},
-]
-
-const selectYesNo = [
-    {value:"", label:""},
-    {value:"Yes", label:"Yes"},
-    {value:"No", label:"No"}
-]
-
 function HotelForm() {
+
+    const mealPlan = [
+        {value:"", label:""},
+        {value:"RO", label:"RO"},
+        {value:"BB", label:"BB"},
+        {value:"HB", label:"HB"},
+        {value:"FB", label:"FB"},
+    ]
+
     return (
         <section id="hotel_form">
             <div className="travel_date">
@@ -53,16 +48,8 @@ function HotelForm() {
             </div>
             
             <div className="guide_driver_dropdown">
-                <Selector
-                 options={selectYesNo}
-                 defaultValue=""
-                 className="yes_no_selector"
-                 />
-                <Selector
-                 options={selectYesNo}
-                 defaultValue=""
-                 className="yes_no_selector"
-                 />
+                <Selector />
+                <Selector />
             </div>
         </section>
     )

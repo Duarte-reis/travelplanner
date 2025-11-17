@@ -5,6 +5,31 @@ import Selector from "../Selector"
 import MultiplicationResult from "../MultiplicationResult"
 
 function HotelInclusions() {
+
+    const selectHotelRateStars = [
+        {value:"", label:""},
+        {value:"1*", label:"1*"},
+        {value:"2*", label:"2*"},
+        {value:"3*", label:"3*"},
+        {value:"4*", label:"4*"},
+        {value:"5*", label:"5*"}
+    ]
+
+    const mealPlan = [
+        {value:"", label:""},
+        {value:"RO", label:"RO"},
+        {value:"BB", label:"BB"},
+        {value:"HB", label:"HB"},
+        {value:"FB", label:"FB"},
+    ]
+
+    const supplementOptions = [
+        {value:"", label:""},
+        {value:"BB", label:"BB"},
+        {value:"HB", label:"HB"},
+        {value:"FB", label:"FB"},
+    ]
+
     return (
         <section id="hotel_inclusions">
             <div className="accommodation_optional">
@@ -19,32 +44,56 @@ function HotelInclusions() {
                 <div className="hotel_details_line">
                     <TextBox />
                     <TextBox />
-                    <TextBox />
+                    <Selector
+                        options={selectHotelRateStars}
+                        defaultValue=""
+                        className="hotel_rate_stars_selector"
+                    />
                 </div>    
                 <div className="hotel_details_line">
                     <TextBox />
                     <TextBox />
-                    <TextBox />
+                    <Selector
+                        options={selectHotelRateStars}
+                        defaultValue=""
+                        className="hotel_rate_stars_selector"
+                    />
                 </div>    
                 <div className="hotel_details_line">
                     <TextBox />
                     <TextBox />
-                    <TextBox />
+                    <Selector
+                        options={selectHotelRateStars}
+                        defaultValue=""
+                        className="hotel_rate_stars_selector"
+                    />
                 </div>    
                 <div className="hotel_details_line">
                     <TextBox />
                     <TextBox />
-                    <TextBox />
+                    <Selector
+                        options={selectHotelRateStars}
+                        defaultValue=""
+                        className="hotel_rate_stars_selector"
+                    />
                 </div>    
                 <div className="hotel_details_line">
                     <TextBox />
                     <TextBox />
-                    <TextBox />
+                    <Selector
+                        options={selectHotelRateStars}
+                        defaultValue=""
+                        className="hotel_rate_stars_selector"
+                    />
                 </div>    
                 <div className="hotel_details_line">
                     <TextBox />
                     <TextBox />
-                    <TextBox />
+                    <Selector
+                        options={selectHotelRateStars}
+                        defaultValue=""
+                        className="hotel_rate_stars_selector"
+                    />
                 </div>      
             </div>
 
@@ -56,7 +105,11 @@ function HotelInclusions() {
                     </div>
                     <div className="hotel_extras_meal_plan">
                         <p>Meal Plan</p>
-                        <Selector/>
+                        <Selector
+                            options={mealPlan}
+                            defaultValue=""
+                            className="meal_plan_selector"
+                        />
                         <TextBox />
                     </div>
                 </div>
@@ -75,7 +128,11 @@ function HotelInclusions() {
                 
                 <div className="hotel_extras_supplement">
                     <p>Supplement</p>
-                    <Selector/>
+                    <Selector
+                        options={supplementOptions}
+                        defaultValue=""
+                        className="supplement_options_selector"
+                    />
                     <MultiplicationResult />
                     <TextBox />
                 </div>

@@ -7,7 +7,10 @@ function BudgetForm() {
     return (
         <>
             <FeaturesHeader />
-            <BudgetNavigation page="budgetform"/>
+            <BudgetNavigation 
+                page="budgetform"
+                pageTitle="Budget Form"
+            />
             <FormComplete />
         </>
     )

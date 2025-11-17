@@ -1,6 +1,6 @@
 import "../../index.css"
 import PriceTiersDetails from "./PriceTiersDetails"
-import DetailsBar from "./DetailsBar"
+import Bar from "../Bar"
 import HotelInclusions from "./HotelInclusions"
 import ServicesInclusions from "./ServicesInclusions"
 import NotesContainerDetails from "./NotesContainerDetails"
@@ -9,7 +9,9 @@ import GeneralTermsDetails from "./GeneralTermsDetails"
 function DetailsComplete() {
     return (
         <section id="details_complete">
-            <DetailsBar />
+            <Bar 
+                barContent = {["Price and Inclusions"]}
+            />
             <div className="price_tiers_hotel_inclusions_container">
                 <div className="price_tiers_details_complete">
                     <PriceTiersDetails />
@@ -28,7 +30,9 @@ function DetailsComplete() {
                 <NotesContainerDetails />
             </div>
 
-            <DetailsBar />
+            <Bar 
+                barContent = {["General Terms"]}
+            />
 
             <div className="general_terms_details_complete">
                 <GeneralTermsDetails />

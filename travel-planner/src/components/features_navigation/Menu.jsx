@@ -6,7 +6,7 @@ function Menu({page}) {
     const isBudgetForm = page === "budgetform";
     const isDetails = page === "details";
     const isItinerary = page === "itinerary";
-    const isFinalOffer = page === "finaloffer"
+    const isFinalOffer = page === "finaloffer";
 
     return (
         <ul className={`menu ${isBudgetForm ? "menu_budgetform" : isDetails ? "menu_details" : isItinerary ? "menu_itinerary" : isFinalOffer ? "menu_finaloffer" : ""} `}>

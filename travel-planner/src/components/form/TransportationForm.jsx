@@ -1,10 +1,15 @@
 import "../../index.css"
-import TourGuideForm from "./TourGuideForm"
+import TextBox from "../TextBox"
+import OptionalButton from "../OptionalButton"
 
 function TransportationForm() {
     return (
         <section id="transportation_form">
-            <TourGuideForm />
+            <TextBox />
+            <TextBox />
+            <div className="optional_button_container">
+                <OptionalButton />
+            </div>
         </section>
     )
 }

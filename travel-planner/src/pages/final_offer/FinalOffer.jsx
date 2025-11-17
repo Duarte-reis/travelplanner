@@ -6,7 +6,10 @@ function FinalOffer() {
     return (
         <>
             <FeaturesHeader />
-            <BudgetNavigation page="finaloffer"/>
+            <BudgetNavigation 
+                page="finaloffer"
+                pageTitle="Final Offer"
+            />
             <FinalOfferComplete />
         </>
     )

@@ -1,6 +1,14 @@
 import "../index.css"
 
-function Selector({ options = [], defaultValue, className="" }) {
+function Selector({ 
+  options = [
+    {value: "", label: ""},
+    {value: "Yes", label: "Yes"},
+    {value: "", label: "No"}
+  ],
+  defaultValue, 
+  className = "yes_no_selector" }) {
+
   return (
     <div className={`selector_dropdown ${className}`} id="travel_selector_dropdown">
       <form action="" method="post">

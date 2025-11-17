@@ -1,17 +1,21 @@
 import "../../index.css"
 import TourGuideForm from "./TourGuideForm"
-import BellmanFormBar from "./BellmanFormBar"
-import HeadsetsFormBar from "./HeadsetsFormBar"
-import GratuitiesFormBar from "./GratuitiesFormBar"
+import Bar from "../Bar"
 
 function ExtrasForm() {
     return (
         <section id="extras_form">
-                <HeadsetsFormBar />
+                <Bar 
+                    barContent = {["Headsets"]}
+                />
                 <TourGuideForm />
-                <BellmanFormBar />
+                <Bar 
+                    barContent = {["Bellman"]}
+                />
                 <TourGuideForm />
-                <GratuitiesFormBar />
+                <Bar 
+                    barContent = {["Gratuities"]}
+                />
                 <TourGuideForm />
         </section>
     )

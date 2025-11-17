@@ -1,7 +1,6 @@
 import "../../index.css"
 import Textbox from "../TextBox"
 import Bar from "../Bar"
-import DoubleBar from "../DoubleBar"
 
 function FinalOfferPricing() {
     return (
@@ -13,7 +12,7 @@ function FinalOfferPricing() {
             <div className="pricing_content_container">
                 <h4>Pricing & Deails</h4>
                 <div className="pricing_tiers">
-                    <DoubleBar />
+                    <Bar />
                     <Textbox />
                 </div>
                 <div className="inclusions">

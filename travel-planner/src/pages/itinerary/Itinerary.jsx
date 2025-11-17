@@ -6,7 +6,10 @@ function Itinerary() {
     return (
         <>
             <FeaturesHeader />
-            <BudgetNavigation page="itinerary"/>
+            <BudgetNavigation 
+                page="itinerary"
+                pageTitle="Itinerary"
+            />
             <ItineraryComplete />
         </>
     )
