@@ -1,9 +1,8 @@
 import "../../index.css"
 import TextBox from "../TextBox"
 import Selector from "../Selector"
-import { useEffect } from "react";
 
-function HotelForm({index, hotelFormData, setHotelFormData, sendTotalToPricePerPax}) {
+function HotelForm({index, hotelFormData, setHotelFormData, sendTotalToNet}) {
 
     /* ---- Meal Plan selector ---- */
     const mealPlan = [
@@ -15,7 +14,7 @@ function HotelForm({index, hotelFormData, setHotelFormData, sendTotalToPricePerP
     ]
 
     /* ---- Update Text Box value ---- */
-    
+
     const data = hotelFormData[index] || {
         city: "",
         hotel: "",
@@ -37,13 +36,10 @@ function HotelForm({index, hotelFormData, setHotelFormData, sendTotalToPricePerP
     
     const total = 
         (parseFloat(data.hotelPrice) || 0) +
-        (parseFloat(data.singleSupplement) || 0) +
         (parseFloat(data.dinnerPrice) || 0) +
         (parseFloat(data.lunchPrice) || 0);
-    
-    useEffect(() => {
-        if (sendTotalToPricePerPax) sendTotalToPricePerPax(total);
-    }, [total]);
+
+    sendTotalToNet(total);
 
     return (
         <section id="hotel_form">

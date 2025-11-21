@@ -1,7 +1,6 @@
 import "../index.css"
 import TextBox from "./TextBox"
 
-
 function Multiplication({index, data, updateMultiplicationData}) {
 
     const safe = data || { pricePerDay:"", numOfDays:"" };
@@ -34,3 +33,4 @@ function Multiplication({index, data, updateMultiplicationData}) {
 }
 
 export default Multiplication
+

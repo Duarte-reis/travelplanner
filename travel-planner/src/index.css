@@ -269,6 +269,14 @@ input[type="checkbox"] {
     align-items: center;
 }
 
+/* ---- Comission Text Box ---- */
+
+#comission_text_box {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
 /* ---- Free Button ---- */
 
 #free_button {
@@ -1439,46 +1447,34 @@ footer .legal_section .legal_section_links > a {
 
 #tour_guide_form {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 8px;
     gap: 8px;
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+#tour_guide_form > :first-child {
+    width: 100%;
+    justify-content: center;
+}
+
+#tour_guide_form .tour_guide_expenses_form > :first-child{
+    justify-content: center;
+}
+
+#tour_guide_form .tour_guide_expenses_form > *:not(:first-child) {
+    padding: 8px;
 }
 
 #tour_guide_form > .price_container {
     display: flex;
     gap: 8px;
-}
-
-.tour_guide_form_complete {
-    display: flex;
-    flex-direction: column;
-}
-
-.tour_guide_form_complete > :first-child {
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
-    justify-content: center;
-}
-
-.tour_guide_form_complete .tour_guide_expenses_form_complete > :first-child {
-    justify-content: center;
-}
-
-/* ---- Tour Guide Expenses ---- */
-
-#tour_guide_expenses_form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     padding: 8px;
-    gap: 8px;
-    background-color: var(--Neutral);
-    box-shadow: var(--Shadow-default);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
 }
 
 /* ---- Activities Form ---- */
@@ -1529,33 +1525,40 @@ footer .legal_section .legal_section_links > a {
 
 /* ---- Transportation Form ---- */
 
-#transportation_form {
+#transportation_form_container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 8px;
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
 }
 
-#transportation_form > :last-child {
-    flex: 1;
-    align-self: stretch;
+#transportation_form_container > :first-child {
+    width: 100%;
+    justify-content: center;
+}
+
+#transportation_form_container .transportation_form {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+}
+
+#transportation_form_container .transportation_expenses_form > *:not(:first-child) {
+    padding: 8px;
+}
+
+#transportation_form_container .transportation_expenses_form > :first-child {
+    justify-content: center;
 }
 
 .transportation_form_complete {
     flex: 2;
-}
-
-.transportation_form_complete > :first-child {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    justify-content: center;
-}
-
-.transportation_form_complete .driver_expenses_form_complete > :first-child {
-    justify-content: center;
 }
 
 .activities_transportation_form_complete {
@@ -1713,11 +1716,11 @@ footer .legal_section .legal_section_links > a {
 .price_tiers_form_complete .pax_plus_free_content,
 .price_tiers_form_complete .type_of_free_content,
 .price_tiers_form_complete .total_net_content,
-.price_tiers_form_complete .margin_comission_content,
+.price_tiers_form_complete .margin_content,
 .price_tiers_form_complete .price_per_pax_content ,
 .price_tiers_form_complete .type_of_free_content,
 .price_tiers_form_complete .total_net_content,
-.price_tiers_form_complete .margin_comission_content,
+.price_tiers_form_complete .comission_content,
 .price_tiers_form_complete .price_per_pax_content {
     margin-top: 8px;
     display: flex;
@@ -1752,11 +1755,13 @@ footer .legal_section .legal_section_links > a {
     flex: 2;
 }
 
-.price_tiers_form_complete .margin_comission_content * > :first-child {
+.price_tiers_form_complete .margin_content * > :first-child,
+.price_tiers_form_complete .comission_content * > :first-child {
     flex: 1;
 }
 
-.price_tiers_form_complete .margin_comission_content * > :last-child {
+.price_tiers_form_complete .margin_content * > :last-child,
+.price_tiers_form_complete .comission_content * > :last-child {
     flex: 4;
 }
 

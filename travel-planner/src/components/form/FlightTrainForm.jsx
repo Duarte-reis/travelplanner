@@ -3,7 +3,7 @@ import TextBox from "../TextBox"
 import OptionalButton from "../OptionalButton"
 import Selector from "../Selector"
 
-function FlightTrainForm({index, flightTrainFormData, setFlightTrainFormData}) {
+function FlightTrainForm({index = -1, flightTrainFormData, setFlightTrainFormData}) {
 
     const data = flightTrainFormData[index] || {
         company:"",

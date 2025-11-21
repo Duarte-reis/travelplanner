@@ -1,9 +1,9 @@
 import "../index.css"
 import TextBox from "./TextBox"
 
-function MarginTextBox() {
+function ComissionTextBox() {
     return (
-        <div id="margin_text_box">
+        <div id="comission_text_box">
             <TextBox />
                 <p>%</p>
             <TextBox />
@@ -11,4 +11,4 @@ function MarginTextBox() {
     )
 }
 
-export default MarginTextBox
+export default ComissionTextBox

@@ -18,8 +18,7 @@ function PaxTiers({ index = 0, numOfPaxData, setNumOfPaxData }) {
   const updateValue = (tierKey, field, value) => {
     const updated = [...numOfPaxData];
     updated[index] = {...updated[index], [tierKey]: {
-        ...updated[index][tierKey],
-        [field]: value,
+        ...updated[index][tierKey], [field]: value,
       },
     };
     setNumOfPaxData(updated);

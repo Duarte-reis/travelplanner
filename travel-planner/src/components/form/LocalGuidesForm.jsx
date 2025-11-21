@@ -2,7 +2,7 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import OptionalButton from "../OptionalButton"
 
-function LocalGuidesForm({index, localGuidesFormData, setLocalGuidesFormData}) {
+function LocalGuidesForm({index = -1, localGuidesFormData, setLocalGuidesFormData}) {
 
     const data = localGuidesFormData[index] || {
             country: "",

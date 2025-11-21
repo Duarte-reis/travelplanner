@@ -2,10 +2,8 @@ import "../../index.css"
 import HotelForm from "./HotelForm"
 import LocalGuidesForm from "./LocalGuidesForm"
 import TourGuideForm from "./TourGuideForm"
-import TourGuideExpensesForm from "./TourGuideExpensesForm"
 import ActivitiesForm from "./ActivitiesForm"
 import TransportationForm from "./TransportationForm"
-import DriverExpensesForm from "./DriverExpensesForm"
 import FlightTrainForm from "./FlightTrainForm"
 import ExtrasForm from "./ExtrasForm"
 import Bar from "../Bar"
@@ -14,9 +12,10 @@ import FreeButton from "../FreeButton"
 import TextBox from "../TextBox"
 import MarginTextBox from "../MarginTextBox"
 import AddNewElementBtn from "../AddNewElementBtn"
+import ComissionTextBox from "../ComissionTextBox"
 import {useLocalStorage} from "../../hooks/useLocalStorage"
 
-function FormComplete({onChange}) {
+function FormComplete() {
 
     /* ---- Update Text Box value - Hotel Form --- */
     
@@ -90,15 +89,6 @@ function FormComplete({onChange}) {
         }
     ])
 
-    const addTourGuideForm = () => {
-        setTourGuideFormData([
-            ...tourGuideFormData,
-            {
-                multiplicationData: [{pricePerDay:"", numOfDays:""}]
-            }
-        ])
-    }
-
     const updateMultiplicationData = (formIndex, key, index, value) => {
         const updated = [...tourGuideFormData];
         updated[formIndex] = {
@@ -139,15 +129,6 @@ function FormComplete({onChange}) {
             priceOfVehicle:"",
         }
     ])
-
-    const addTransportationData = () =>
-        setTransportationFormData([
-            ...transportationFormData,
-            {
-                typeOfVehicle: "",
-                priceOfVehicle: "",   
-            }
-        ])
 
     /* ---- Update Text Box value - Flight/Train Form --- */
     
@@ -206,7 +187,7 @@ function FormComplete({onChange}) {
                         index={index}
                         hotelFormData={hotelFormData}
                         setHotelFormData={setHotelFormData}
-                        sendTotalToPricePerPax={updateHotelTotal}
+                        sendTotalToNet={updateHotelTotal}
                     />
                 ))}
 
@@ -240,28 +221,16 @@ function FormComplete({onChange}) {
                 </div>
 
                 <div className="tour_guide_form_complete">
-                    <Bar 
-                        barContent = {["Guide"]}
-                    />
                     {tourGuideFormData.map((form, formIndex) => (
-                        <TourGuideForm 
+                        <TourGuideForm
                             key={formIndex}
                             formIndex={formIndex}
-                            multiplicationData={form.multiplicationData}
+                            tourGuideFormData={tourGuideFormData} 
+                            setTourGuideFormData={setTourGuideFormData} 
+                            multiplicationData={form.multiplicationData} 
                             updateMultiplicationData={updateMultiplicationData}
                         />
                     ))}
-
-                    <AddNewElementBtn 
-                        onAdd={addTourGuideForm}
-                        text="Add another line"
-                    />
-                    <div className="tour_guide_expenses_form_complete">
-                        <Bar 
-                            barContent = {["Guide Expenses"]}
-                        />
-                        <TourGuideExpensesForm />
-                    </div>
                 </div>
             </div>
 
@@ -284,9 +253,6 @@ function FormComplete({onChange}) {
                     />
                 </div> 
                 <div className="transportation_form_complete">
-                    <Bar 
-                        barContent = {["Transportation"]}
-                    />
                     {transportationFormData.map((value, index) => (
                         <TransportationForm 
                             key={index}
@@ -295,16 +261,6 @@ function FormComplete({onChange}) {
                             setTransportationFormData={setTransportationFormData}
                         />
                     ))}
-                    <AddNewElementBtn 
-                        onAdd={addTransportationData}
-                        text="Add another line"
-                    />
-                    <div className="driver_expenses_form_complete">
-                        <Bar 
-                            barContent = {["Driver Expenses"]}
-                        />
-                        <DriverExpensesForm />
-                    </div>
                 </div>
 
                 <div className="extras_form_complete">
@@ -344,9 +300,7 @@ function FormComplete({onChange}) {
                             numOfPaxData={numOfPaxData}
                             setNumOfPaxData={setNumOfPaxData}
                         />
-
                     </div>
-                    
                 </div>
 
                 <div className="type_of_free_container">
@@ -369,13 +323,34 @@ function FormComplete({onChange}) {
                         barContent = {["NET"]}
                     />    
                     <div className="total_net_content">
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
+                        <TextBox 
+                            value={hotelTotal + "€"}
+                            readOnly
+                        />
+                        <TextBox 
+                            value={hotelTotal + "€"}
+                            readOnly
+                        />
+                        <TextBox 
+                            value={hotelTotal + "€"}
+                            readOnly
+                        />
+                        <TextBox 
+                            value={hotelTotal + "€"}
+                            readOnly
+                        />
+                        <TextBox 
+                            value={hotelTotal + "€"}
+                            readOnly
+                        />
+                        <TextBox 
+                            value={hotelTotal + "€"}
+                            readOnly
+                        />
+                        <TextBox 
+                            value={hotelTotal + "€"}
+                            readOnly
+                        />
                     </div>
                 </div>
 
@@ -383,7 +358,7 @@ function FormComplete({onChange}) {
                     <Bar 
                         barContent = {["Margin"]}
                     />    
-                    <div className="margin_comission_content">
+                    <div className="margin_content">
                         <MarginTextBox />
                         <MarginTextBox />
                         <MarginTextBox />
@@ -398,14 +373,14 @@ function FormComplete({onChange}) {
                     <Bar 
                         barContent = {["Comission"]}
                     />    
-                    <div className="margin_comission_content">
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
+                    <div className="comission_content">
+                        <ComissionTextBox />
+                        <ComissionTextBox />
+                        <ComissionTextBox />
+                        <ComissionTextBox />
+                        <ComissionTextBox />
+                        <ComissionTextBox />
+                        <ComissionTextBox />
                     </div>
                 </div>    
 
@@ -414,34 +389,13 @@ function FormComplete({onChange}) {
                         barContent = {["Price"]}
                     />    
                     <div className="price_per_pax_content">
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
+                        <TextBox />
+                        <TextBox />
+                        <TextBox />
+                        <TextBox />
+                        <TextBox />
+                        <TextBox />
+                        <TextBox />
                     </div>
                 </div>
             </div>          
