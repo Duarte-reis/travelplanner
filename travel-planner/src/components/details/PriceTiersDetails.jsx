@@ -5,7 +5,6 @@ import Selector from "../Selector"
 function PriceTiersDetails() {
 
     const selectRoomType = [
-        {value:"", label:""},
         {value:"Double Twin", label:"Double Twin"},
         {value:"Single room", label:"Single room"}
     ]

@@ -12,7 +12,7 @@ function Selector({
   return (
     <div className={`selector_dropdown ${className}`} id="travel_selector_dropdown">
       <form action="" method="post">
-        <label htmlFor="selector" className="sr-only">Trip Type:</label>
+        <label htmlFor="selector" className="sr-only">selector</label>
         <select name="selector" id="selector" defaultValue={defaultValue}>
           {options.map((option, i) => (
             <option key={i} value={option.value}>

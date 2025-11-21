@@ -1,18 +1,23 @@
 import "../../index.css"
-import FinalOfferGeneralTerms from "./FinallOfferGeneralTerms"
 import FinalOfferCover from "./FinalOfferCover"
-import FinalOfferOverview from "./FinalOfferOverview"
-import FinalOfferPricing from "./FinalOfferPricing"
-import FinalOfferTripDay from "./FinalOfferTripDay"
+import FinalOfferPricingDetails from "./FinalOfferPricingDetails"
+import FinalOfferInclusions from "./FinalOfferInclusions"
+import FinalOfferExclusions from "./FinalOfferExclusions"
+import FinalOfferOptional from "./FinalOfferOptional"
+import FinalOfferGeneralTerms from "./FinalOfferGeneralTerms"
+import FinalOfferItinerary from "./FinalOfferItinerary"
+
 
 function FinalOfferComplete() {
     return (
         <section id="final_offer_complete">
             <FinalOfferCover />
-            <FinalOfferOverview />
-            <FinalOfferTripDay />
-            <FinalOfferPricing />
+            <FinalOfferPricingDetails />
+            <FinalOfferInclusions />
+            <FinalOfferExclusions />
+            <FinalOfferOptional />
             <FinalOfferGeneralTerms />
+            <FinalOfferItinerary />
         </section>
     )
 }

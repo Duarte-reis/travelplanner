@@ -2,7 +2,8 @@ import "../../index.css"
 import OptionalButton from "../OptionalButton"
 import TextBox from "../TextBox"
 import Selector from "../Selector"
-import MultiplicationResult from "../MultiplicationResult"
+import Multiplication from "../Multiplication"
+import { useLocalStorage } from "../../hooks/useLocalStorage"
 
 function HotelInclusions() {
 
@@ -30,6 +31,11 @@ function HotelInclusions() {
         {value:"FB", label:"FB"},
     ]
 
+    const [values, setValues] = useLocalStorage("textBoxValues", {}); 
+            const updateValue = (id, value) => {
+                setValues({...values, [id]: value})
+            }
+
     return (
         <section id="hotel_inclusions">
             <div className="accommodation_optional">
@@ -42,8 +48,14 @@ function HotelInclusions() {
 
             <div className="hotel_details_container">
                 <div className="hotel_details_line">
-                    <TextBox />
-                    <TextBox />
+                    <TextBox 
+                        value={values.city || ""}
+                        onChange={(value) => updateValue("city", value)}
+                    />
+                    <TextBox 
+                        value={values.hotel || ""}
+                        onChange={(value) => updateValue("hotel", value)}
+                    />
                     <Selector
                         options={selectHotelRateStars}
                         defaultValue=""
@@ -133,7 +145,7 @@ function HotelInclusions() {
                         defaultValue=""
                         className="supplement_options_selector"
                     />
-                    <MultiplicationResult />
+                    <Multiplication />
                     <TextBox />
                 </div>
             </div>

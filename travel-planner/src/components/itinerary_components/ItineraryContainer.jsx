@@ -6,7 +6,9 @@ function ItineraryContainer() {
     return (
         <section id="itinerary_container">
             <div className="itinerary_title">
-                <Bar />
+                <Bar 
+                    barContent = {["Day:"]}
+                />
                 <TextBox />
             </div>
             <div className="itinerary_text_area">

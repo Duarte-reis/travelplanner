@@ -13,8 +13,8 @@ function TourGuideExpensesForm() {
                 <p>Meals</p>
                 <Multiplication />
             </div>
-            <div className="meals">
-                <p>Hotel</p>
+            <div className="accommodation">
+                <p>Accommodation</p>
                 <Multiplication />
             </div>
         </section>

@@ -1,12 +1,15 @@
 import "../../index.css"
+import {Link} from "wouter"
 
 function NavigationLinks() {
     return (
         <div className="navbar_links">
-            <a href="">Home</a>
-            <a href="">About us</a>
-            <a href="">Features</a>
-            <a href="">Contact</a>
+            <Link to="/homepage">
+                <p>Home</p>
+            </Link>
+            <p>About us</p>
+            <p>Features</p>
+            <p>Contact</p>
         </div>
     )
 }
