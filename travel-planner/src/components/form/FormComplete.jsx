@@ -203,10 +203,10 @@ function FormComplete() {
 
     /* ---- Add Hotel Form values and send it to NET ---- */
 
-    const [hotelTotal, setHotelTotal] = useLocalStorage("hotelTotal", 0);
+    const [hotelTotalForm, setHotelTotalForm] = useLocalStorage("hotelTotal", 0);
 
     const updateHotelTotal = (total) => {
-        setHotelTotal(total);
+        setHotelTotalForm(total);
     };
 
     /* ---- Add Flight/Train Form values and send it to NET ---- */
@@ -237,25 +237,25 @@ function FormComplete() {
 
     /* ---- Tour Guide - calculate price per pax and send it to NET ---- */
 
-      const sumTourGuideMultiplication = arr =>
-        arr.reduce((sum, item) => {
-            const price = parseFloat(item.pricePerDay) || 0;
-            const days = parseFloat(item.numOfDays) || 0;
-            return sum + price * days;
-        }, 0)
+    const sumTourGuideMultiplication = arr =>
+    arr.reduce((sum, item) => {
+        const price = parseFloat(item.pricePerDay) || 0;
+        const days = parseFloat(item.numOfDays) || 0;
+        return sum + price * days;
+    }, 0)
 
-        const tourGuideTotal = tourGuideFormData.reduce((sum, form) => {
-            return sum 
-                + sumTourGuideMultiplication(form.multiplicationPrice)
-                + sumTourGuideMultiplication(form.multiplicationMeals)
-                + sumTourGuideMultiplication(form.multiplicationAccommodation);
-            }, 0);
+    const tourGuideTotal = tourGuideFormData.reduce((sum, form) => {
+        return sum 
+            + sumTourGuideMultiplication(form.multiplicationPrice)
+            + sumTourGuideMultiplication(form.multiplicationMeals)
+            + sumTourGuideMultiplication(form.multiplicationAccommodation);
+        }, 0);
 
-        const tourGuidePerTier = Object.values(numOfPaxData[0]).map(tier => {
-            const pax = parseInt(tier.numOfPax) || 1;
-            return Math.floor(tourGuideTotal / pax);
-        });
-    
+    const tourGuidePerTier = Object.values(numOfPaxData[0]).map(tier => {
+        const pax = parseInt(tier.numOfPax) || 1;
+        return Math.floor(tourGuideTotal / pax);
+    });
+     
     return (
         <section id="form_complete">
             <div className="hotel_form_complete">
@@ -315,6 +315,7 @@ function FormComplete() {
                             multiplicationAccommodation={form.multiplicationAccommodation}
                             updateMultiplicationData={updateMultiplicationData}
                             addTourGuideForm={addTourGuideForm}
+                            numOfPaxData={numOfPaxData}
                         />
                     ))}
                 </div>
@@ -343,6 +344,7 @@ function FormComplete() {
                         <TransportationForm 
                             key={index}
                             index={index}
+                            numOfPaxData={numOfPaxData}
                             transportationFormData={transportationFormData}
                             setTransportationFormData={setTransportationFormData}
                         />
@@ -424,7 +426,7 @@ function FormComplete() {
                         {Object.values(numOfPaxData[0]).map((tier, idx) => (
                             <TextBox
                                 key={idx}
-                                value={hotelTotal + flightTrainTotal + extrasTotal + transportationPerTier[idx] + tourGuidePerTier[idx] + "€"}
+                                value={hotelTotalForm + flightTrainTotal + extrasTotal + transportationPerTier[idx] + tourGuidePerTier[idx] + "€"}
                                 readOnly
                             />
                         ))}

@@ -1,6 +1,7 @@
 import "../../index.css"
 import Multiplication from "../Multiplication"
 import Bar from "../Bar"
+import { useEffect } from "react";
 
 function ExtrasForm({formIndex, multiplicationHeadsets = [], multiplicationBellman = [],multiplicationGratuities = [], updateExtrasMultiplicationData, sendTotalToNet}) {
 
@@ -24,9 +25,13 @@ function ExtrasForm({formIndex, multiplicationHeadsets = [], multiplicationBellm
 
     const totalExtras = totalHeadsets + totalBellman + totalGratuities;
 
-    if (sendTotalToNet) {
-        sendTotalToNet(totalExtras);
-    }
+    //if (sendTotalToNet) {sendTotalToNet(totalExtras);}
+
+    useEffect(() => {
+        if (sendTotalToNet) {
+            sendTotalToNet(totalExtras);
+        }
+    }, [totalExtras, sendTotalToNet]);
 
     return (
         <section id="extras_form">

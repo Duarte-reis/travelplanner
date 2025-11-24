@@ -23,7 +23,8 @@ function HotelForm({ formIndex, hotelFormData, updateHotelFormData, sendTotalToN
         (parseFloat(data.dinnerPrice) || 0) +
         (parseFloat(data.lunchPrice) || 0);
 
-    if (sendTotalToNet) sendTotalToNet(total);
+    
+    if(sendTotalToNet) sendTotalToNet(total)
 
     return (
         <section id="hotel_form">

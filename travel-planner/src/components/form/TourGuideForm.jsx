@@ -7,7 +7,6 @@ import AddNewElementBtn from "../AddNewElementBtn";
 
 function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeals = [], multiplicationAccommodation = [], updateMultiplicationData, addTourGuideForm}) {
 
-
   return (
     <section id="tour_guide_form">
       <Bar barContent={["Tour Guide"]} />

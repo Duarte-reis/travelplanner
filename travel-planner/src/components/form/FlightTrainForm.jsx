@@ -28,7 +28,7 @@ function FlightTrainForm({index = -1, flightTrainFormData, setFlightTrainFormDat
         (parseFloat(data.fare) || 0) +
         (parseFloat(data.tax) || 0); 
 
-        if (sendTotalToNet) sendTotalToNet(total);
+    if(sendTotalToNet) sendTotalToNet(total);
     
     return (
         <section id="flight_train_form">
