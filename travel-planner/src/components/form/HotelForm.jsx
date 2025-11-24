@@ -2,44 +2,28 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import Selector from "../Selector"
 
-function HotelForm({index, hotelFormData, setHotelFormData, sendTotalToNet}) {
+function HotelForm({ formIndex, hotelFormData, updateHotelFormData, sendTotalToNet }) {
 
-    /* ---- Meal Plan selector ---- */
+    const data = hotelFormData[formIndex];
+
     const mealPlan = [
-        {value:"", label:""},
-        {value:"RO", label:"RO"},
-        {value:"BB", label:"BB"},
-        {value:"HB", label:"HB"},
-        {value:"FB", label:"FB"},
-    ]
+        {value:"", label:""}, 
+        {value:"RO", label:"RO"}, 
+        {value:"BB", label:"BB"}, 
+        {value:"HB", label:"HB"}, 
+        {value:"FB", label:"FB"}, ]
 
-    /* ---- Update Text Box value ---- */
-
-    const data = hotelFormData[index] || {
-        city: "",
-        hotel: "",
-        hotelPrice: "",
-        singleSupplement:"",
-        dinner:"",
-        dinnerPrice:"",
-        lunch:"",
-        lunchPrice:"",
+    const update = (key, value) => {
+        updateHotelFormData(formIndex, key, value);
     };
 
-    const updateValue = (key, value) => {
-        const updated = [...hotelFormData];
-        updated[index] = {...updated[index], [key]: value};
-        setHotelFormData(updated)
-    };
-
-    /* ---- Add values ---- */
-    
-    const total = 
+    const total =
         (parseFloat(data.hotelPrice) || 0) +
+        (parseFloat(data.singleSupplement) || 0) +
         (parseFloat(data.dinnerPrice) || 0) +
         (parseFloat(data.lunchPrice) || 0);
 
-    sendTotalToNet(total);
+    if (sendTotalToNet) sendTotalToNet(total);
 
     return (
         <section id="hotel_form">
@@ -49,25 +33,25 @@ function HotelForm({index, hotelFormData, setHotelFormData, sendTotalToNet}) {
             </div>
             <div className="city_text_box">
                 <TextBox 
-                    value={data.city || ""}
-                    onChange={(value) => updateValue("city", value)}
+                    value={data.city}
+                    onChange={value => update("city", value)}
                 />
             </div>
             
             <div className="hotel_text_box">
                 <TextBox 
                     value={data.hotel || ""}
-                    onChange={(value) => updateValue("hotel", value)}
+                    onChange={(value) => update("hotel", value)}
                 />
                 <TextBox 
                     value={data.hotelPrice || ""}
-                    onChange={(value) => updateValue("hotelPrice", value)}
+                    onChange={(value) => update("hotelPrice", value)}
                     placeholder="€"
                 />
                 <div className="single_suplement">
                     <TextBox 
                         value={data.singleSupplement || ""}
-                        onChange={(value) => updateValue("singleSupplement", value)}
+                        onChange={(value) => update("singleSupplement", value)}
                         placeholder="€"
                     />
                 </div>
@@ -83,11 +67,11 @@ function HotelForm({index, hotelFormData, setHotelFormData, sendTotalToNet}) {
             <div className="dinner_text_box">
                 <TextBox 
                     value={data.dinner || ""}
-                    onChange={(value) => updateValue("dinner", value)}
+                    onChange={(value) => update("dinner", value)}
                 />
                 <TextBox 
                     value={data.dinnerPrice || ""}
-                    onChange={(value) => updateValue("dinnerPrice", value)}
+                    onChange={(value) => update("dinnerPrice", value)}
                     placeholder="€"
                 />
             </div>
@@ -95,11 +79,11 @@ function HotelForm({index, hotelFormData, setHotelFormData, sendTotalToNet}) {
             <div className="lunch_text_box">
                 <TextBox 
                     value={data.lunch || ""}
-                    onChange={(value) => updateValue("lunch", value)}
+                    onChange={(value) => update("lunch", value)}
                 />
                 <TextBox 
                     value={data.lunchPrice || ""}
-                    onChange={(value) => updateValue("lunchPrice", value)}
+                    onChange={(value) => update("lunchPrice", value)}
                     placeholder="€"
                 />
             </div>

@@ -3,7 +3,7 @@ import TextBox from "../TextBox"
 import OptionalButton from "../OptionalButton"
 import Selector from "../Selector"
 
-function FlightTrainForm({index = -1, flightTrainFormData, setFlightTrainFormData}) {
+function FlightTrainForm({index = -1, flightTrainFormData, setFlightTrainFormData, sendTotalToNet}) {
 
     const data = flightTrainFormData[index] || {
         company:"",
@@ -23,6 +23,12 @@ function FlightTrainForm({index = -1, flightTrainFormData, setFlightTrainFormDat
         {value:"Flight", label:"Flight"},
         {value:"Train", label:"Train"}
     ]
+
+    const total =
+        (parseFloat(data.fare) || 0) +
+        (parseFloat(data.tax) || 0); 
+
+        if (sendTotalToNet) sendTotalToNet(total);
     
     return (
         <section id="flight_train_form">

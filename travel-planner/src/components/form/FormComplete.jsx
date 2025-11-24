@@ -21,9 +21,9 @@ function FormComplete() {
     
     const [hotelFormData, setHotelFormData] = useLocalStorage("hotelformdata", [
         {   
-            city: "",
-            hotel: "",
-            hotelPrice: "",
+            city:"", 
+            hotel:"", 
+            hotelPrice:"",
             singleSupplement:"",
             dinner:"",
             dinnerPrice:"",
@@ -32,13 +32,19 @@ function FormComplete() {
         }    
     ]);
 
+    const updateHotelFormData = (formIndex, key, value) => {
+        const updated = [...hotelFormData];
+        updated[formIndex] = {...updated[formIndex], [key]: value};
+        setHotelFormData(updated);
+    };
+
     const addHotelForm = () => {
         setHotelFormData([
             ...hotelFormData,
             {
-                city: "",
-                hotel: "",
-                hotelPrice: "",
+                city:"", 
+                hotel:"", 
+                hotelPrice:"",
                 singleSupplement:"",
                 dinner:"",
                 dinnerPrice:"",
@@ -83,22 +89,28 @@ function FormComplete() {
 
     /* ---- Update Text Box value - Tour Guides Form --- */
 
-    const [tourGuideFormData, setTourGuideFormData] = useLocalStorage("tourguideformdata", [
-        {
-            multiplicationData: [{pricePerDay:"", numOfDays:""}]
-        }
+    const [tourGuideFormData, setTourGuideFormData] = useLocalStorage("tourguideformdata", [ 
+        {   multiplicationPrice: [{ pricePerDay: "", numOfDays: "" }],
+            multiplicationMeals: [{ pricePerDay: "", numOfDays: "" }],
+            multiplicationAccommodation: [{ pricePerDay: "", numOfDays: "" }], } 
     ])
 
-    const updateMultiplicationData = (formIndex, key, index, value) => {
+    const updateMultiplicationData = (formIndex, section, key, index, value) => {
         const updated = [...tourGuideFormData];
-        updated[formIndex] = {
-            ...updated[formIndex],
-            multiplicationData: updated[formIndex].multiplicationData.map((line, i) =>
-                i === index ? { ...line, [key]: value } : line
-            )
-        };
-        setTourGuideFormData(updated);
+        updated[formIndex] = {...updated[formIndex], [section]: updated[formIndex][section].map ((line, i) => i === index ? { ...line, [key]: value } : line)};
+            setTourGuideFormData(updated);
     };
+
+    const addTourGuideForm = () => {
+    setTourGuideFormData([
+      ...tourGuideFormData,
+      {
+        multiplicationPrice: [{ pricePerDay: "", numOfDays: "" }],
+        multiplicationMeals: [{ pricePerDay: "", numOfDays: "" }],
+        multiplicationAccommodation: [{ pricePerDay: "", numOfDays: "" }]
+      }
+    ]);
+  };
 
     /* ---- Update Text Box value - Activities Form --- */
     
@@ -130,6 +142,29 @@ function FormComplete() {
         }
     ])
 
+    /* ---- Update Text Box value - Flight/Train Form --- */
+    
+    const [extrasFormData, setExtrasFormData] = useLocalStorage("extrasformdata", [
+        {
+            multiplicationHeadsets:[{pricePerDay:"", numOfDays:""}],
+            multiplicationBellman:[{pricePerDay:"", numOfDays:""}],
+            multiplicationGratuities:[{pricePerDay:"", numOfDays:""}],
+        }
+    ])
+
+    const updateExtrasMultiplicationData = (formIndex, section, key, index, value) => {
+    const updated = [...extrasFormData];
+
+    updated[formIndex] = {
+      ...updated[formIndex],
+      [section]: updated[formIndex][section].map((line, i) =>
+        i === index ? { ...line, [key]: value } : line
+      )
+    };
+
+    setExtrasFormData(updated);
+  };
+    
     /* ---- Update Text Box value - Flight/Train Form --- */
     
     const [flightTrainFormData, setFlightTrainFormData] = useLocalStorage("flighttrainformdata", [
@@ -166,7 +201,7 @@ function FormComplete() {
         }
     ])
 
-    /* ---- Add Hotel Form values and show in Price per Pax ---- */
+    /* ---- Add Hotel Form values and send it to NET ---- */
 
     const [hotelTotal, setHotelTotal] = useLocalStorage("hotelTotal", 0);
 
@@ -174,6 +209,53 @@ function FormComplete() {
         setHotelTotal(total);
     };
 
+    /* ---- Add Flight/Train Form values and send it to NET ---- */
+
+    const [flightTrainTotal, setFlightTrainTotal] = useLocalStorage("flighttraintotal", 0);
+
+    const updateFlightTrainTotal = (total) => {
+        setFlightTrainTotal(total);
+    }
+
+    /* ---- Add Headsets values and send it to NET ---- */
+
+    const [extrasTotal, setExtrasTotal] = useLocalStorage("extrastotal", 0);
+
+    const updateExtrasTotal = (totalExtras) => {
+        setExtrasTotal(totalExtras);
+    }
+    
+    /* ---- Transportation - calculate price per pax and send it to NET ---- */
+
+    const transportationPerTier = transportationFormData.length > 0
+    ? Object.values(numOfPaxData[0]).map(tier => {
+        const price = parseFloat(transportationFormData[0].priceOfVehicle || 0);
+        const pax = parseInt(tier.numOfPax) || 1;
+        return Math.floor(price / pax);
+      })
+    : Array(Object.keys(numOfPaxData[0]).length).fill(0);
+
+    /* ---- Tour Guide - calculate price per pax and send it to NET ---- */
+
+      const sumTourGuideMultiplication = arr =>
+        arr.reduce((sum, item) => {
+            const price = parseFloat(item.pricePerDay) || 0;
+            const days = parseFloat(item.numOfDays) || 0;
+            return sum + price * days;
+        }, 0)
+
+        const tourGuideTotal = tourGuideFormData.reduce((sum, form) => {
+            return sum 
+                + sumTourGuideMultiplication(form.multiplicationPrice)
+                + sumTourGuideMultiplication(form.multiplicationMeals)
+                + sumTourGuideMultiplication(form.multiplicationAccommodation);
+            }, 0);
+
+        const tourGuidePerTier = Object.values(numOfPaxData[0]).map(tier => {
+            const pax = parseInt(tier.numOfPax) || 1;
+            return Math.floor(tourGuideTotal / pax);
+        });
+    
     return (
         <section id="form_complete">
             <div className="hotel_form_complete">
@@ -181,12 +263,13 @@ function FormComplete() {
                     barContent= {["Day", "City", "Hotel", "Single", "Meal", "Dinner", "Lunch", "Guide/Driver"]}
                 />
                 
-                {hotelFormData.map((value, index) => (
+                {hotelFormData.map((form, index) => (
                     <HotelForm
                         key={index}
-                        index={index}
+                        formIndex={index}
+                        data={form}
                         hotelFormData={hotelFormData}
-                        setHotelFormData={setHotelFormData}
+                        updateHotelFormData={updateHotelFormData}
                         sendTotalToNet={updateHotelTotal}
                     />
                 ))}
@@ -225,10 +308,13 @@ function FormComplete() {
                         <TourGuideForm
                             key={formIndex}
                             formIndex={formIndex}
-                            tourGuideFormData={tourGuideFormData} 
-                            setTourGuideFormData={setTourGuideFormData} 
-                            multiplicationData={form.multiplicationData} 
+                            tourGuideFormData={tourGuideFormData}
+                            setTourGuideFormData={setTourGuideFormData}
+                            multiplicationPrice={form.multiplicationPrice}
+                            multiplicationMeals={form.multiplicationMeals}
+                            multiplicationAccommodation={form.multiplicationAccommodation}
                             updateMultiplicationData={updateMultiplicationData}
+                            addTourGuideForm={addTourGuideForm}
                         />
                     ))}
                 </div>
@@ -264,7 +350,17 @@ function FormComplete() {
                 </div>
 
                 <div className="extras_form_complete">
-                    <ExtrasForm />
+                    {extrasFormData.map((form, formIndex) => (
+                        <ExtrasForm
+                            key={formIndex}
+                            formIndex={formIndex}
+                            multiplicationHeadsets={form.multiplicationHeadsets}
+                            multiplicationBellman={form.multiplicationBellman}
+                            multiplicationGratuities={form.multiplicationGratuities}
+                            updateExtrasMultiplicationData={updateExtrasMultiplicationData}
+                            sendTotalToNet={updateExtrasTotal}
+                        />
+                    ))}
                 </div>
             </div>
 
@@ -281,6 +377,7 @@ function FormComplete() {
                         index={index}
                         flightTrainFormData={flightTrainFormData}
                         setFlightTrainFormData={setFlightTrainFormData}
+                        sendTotalToNet={updateFlightTrainTotal}
                     />
                 ))}
                 
@@ -297,6 +394,7 @@ function FormComplete() {
                     />    
                     <div className="pax_plus_free_content">
                         <PaxTiers
+                            index={0}
                             numOfPaxData={numOfPaxData}
                             setNumOfPaxData={setNumOfPaxData}
                         />
@@ -323,34 +421,13 @@ function FormComplete() {
                         barContent = {["NET"]}
                     />    
                     <div className="total_net_content">
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
-                        <TextBox 
-                            value={hotelTotal + "€"}
-                            readOnly
-                        />
+                        {Object.values(numOfPaxData[0]).map((tier, idx) => (
+                            <TextBox
+                                key={idx}
+                                value={hotelTotal + flightTrainTotal + extrasTotal + transportationPerTier[idx] + tourGuidePerTier[idx] + "€"}
+                                readOnly
+                            />
+                        ))}
                     </div>
                 </div>
 
