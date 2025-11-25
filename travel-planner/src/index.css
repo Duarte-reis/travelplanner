@@ -1538,6 +1538,19 @@ footer .legal_section .legal_section_links > a {
     margin-bottom: 8px;
 }
 
+.transportatioin_vehicle_container {
+    display: flex;
+    gap: 8px;
+}
+
+.transportatioin_vehicle_container > :first-child {
+    flex: 2;
+}
+
+.transportatioin_vehicle_container > :nth-child(2) {
+    flex: 1;
+}
+
 #transportation_form_container > :first-child {
     width: 100%;
     justify-content: center;

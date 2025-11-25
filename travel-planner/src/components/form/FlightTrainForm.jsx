@@ -2,6 +2,7 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import OptionalButton from "../OptionalButton"
 import Selector from "../Selector"
+import { useEffect } from "react"
 
 function FlightTrainForm({index = -1, flightTrainFormData, setFlightTrainFormData, sendTotalToNet}) {
 
@@ -28,7 +29,11 @@ function FlightTrainForm({index = -1, flightTrainFormData, setFlightTrainFormDat
         (parseFloat(data.fare) || 0) +
         (parseFloat(data.tax) || 0); 
 
-    if(sendTotalToNet) sendTotalToNet(total);
+    useEffect(() => {
+        if (sendTotalToNet) {
+            sendTotalToNet(total);
+        }
+    }, [total, sendTotalToNet]);
     
     return (
         <section id="flight_train_form">

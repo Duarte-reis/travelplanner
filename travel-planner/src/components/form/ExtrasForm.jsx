@@ -25,8 +25,6 @@ function ExtrasForm({formIndex, multiplicationHeadsets = [], multiplicationBellm
 
     const totalExtras = totalHeadsets + totalBellman + totalGratuities;
 
-    //if (sendTotalToNet) {sendTotalToNet(totalExtras);}
-
     useEffect(() => {
         if (sendTotalToNet) {
             sendTotalToNet(totalExtras);

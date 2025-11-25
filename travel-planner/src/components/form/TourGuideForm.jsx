@@ -25,6 +25,7 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
           <OptionalButton />
         </div>
       </div>
+      
       <div className="tour_guide_expenses_form">
         <Bar barContent={["Guide Expenses"]} />
         <div className="land">

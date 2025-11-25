@@ -3,80 +3,76 @@ import TextBox from "../TextBox";
 import OptionalButton from "../OptionalButton";
 import Bar from "../Bar";
 import AddNewElementBtn from "../AddNewElementBtn";
-import DriverExpensesForm from "./DriverExpensesForm";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useEffect, useState } from "react";
+import Multiplication from "../Multiplication";
 
-function TransportationForm({ index, transportationFormData, setTransportationFormData, numOfPaxData, sendDriverExpensesToNet }) {
-
-  const data = transportationFormData[index] || {
-    typeOfVehicle: "",
-    priceOfVehicle: "",
-  };
-
-  const addTransportationData = () =>
-    setTransportationFormData([
-      ...transportationFormData,
-      {
-        typeOfVehicle: "",
-        priceOfVehicle: "",
-      },
-    ]);
-
-  const updateValue = (key, value) => {
-    const updated = [...transportationFormData];
-    updated[index] = { ...updated[index], [key]: value };
-    setTransportationFormData(updated);
-  };
-
-  /* ---- Update Text Box value - Driver Expenses Form --- */
-  const [driverExpensesFormData, setDriverExpensesFormData] = useLocalStorage("driverexpensesformdata", [
-    {
-      multiplicationDriverMeals: [{ pricePerDay: "", numOfDays: "" }],
-      multiplicationDriverAccommodation: [{ pricePerDay: "", numOfDays: "" }],
-    },
-  ]);
-
-  const updateMultiplicationDriverData = (formIndex, section, key, index, value) => {
-    const updated = [...driverExpensesFormData];
-    updated[formIndex] = {
-      ...updated[formIndex],
-      [section]: updated[formIndex][section].map((line, i) =>
-        i === index ? { ...line, [key]: value } : line
-      ),
-    };
-    setDriverExpensesFormData(updated);
-  };
-
+function TransportationForm({formIndex, updateTransportationData, priceOfVehicleContainer = [], multiplicationDriverMeals = [], multiplicationDriverAccommodation = [], addTransportationForm}) {
+   
   return (
     <section id="transportation_form_container">
       <Bar barContent={["Transportation"]} />
       <div className="transportation_form">
-        <TextBox
-          value={data.typeOfVehicle || ""}
-          onChange={(value) => updateValue("typeOfVehicle", value)}
-        />
-        <TextBox
-          value={data.priceOfVehicle || ""}
-          onChange={(value) => updateValue("priceOfVehicle", value)}
-          placeholder="€"
-        />
+        {priceOfVehicleContainer.map((data, index) => (
+            <div key={index} className="transportatioin_vehicle_container">
+                <TextBox 
+                    value={data.typeOfVehicle}
+                    onChange={(value) =>
+                        updateTransportationData(formIndex, "priceOfVehicleContainer", "typeOfVehicle", index, value)
+                    }
+                />
+                <TextBox 
+                    value={data.priceOfVehicle}
+                    onChange={(value) =>
+                        updateTransportationData(formIndex, "priceOfVehicleContainer", "priceOfVehicle", index, value)
+                    }
+                    placeholder={"€"}
+                />
+            </div>
+            ))}
         <div className="optional_button_container">
           <OptionalButton />
         </div>
       </div>
 
-      {driverExpensesFormData.map((form, formIndex) => (
-        <DriverExpensesForm
-          key={formIndex}
-          formIndex={formIndex}
-          multiplicationDriverMeals={form.multiplicationDriverMeals}
-          multiplicationDriverAccommodation={form.multiplicationDriverAccommodation}
-          updateMultiplicationDriverData={updateMultiplicationDriverData}
-        />
-      ))}
+      <div id="driver_expenses_form">
+            <div className="transportation_expenses_form">
+                <Bar barContent={["Driver Expenses"]} />
+                <div className="land">
+                    <p>Land</p>
+                    <TextBox />
+                </div>
+                <div className="meals">
+                    <p>Meals</p>
+                    {multiplicationDriverMeals.map((data, index) => (
+                        <Multiplication 
+                            key={index}
+                            index={index}
+                            data={data}
+                            updateMultiplicationData={(key, value) =>
+                                updateTransportationData(formIndex, "multiplicationDriverMeals", key, index, value) 
+                            }
+                        />
+                    ))}
+                </div>
+                <div className="accommodation">
+                    <p>Accommodation</p>
+                    {multiplicationDriverAccommodation.map((data, index) => (
+                        <Multiplication 
+                            key={index}
+                            index={index}
+                            data={data}
+                            updateMultiplicationData={(key, value) =>
+                                updateTransportationData(formIndex, "multiplicationDriverAccommodation", key, index, value)
+                            }
+                        />
+                    ))}
+                </div>
+            </div>
+        </div>
 
-      <AddNewElementBtn onAdd={addTransportationData} text="Add another line" />
+      <AddNewElementBtn
+        onAdd={addTransportationForm}
+        text="Add another line" 
+      />
     </section>
   );
 }
