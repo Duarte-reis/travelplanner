@@ -1,11 +1,8 @@
 import "../../index.css"
 import TextBox from "../TextBox"
-import Selector from "../Selector"
-import { useEffect } from "react";
+import Selector from "../Selector" 
 
-function HotelForm({ formIndex, hotelFormData, updateHotelFormData, sendTotalToNet }) {
-
-    const data = hotelFormData[formIndex];
+function HotelForm({ formIndex,updateHotelFormData, cityContainer = [], hotelContainer = [], hotelPriceContainer = [], singleSupplementContainer = [], mealPlanContainer = [], dinnerContainer = [], dinnerPriceContainer = [], lunchContainer = [], lunchPriceContainer = [], guideSelectorContainer = [], driverSelectorContainer = [] }) {
 
     const mealPlan = [
         {value:"", label:""}, 
@@ -14,22 +11,6 @@ function HotelForm({ formIndex, hotelFormData, updateHotelFormData, sendTotalToN
         {value:"HB", label:"HB"}, 
         {value:"FB", label:"FB"}, ]
 
-    const update = (key, value) => {
-        updateHotelFormData(formIndex, key, value);
-    };
-
-    const total =
-        (parseFloat(data.hotelPrice) || 0) +
-        (parseFloat(data.singleSupplement) || 0) +
-        (parseFloat(data.dinnerPrice) || 0) +
-        (parseFloat(data.lunchPrice) || 0);
-
-    useEffect(() => {
-            if (sendTotalToNet) {
-                sendTotalToNet(total);
-            }
-        }, [total, sendTotalToNet]);
-
     return (
         <section id="hotel_form">
             <div className="travel_date">
@@ -37,65 +18,107 @@ function HotelForm({ formIndex, hotelFormData, updateHotelFormData, sendTotalToN
                 <TextBox />
             </div>
             <div className="city_text_box">
-                <TextBox 
-                    value={data.city}
-                    onChange={value => update("city", value)}
-                />
-            </div>
-            
-            <div className="hotel_text_box">
-                <TextBox 
-                    value={data.hotel || ""}
-                    onChange={(value) => update("hotel", value)}
-                />
-                <TextBox 
-                    value={data.hotelPrice || ""}
-                    onChange={(value) => update("hotelPrice", value)}
-                    placeholder="€"
-                />
-                <div className="single_suplement">
-                    <TextBox 
-                        value={data.singleSupplement || ""}
-                        onChange={(value) => update("singleSupplement", value)}
-                        placeholder="€"
+                {cityContainer.map((data, index) => (
+                    <TextBox
+                        key={index}
+                        value={data.city}
+                        onChange={(value) => updateHotelFormData(formIndex, "cityContainer", "city", index, value)}
                     />
+                ))}
+            </div>
+
+            <div className="hotel_text_box">
+                {hotelContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.hotel}
+                        onChange={(value) => updateHotelFormData(formIndex, "hotelContainer", "hotel", index, value)}
+                    />
+                ))}
+
+                {hotelPriceContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.hotelPrice}
+                        onChange={(value) => updateHotelFormData(formIndex, "hotelPriceContainer", "hotelPrice", index, value)}
+                    />
+                ))}
+                
+                <div className="single_suplement">
+                    {singleSupplementContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.singleSupplement}
+                        onChange={(value) => updateHotelFormData(formIndex, "singleSupplementContainer", "singleSupplement", index, value)}
+                    />
+                ))}
+
                 </div>
                 <div className="meal_plan">
-                    <Selector 
-                        options={mealPlan}
-                        defaultValue=""
-                        className="meal_plan_selector"
+                    {mealPlanContainer.map((data, index) => (
+                        <Selector
+                            key={index} 
+                            value={data.mealPlan}
+                            options={mealPlan}
+                            onChange={(value) => updateHotelFormData(formIndex, "mealPlanContainer", "mealPlan", index, value)}
                     />
+                    ))}
                 </div>
             </div>
             
             <div className="dinner_text_box">
-                <TextBox 
-                    value={data.dinner || ""}
-                    onChange={(value) => update("dinner", value)}
-                />
-                <TextBox 
-                    value={data.dinnerPrice || ""}
-                    onChange={(value) => update("dinnerPrice", value)}
-                    placeholder="€"
-                />
+                {dinnerContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.dinner}
+                        onChange={(value) => updateHotelFormData(formIndex, "dinnerContainer", "dinner", index, value)}
+                    />
+                ))}
+
+                {dinnerPriceContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.dinnerPrice}
+                        onChange={(value) => updateHotelFormData(formIndex, "dinnerPriceContainer", "dinnerPrice", index, value)}
+                    />
+                ))}
+                
             </div>
             
             <div className="lunch_text_box">
-                <TextBox 
-                    value={data.lunch || ""}
-                    onChange={(value) => update("lunch", value)}
-                />
-                <TextBox 
-                    value={data.lunchPrice || ""}
-                    onChange={(value) => update("lunchPrice", value)}
-                    placeholder="€"
-                />
+                {lunchContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.lunch}
+                        onChange={(value) => updateHotelFormData(formIndex, "lunchContainer", "lunch", index, value)}
+                    />
+                ))}
+
+                {lunchPriceContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.lunchPrice}
+                        onChange={(value) => updateHotelFormData(formIndex, "lunchPriceContainer", "lunchPrice", index, value)}
+                    />
+                ))}
+                
             </div>
             
             <div className="guide_driver_dropdown">
-                <Selector />
-                <Selector />
+                {guideSelectorContainer.map((data, index) => (
+                    <Selector 
+                        key={index}
+                        value={data.guideSelector}
+                        onChange={(value) => updateHotelFormData(formIndex, "guideSelectorContainer", "guideSelector", index, value)}
+                    />
+                ))}
+                {driverSelectorContainer.map((data, index) => (
+                    <Selector 
+                        key={index}
+                        value={data.driverSelector}
+                        onChange={(value) => updateHotelFormData(formIndex, "driverSelectorContainer", "driverSelector", index, value)}
+                    />
+                ))}
             </div>
         </section>
     )

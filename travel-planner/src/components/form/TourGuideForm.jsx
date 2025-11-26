@@ -1,11 +1,11 @@
-import "../../index.css";
-import Multiplication from "../Multiplication";
-import OptionalButton from "../OptionalButton";
-import Bar from "../Bar";
-import TextBox from "../TextBox";
+import "../../index.css" 
+import Multiplication from "../Multiplication" 
+import OptionalButton from "../OptionalButton" 
+import Bar from "../Bar" 
+import TextBox from "../TextBox"; 
 import AddNewElementBtn from "../AddNewElementBtn";
 
-function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeals = [], multiplicationAccommodation = [], updateMultiplicationData, addTourGuideForm}) {
+function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeals = [], multiplicationAccommodation = [], guideLandExpensesContainer = [], updateMultiplicationData, addTourGuideForm, hotelExpenses }) {
 
   return (
     <section id="tour_guide_form">
@@ -25,13 +25,21 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
           <OptionalButton />
         </div>
       </div>
-      
+
       <div className="tour_guide_expenses_form">
         <Bar barContent={["Guide Expenses"]} />
-        <div className="land">
+          <div className="land">
           <p>Land</p>
-          <TextBox />
+          {guideLandExpensesContainer.map((data, index) => (
+            <TextBox 
+              key={index}
+              index={index}
+              value={hotelExpenses ? hotelExpenses + "€" : ""}
+              readOnly
+            />
+          ))}
         </div>
+
         <div className="meals">
           <p>Meals</p>
           {multiplicationMeals.map((data, index) => (
@@ -45,6 +53,7 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
             />
           ))}
         </div>
+
         <div className="accommodation">
           <p>Accommodation</p>
           {multiplicationAccommodation.map((data, index) => (
@@ -59,12 +68,12 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
           ))}
         </div>
       </div>
-      <AddNewElementBtn 
-        onAdd={addTourGuideForm}
-        text="Add another line"
-      /> 
+            <AddNewElementBtn 
+              onAdd={addTourGuideForm}
+              text="Add another line"
+            /> 
     </section>
   );
 }
 
-export default TourGuideForm;
+export default TourGuideForm

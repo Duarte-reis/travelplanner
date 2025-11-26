@@ -2,38 +2,14 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import OptionalButton from "../OptionalButton"
 import Selector from "../Selector"
-import { useEffect } from "react"
 
-function FlightTrainForm({index = -1, flightTrainFormData, setFlightTrainFormData, sendTotalToNet}) {
-
-    const data = flightTrainFormData[index] || {
-        company:"",
-        route:"",
-        fare:"",
-        tax:"",
-    };
-
-    const updateValue = (key, value) => {
-        const updated = [...flightTrainFormData];
-        updated[index] = {...updated[index], [key]: value}
-        setFlightTrainFormData(updated)
-    }
+function FlightTrainForm({formIndex, updateFlightTrainFormData, companyContainer = [], routeContainer = [], fareContainer = [], taxContainer = [], flightTrainGuideSelectorContainer = []}) {
 
     const selectFlightTrain = [
         {value:"", label:""},
         {value:"Flight", label:"Flight"},
         {value:"Train", label:"Train"}
     ]
-
-    const total =
-        (parseFloat(data.fare) || 0) +
-        (parseFloat(data.tax) || 0); 
-
-    useEffect(() => {
-        if (sendTotalToNet) {
-            sendTotalToNet(total);
-        }
-    }, [total, sendTotalToNet]);
     
     return (
         <section id="flight_train_form">
@@ -43,31 +19,47 @@ function FlightTrainForm({index = -1, flightTrainFormData, setFlightTrainFormDat
                     defaultValue=""
                     className="flight_train_selector"
                 />
-                <TextBox 
-                    value={data.company || ""}
-                    onChange={(value) => updateValue("company", value)}
-                />
+                {companyContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.company}
+                        onChange={(value) => updateFlightTrainFormData(formIndex, "companyContainer", "company", index, value)}
+                    />
+                ))}
             </div>
             <div className="flight_tain_route">
-                <TextBox 
-                    value={data.route || ""}
-                    onChange={(value) => updateValue("route", value)}
-                />
+                {routeContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.route}
+                        onChange={(value) => updateFlightTrainFormData(formIndex, "routeContainer", "route", index, value)}
+                    />
+                ))}
             </div>
             <div className="flight_tain_price_container">
-                <TextBox 
-                    value={data.fare || ""}
-                    onChange={(value) => updateValue("fare", value)}
-                    placeholder="€"
-                />
-                <TextBox
-                    value={data.tax || ""}
-                    onChange={(value) => updateValue("tax", value)}
-                    placeholder="€"
-                />
+                {fareContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.fare}
+                        onChange={(value) => updateFlightTrainFormData(formIndex, "fareContainer", "fare", index, value)}
+                    />
+                ))}
+                {taxContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.tax}
+                        onChange={(value) => updateFlightTrainFormData(formIndex, "taxContainer", "tax", index, value)}
+                    />
+                ))}
             </div>
             <div className="selector_optionalbtn_container">
-                <Selector />
+                {flightTrainGuideSelectorContainer.map((data, index) => (
+                    <Selector 
+                        key={index}
+                        value={data.flightTrainGuideSelector}
+                        onChange={(value) => updateFlightTrainFormData(formIndex,                 "flightTrainGuideSelectorContainer", "flightTrainGuideSelector", index, value)}
+                    />
+                ))}
                 <OptionalButton />
             </div>
         </section>

@@ -5,7 +5,7 @@ import Bar from "../Bar";
 import AddNewElementBtn from "../AddNewElementBtn";
 import Multiplication from "../Multiplication";
 
-function TransportationForm({formIndex, updateTransportationData, priceOfVehicleContainer = [], multiplicationDriverMeals = [], multiplicationDriverAccommodation = [], addTransportationForm}) {
+function TransportationForm({formIndex, updateTransportationData, priceOfVehicleContainer = [], multiplicationDriverMeals = [], driverLandExpensesContainer = [], multiplicationDriverAccommodation = [], addTransportationForm, hotelExpenses}) {
    
   return (
     <section id="transportation_form_container">
@@ -38,7 +38,14 @@ function TransportationForm({formIndex, updateTransportationData, priceOfVehicle
                 <Bar barContent={["Driver Expenses"]} />
                 <div className="land">
                     <p>Land</p>
-                    <TextBox />
+                    {driverLandExpensesContainer.map((data, index) => (
+                        <TextBox 
+                            key={index}
+                            index={index}
+                            value={hotelExpenses ? hotelExpenses + "€" : ""}
+                            readOnly
+                        />
+                    ))}
                 </div>
                 <div className="meals">
                     <p>Meals</p>

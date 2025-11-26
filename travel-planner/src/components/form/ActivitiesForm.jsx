@@ -1,48 +1,43 @@
 import "../../index.css"
 import TextBox from "../TextBox"
 import OptionalButton from "../OptionalButton"
-import { useEffect } from "react";
 
-function ActivitiesForm({formIndex, activitiesFormData, setActivitiesFormData, countryContainer = [], nameOfActivityContainer = [], pricePerPersonContainer = [], updateActivityField, sendTotalToNet}) {
+function ActivitiesForm({formIndex, activitiesFormData, setActivitiesFormData, countryContainer = [], nameOfActivityContainer = [], pricePerPersonContainer = [], updateActivityField}) {
 
-  const countries = countryContainer.length ? countryContainer : [{ country: "" }];
+  /*const countries = countryContainer.length ? countryContainer : [{ country: "" }];
   const activities = nameOfActivityContainer.length ? nameOfActivityContainer : [{ nameOfActivity: "" }];
-  const prices = pricePerPersonContainer.length ? pricePerPersonContainer : [{ pricePerPerson: "" }];
+  const prices = pricePerPersonContainer.length ? pricePerPersonContainer : [{ pricePerPerson: "" }];*/
 
   return (
     <section id="activities_form">
       <div className="choose_country">
-        {countries.map((item, index) => (
+        {countryContainer.map((data, index) => (
           <TextBox
-            key={index}
-            value={item.country}
-            onChange={(value) =>
-              updateActivityField(formIndex, "countryContainer", "country", index, value)
-            }
+              key={index}
+              value={data.country}
+              onChange={(value) => updateActivityField(formIndex, "countryContainer", "country", index, value)}
           />
         ))}
+
+        
       </div>
 
       <div className="activity_name">
-        {activities.map((item, index) => (
-          <TextBox
+        {nameOfActivityContainer.map((data, index) => (
+          <TextBox 
             key={index}
-            value={item.nameOfActivity}
-            onChange={(value) =>
-              updateActivityField(formIndex, "nameOfActivityContainer", "nameOfActivity", index, value)
-            }
+            value={data.nameOfActivity}
+            onChange={(value) => updateActivityField(formIndex, "nameOfActivityContainer", "nameOfActivity", index, value)}
           />
         ))}
       </div>
 
       <div className="activity_price">
-        {prices.map((item, index) => (
-          <TextBox
+        {pricePerPersonContainer.map((data, index) => (
+          <TextBox 
             key={index}
-            value={item.pricePerPerson}
-            onChange={(value) => {
-              updateActivityField(formIndex, "pricePerPersonContainer", "pricePerPerson", index, value);
-            }}
+            value={data.pricePerPerson}
+            onChange={(value) => updateActivityField(formIndex, "pricePerPersonContainer", "pricePerPerson", index, value)}
           />
         ))}
       </div>
