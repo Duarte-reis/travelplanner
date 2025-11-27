@@ -1,12 +1,19 @@
 import "../index.css"
 import TextBox from "./TextBox"
 
-function MarginTextBox() {
+function MarginTextBox({profitMargin, setProfitMargin, amount}) {
+
     return (
         <div id="margin_text_box">
-            <TextBox />
+            <TextBox
+                value={profitMargin}
+                onChange={(e) => setProfitMargin(e.target.value)}
+            />
                 <p>%</p>
-            <TextBox />
+            <TextBox 
+                value={amount + "€"}
+                readOnly
+            />
         </div>
     )
 }

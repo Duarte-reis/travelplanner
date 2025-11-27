@@ -4,7 +4,6 @@ import OptionalButton from "../OptionalButton"
 
 function LocalGuidesForm({formIndex, updateLocalGuidesFormData, countryInitialsContainer = [], serviceNameContainer = [], price1Container = [], price2Container = [], price3Container = [], price4Container = [], price5Container = [], price6Container = [], price7Container = []}) {
 
-
     return (
         <section id="local_guides_form">
             <div className="type_of_service">

@@ -5,7 +5,7 @@ import Bar from "../Bar"
 import TextBox from "../TextBox"; 
 import AddNewElementBtn from "../AddNewElementBtn";
 
-function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeals = [], multiplicationAccommodation = [], guideLandExpensesContainer = [], updateMultiplicationData, addTourGuideForm, hotelExpenses }) {
+function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeals = [], multiplicationAccommodation = [], guideLandExpensesContainer = [], updateMultiplicationData, addTourGuideForm, hotelExpenses, flightTrainGuideExpenses }) {
 
   return (
     <section id="tour_guide_form">
@@ -34,7 +34,7 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
             <TextBox 
               key={index}
               index={index}
-              value={hotelExpenses ? hotelExpenses + "€" : ""}
+              value={`${Number(hotelExpenses || 0) + Number(flightTrainGuideExpenses || 0)}€`}
               readOnly
             />
           ))}

@@ -35,6 +35,7 @@ function FormComplete() {
     
     const [hotelFormData, setHotelFormData] = useLocalStorage("hotelformdata", [
         {   
+            dateContainer: [{day:"", date:""}],
             cityContainer: [{city: ""}], 
             hotelContainer: [{hotel: ""}], 
             hotelPriceContainer: [{hotelPrice: ""}], //price per person
@@ -64,6 +65,7 @@ function FormComplete() {
         setHotelFormData([
             ...hotelFormData,
             {
+                dateContainer: [{day:"", date:""}],
                 cityContainer: [{city: ""}], 
                 hotelContainer: [{hotel: ""}], 
                 hotelPriceContainer: [{hotelPrice: ""}], //price per person
@@ -86,6 +88,11 @@ function FormComplete() {
         const dinnerPrice = parseFloat(form.dinnerPriceContainer[0]?.dinnerPrice || 0);
         const lunchPrice = parseFloat(form.lunchPriceContainer[0]?.lunchPrice || 0);
         return sum + roomPrice + dinnerPrice + lunchPrice;
+    }, 0);
+
+    const singelSupplementTotal = hotelFormData.reduce((sum, form) => {
+        const singleSupplement = parseFloat(form.singleSupplementContainer[0]?.singleSupplement || 0);
+        return sum + singleSupplement
     }, 0);
 
     /* ---- Update Local Guides Form - Save information and allow creating new forms --- */
@@ -135,7 +142,7 @@ function FormComplete() {
             0
         );
         const pax = parseInt(numOfPaxData[0][tierKey].numOfPax) || 1;
-        return Math.ceil(total / pax);
+        return Math.round(total / pax);
     };
 
     const localGuidesPerPaxTier1 = getLocalGuidesPerPax("price1Container", "paxTier1");
@@ -216,7 +223,7 @@ function FormComplete() {
     const tourGuidePerTier = Object.values(numOfPaxData[0]).map((tier) => {
         const pax = parseInt(tier.numOfPax) || 1;
         const total = tourGuideTotalPerForm.reduce((sum, val) => sum + val, 0);
-        return Math.ceil(total / pax);
+        return Math.round(total / pax);
     });
 
     /* ---- Update Activities Form - Save information and allow creating new forms --- */
@@ -325,7 +332,7 @@ function FormComplete() {
     const transportationPerTier = Object.values(numOfPaxData[0]).map(tier => {
         const pax = parseInt(tier.numOfPax) || 1;
         const total = driverTotalPerFrorm.reduce((sum, val) => sum + val, 0);
-        return Math.ceil(total / pax);
+        return Math.round(total / pax);
     });
 
     /* ---- Update Extras Form - - Save information. There's no need to create new forms --- */
@@ -357,6 +364,7 @@ function FormComplete() {
     
     const [flightTrainFormData, setFlightTrainFormData] = useLocalStorage("flighttrainformdata", [
         {
+            flightOrTrainSelectorContainer: [{flightOrTrainSelector: ""}],
             companyContainer: [{company:""}],
             routeContainer: [{route:""}],
             fareContainer: [{fare:""}],
@@ -369,6 +377,7 @@ function FormComplete() {
         setFlightTrainFormData([
             ...flightTrainFormData,
             {
+                flightOrTrainSelectorContainer: [{flightOrTrainSelector: ""}],
                 companyContainer: [{company:""}],
                 routeContainer: [{route:""}],
                 fareContainer: [{fare:""}],
@@ -387,7 +396,7 @@ function FormComplete() {
         setFlightTrainFormData(updated);
     };
 
-    /* ---- Fare + Tax represents the price per person. If a flight or train ticket for the guide is required, selecting 'Yes' will add the guide's cost, divided evenly among all Pax Tiers ---- */
+    /* ---- Fare + Tax represents the price per person. If a flight or train ticket for the guide is required, selecting "Yes" will add the guide's cost, divided evenly among all Pax Tiers ---- */
 
     const flightTrainPerTier = Object.values(numOfPaxData[0]).map(tier => {
         const pax = parseInt(tier.numOfPax) || 1;
@@ -398,12 +407,61 @@ function FormComplete() {
             const totalPerPerson = farePrice + taxPrice;
 
             if (form.flightTrainGuideSelectorContainer?.[0]?.flightTrainGuideSelector === "Yes") {
-                return sum + totalPerPerson + Math.ceil(totalPerPerson / pax);
+                return sum + totalPerPerson + Math.round(totalPerPerson / pax);
             } else {
                 return sum + totalPerPerson;
             }
 
         }, 0);
+    });
+
+    /* ---- This function was created to send the value of the guide's ticket expenses, to TourGuideForm.jsx and display it in the Land TextBox ---- */
+
+    const applyFlightTrainGuideExpensesArray = flightTrainFormData.map((form) => form.flightTrainGuideSelectorContainer?.[0]?.flightTrainGuideSelector);
+
+    const flightTrainGuideExpenses = flightTrainFormData.reduce((sum, form, idx) => {
+        if (applyFlightTrainGuideExpensesArray[idx] === "Yes") {
+            const farePrice = parseFloat(form.fareContainer[0]?.fare || 0);
+            const taxPrice = parseFloat(form.taxContainer[0]?.tax || 0);
+            return sum + farePrice + taxPrice;
+        }
+        return sum;
+    }, 0)
+
+    /* ---- Generate profit margin and add it to NET to generate RRP ---- */
+
+    const [profitMargin, setProfitMargin] = useLocalStorage("profitmargin", 12);
+
+    /* ---- First, We need to calculate the NET price per paying passenger (numOfPax). The "free" passenger doesn't pay, but their cost must be distributed among the paying passengers. ---- */
+
+    const finalNetPerPayingPaxArray = Object.values(numOfPaxData[0]).map((tier, idx) => {
+        const numOfPax = Number(tier.numOfPax);
+        const free = Number(tier.free);
+
+        // Sum all the values inserted in each component to generate the NET value per paying pax
+        const netPerPayingPax =
+            hotelPriceTotal +
+            flightTrainPerTier[idx] +
+            extrasTotal +
+            activityPriceTotal +
+            (idx === 0 ? localGuidesPerPaxTier1 : 0) +
+            (idx === 1 ? localGuidesPerPaxTier2 : 0) +
+            (idx === 2 ? localGuidesPerPaxTier3 : 0) +
+            (idx === 3 ? localGuidesPerPaxTier4 : 0) +
+            (idx === 4 ? localGuidesPerPaxTier5 : 0) +
+            (idx === 5 ? localGuidesPerPaxTier6 : 0) +
+            (idx === 6 ? localGuidesPerPaxTier7 : 0) +
+            tourGuidePerTier[idx] +
+            transportationPerTier[idx];
+
+        // Add the cost of the free passengers and distribute it evenly among the corresponding number of paying passengers.
+        return netPerPayingPax + (netPerPayingPax * free) / numOfPax;
+    });
+
+    // Add the margin to NET and generate RRP
+    const finalRrpPerTier = finalNetPerPayingPaxArray.map(netValue => {
+        const marginAmount = netValue * (profitMargin / 100);
+        return netValue + marginAmount;
     });
 
     return (
@@ -429,6 +487,7 @@ function FormComplete() {
                         driverSelectorContainer={form.driverSelectorContainer}
                         lunchContainer={form.lunchContainer}
                         lunchPriceContainer={form.lunchPriceContainer}
+                        dateContainer={form.dateContainer}
                         updateHotelFormData={updateHotelFormData}
                         addHotelForm={addHotelForm}
                     />
@@ -484,6 +543,7 @@ function FormComplete() {
                             updateMultiplicationData={updateMultiplicationData}
                             addTourGuideForm={addTourGuideForm}
                             hotelExpenses={hotelExpensesTotalPerTourGuide}
+                            flightTrainGuideExpenses={flightTrainGuideExpenses}
                         />
                     ))}
                 </div>
@@ -557,6 +617,7 @@ function FormComplete() {
                         routeContainer={form.routeContainer}
                         fareContainer={form.fareContainer}
                         taxContainer={form.taxContainer}
+                        flightOrTrainSelectorContainer={form.flightOrTrainSelectorContainer}
                         flightTrainGuideSelectorContainer={form.flightTrainGuideSelectorContainer}
                         updateFlightTrainFormData={updateFlightTrainFormData}
                     />
@@ -601,27 +662,13 @@ function FormComplete() {
                         barContent = {["NET"]}
                     />    
                     <div className="total_net_content">
-                        {Object.values(numOfPaxData[0]).map((tier, idx) => (
-                            <TextBox
+                        {finalNetPerPayingPaxArray.map((netValue, idx) => (
+                            <TextBox 
                                 key={idx}
-                                value={
-                                    hotelPriceTotal + 
-                                    flightTrainPerTier[idx] +
-                                    extrasTotal + 
-                                    activityPriceTotal + 
-                                    (idx === 0 ? localGuidesPerPaxTier1: 0) + 
-                                    (idx === 1 ? localGuidesPerPaxTier2: 0) + 
-                                    (idx === 2 ? localGuidesPerPaxTier3: 0) + 
-                                    (idx === 3 ? localGuidesPerPaxTier4: 0) + 
-                                    (idx === 4 ? localGuidesPerPaxTier5: 0) + 
-                                    (idx === 5 ? localGuidesPerPaxTier6: 0) + 
-                                    (idx === 6 ? localGuidesPerPaxTier7: 0) +
-                                    tourGuidePerTier[idx] + 
-                                    transportationPerTier[idx] + 
-                                    "€"}
-                                readOnly
+                                value={Math.round(netValue) + "€"}
                             />
                         ))}
+                         
                     </div>
                 </div>
 
@@ -630,13 +677,17 @@ function FormComplete() {
                         barContent = {["Margin"]}
                     />    
                     <div className="margin_content">
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
-                        <MarginTextBox />
+                        {finalRrpPerTier.map((pvp, idx) => {
+                            const marginAmount = Math.round(pvp - finalNetPerPayingPaxArray[idx]);
+                            return (
+                                <MarginTextBox 
+                                    key={idx}
+                                    profitMargin={profitMargin}
+                                    setProfitMargin={setProfitMargin}
+                                    amount={marginAmount}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -668,6 +719,19 @@ function FormComplete() {
                         <TextBox />
                         <TextBox />
                     </div>
+                   
+                </div>
+                <div className="single_supplement_container">
+                    <Bar 
+                        barContent = {["Single"]}
+                    />
+                    {Object.values(numOfPaxData[0]).map((tier, idx) => (
+                        <TextBox
+                            key={idx}
+                            value={singelSupplementTotal + "€"}
+                            readOnly
+                        />
+                    ))}
                 </div>
             </div>          
         </section>

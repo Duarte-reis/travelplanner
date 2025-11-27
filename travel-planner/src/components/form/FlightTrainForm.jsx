@@ -3,7 +3,7 @@ import TextBox from "../TextBox"
 import OptionalButton from "../OptionalButton"
 import Selector from "../Selector"
 
-function FlightTrainForm({formIndex, updateFlightTrainFormData, companyContainer = [], routeContainer = [], fareContainer = [], taxContainer = [], flightTrainGuideSelectorContainer = []}) {
+function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSelectorContainer = [], companyContainer = [], routeContainer = [], fareContainer = [], taxContainer = [], flightTrainGuideSelectorContainer = []}) {
 
     const selectFlightTrain = [
         {value:"", label:""},
@@ -14,11 +14,14 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, companyContainer
     return (
         <section id="flight_train_form">
             <div className="flight_tain_type_company">
-                <Selector 
-                    options={selectFlightTrain}
-                    defaultValue=""
-                    className="flight_train_selector"
-                />
+                {flightOrTrainSelectorContainer.map((data, index) => (
+                    <Selector 
+                        key={index}
+                        value={data.flightOrTrainSelector}
+                        options={selectFlightTrain}
+                        onChange={(value) => updateFlightTrainFormData(formIndex, "flightOrTrainSelectorContainer", "flightOrTrainSelector", index, value)}
+                    />
+                ))}
                 {companyContainer.map((data, index) => (
                     <TextBox 
                         key={index}

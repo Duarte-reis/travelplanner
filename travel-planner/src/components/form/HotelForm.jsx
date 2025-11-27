@@ -2,7 +2,7 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import Selector from "../Selector" 
 
-function HotelForm({ formIndex,updateHotelFormData, cityContainer = [], hotelContainer = [], hotelPriceContainer = [], singleSupplementContainer = [], mealPlanContainer = [], dinnerContainer = [], dinnerPriceContainer = [], lunchContainer = [], lunchPriceContainer = [], guideSelectorContainer = [], driverSelectorContainer = [] }) {
+function HotelForm({ formIndex,updateHotelFormData, dateContainer = [], cityContainer = [], hotelContainer = [], hotelPriceContainer = [], singleSupplementContainer = [], mealPlanContainer = [], dinnerContainer = [], dinnerPriceContainer = [], lunchContainer = [], lunchPriceContainer = [], guideSelectorContainer = [], driverSelectorContainer = [] }) {
 
     const mealPlan = [
         {value:"", label:""}, 
@@ -14,8 +14,21 @@ function HotelForm({ formIndex,updateHotelFormData, cityContainer = [], hotelCon
     return (
         <section id="hotel_form">
             <div className="travel_date">
-                <TextBox />
-                <TextBox />
+                {dateContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.day}
+                        onChange={(value) => updateHotelFormData(formIndex, "dateContainer", "day", index, value)}
+                    />
+                ))}
+                {dateContainer.map((data, index) => (
+                    <TextBox 
+                        key={index}
+                        value={data.date}
+                        onChange={(value) => updateHotelFormData(formIndex, "dateContainer", "date", index, value)}
+                    />
+                ))}
+                
             </div>
             <div className="city_text_box">
                 {cityContainer.map((data, index) => (
