@@ -2,7 +2,7 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import Selector from "../Selector" 
 
-function HotelForm({ formIndex,updateHotelFormData, dateContainer = [], cityContainer = [], hotelContainer = [], hotelPriceContainer = [], singleSupplementContainer = [], mealPlanContainer = [], dinnerContainer = [], dinnerPriceContainer = [], lunchContainer = [], lunchPriceContainer = [], guideSelectorContainer = [], driverSelectorContainer = [] }) {
+function HotelForm({ formIndex, updateHotelFormData, dateContainer = [], cityContainer = [], hotelContainer = [], hotelPriceContainer = [], singleSupplementContainer = [], mealPlanContainer = [], dinnerContainer = [], dinnerPriceContainer = [], lunchContainer = [], lunchPriceContainer = [], guideSelectorContainer = [], driverSelectorContainer = [] }) {
 
     const mealPlan = [
         {value:"", label:""}, 

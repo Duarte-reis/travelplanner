@@ -1,8 +1,12 @@
 import "../../index.css"
 import SelectPaxAndFree from "../SelectPaxAndFree"
 import Selector from "../Selector"
+import { useContext } from "react"
+import { CounterContext } from "../context/CounterContext"
 
 function PriceTiersDetails() {
+
+    const { numOfPaxData } = useContext(CounterContext);
 
     const selectRoomType = [
         {value:"Double Twin", label:"Double Twin"},
@@ -21,13 +25,13 @@ function PriceTiersDetails() {
             </div>
             
             <div className="pax_and_free_container">
-                <SelectPaxAndFree />
-                <SelectPaxAndFree />
-                <SelectPaxAndFree />
-                <SelectPaxAndFree />
-                <SelectPaxAndFree />
-                <SelectPaxAndFree />
-                <SelectPaxAndFree />
+                {Object.entries(numOfPaxData[0]).map(([values,idx]) => (
+                    <SelectPaxAndFree 
+                        key={idx}
+                        numOfPaxData={values.numOfPax}
+                        free={values.free}
+                    />
+                ))}
             </div>
         </section>
     )

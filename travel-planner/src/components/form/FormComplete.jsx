@@ -10,10 +10,10 @@ import Bar from "../Bar"
 import PaxTiers from "./PaxTiers"
 import FreeButton from "../FreeButton"
 import TextBox from "../TextBox"
-import MarginTextBox from "../MarginTextBox"
 import AddNewElementBtn from "../AddNewElementBtn"
 import ComissionTextBox from "../ComissionTextBox"
 import {useLocalStorage} from "../../hooks/useLocalStorage"
+
 
 function FormComplete() {
 
@@ -68,13 +68,13 @@ function FormComplete() {
                 dateContainer: [{day:"", date:""}],
                 cityContainer: [{city: ""}], 
                 hotelContainer: [{hotel: ""}], 
-                hotelPriceContainer: [{hotelPrice: ""}], //price per person
-                singleSupplementContainer: [{singleSupplement: ""}], //price per person
+                hotelPriceContainer: [{hotelPrice: ""}], 
+                singleSupplementContainer: [{singleSupplement: ""}], 
                 mealPlanContainer: [{mealPlan: ""}], 
                 dinnerContainer: [{dinner: ""}], 
-                dinnerPriceContainer: [{dinnerPrice: ""}], //price per person
+                dinnerPriceContainer: [{dinnerPrice: ""}], 
                 lunchContainer: [{lunch: ""}], 
-                lunchPriceContainer: [{lunchPrice: ""}], //price per person
+                lunchPriceContainer: [{lunchPrice: ""}], 
                 guideSelectorContainer: [{guideSelector: ""}], 
                 driverSelectorContainer: [{driverSelector: ""}],
             }
@@ -101,14 +101,14 @@ function FormComplete() {
         {
             countryInitialsContainer: [{countryInitials:""}],
             serviceNameContainer: [{serviceName: ""}],
-            price1Container: [{price1: ""}],
-            price2Container: [{price2: ""}],
-            price3Container: [{price3: ""}],
-            price4Container: [{price4: ""}],
-            price5Container: [{price5: ""}],
-            price6Container: [{price6: ""}],
-            price7Container: [{price7: ""}],
-        }
+            price1Container: [{price1: ""}], // price per pax tier
+            price2Container: [{price2: ""}], // price per pax tier
+            price3Container: [{price3: ""}], // price per pax tier
+            price4Container: [{price4: ""}], // price per pax tier
+            price5Container: [{price5: ""}], // price per pax tier
+            price6Container: [{price6: ""}], // price per pax tier
+            price7Container: [{price7: ""}], // price per pax tier
+        } 
     ])
 
     const updateLocalGuidesFormData = (formIndex, section, key, index, value) => {
@@ -190,7 +190,7 @@ function FormComplete() {
             return sum + landPrice + price * days;
         }, 0)
     
-    /* ---- The Land TextBox, in the Tour Guide form, displays a value only if the corresponding Selector in the HotelForm is "Yes" and divides it by the number of pax. The Land TextBox, in TourGuideForm.jsx, receives the value from hotelPrice, singleSupplement, dinnePrice and lunchPrice ---- */
+    /* ---- The Land TextBox (guideLandExpenses) displays a value only if the corresponding Selector in the HotelForm is "Yes" and divides it by the number of pax. The Land TextBox, in TourGuideForm.jsx, receives the value from hotelPrice, singleSupplement, dinnePrice and lunchPrice - this value corresponds to the guide expenses. ---- */
 
     const applyGuideExpensesArray = hotelFormData.map(
         (hotel) => hotel.guideSelectorContainer?.[0]?.guideSelector
@@ -463,6 +463,7 @@ function FormComplete() {
         const marginAmount = netValue * (profitMargin / 100);
         return netValue + marginAmount;
     });
+    
 
     return (
         <section id="form_complete">
@@ -666,6 +667,7 @@ function FormComplete() {
                             <TextBox 
                                 key={idx}
                                 value={Math.round(netValue) + "€"}
+                                readOnly
                             />
                         ))}
                          
@@ -677,15 +679,19 @@ function FormComplete() {
                         barContent = {["Margin"]}
                     />    
                     <div className="margin_content">
-                        {finalRrpPerTier.map((pvp, idx) => {
-                            const marginAmount = Math.round(pvp - finalNetPerPayingPaxArray[idx]);
+                        {finalRrpPerTier.map((rrp, idx) => {
+                            const marginAmount = Math.round(rrp - finalNetPerPayingPaxArray[idx]);
                             return (
-                                <MarginTextBox 
-                                    key={idx}
-                                    profitMargin={profitMargin}
-                                    setProfitMargin={setProfitMargin}
-                                    amount={marginAmount}
-                                />
+                                <div className="margin_display_container" key={idx}>
+                                    <TextBox
+                                        key={`percent-${idx}`} 
+                                        value={profitMargin + "%"}
+                                    />
+                                    <TextBox
+                                        key={`amount-${idx}`} 
+                                        value={marginAmount + "€"}
+                                    />
+                                </div>
                             );
                         })}
                     </div>
@@ -711,13 +717,13 @@ function FormComplete() {
                         barContent = {["Price"]}
                     />    
                     <div className="price_per_pax_content">
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
-                        <TextBox />
+                        {finalRrpPerTier.map((rrpValue, idx) => (
+                            <TextBox
+                                key={idx}
+                                value={Math.round(rrpValue) + "€"}
+                                readOnly
+                            />
+                        ))}
                     </div>
                    
                 </div>

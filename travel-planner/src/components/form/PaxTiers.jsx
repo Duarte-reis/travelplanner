@@ -2,7 +2,6 @@ import "../../index.css";
 import TextBox from "../TextBox";
 
 function PaxTiers({ index = 0, numOfPaxData, setNumOfPaxData }) {
-
   const defaultData = {
     paxTier1: { numOfPax: "15", free: "1" },
     paxTier2: { numOfPax: "20", free: "1" },
@@ -17,99 +16,28 @@ function PaxTiers({ index = 0, numOfPaxData, setNumOfPaxData }) {
 
   const updateValue = (tierKey, field, value) => {
     const updated = [...numOfPaxData];
-    updated[index] = {...updated[index], [tierKey]: {
-        ...updated[index][tierKey], [field]: value,
-      },
+    updated[index] = {
+      ...updated[index],
+      [tierKey]: { ...updated[index][tierKey], [field]: value },
     };
     setNumOfPaxData(updated);
   };
 
   return (
     <div id="pax_tier">
-
-      <div className="tier-row">
-        <TextBox
-          value={data.paxTier1.numOfPax}
-          onChange={(value) => updateValue("paxTier1", "numOfPax", value)}
-        />
-        <p>+</p>
-        <TextBox
-          value={data.paxTier1.free}
-          onChange={(value) => updateValue("paxTier1", "free", value)}
-        />
-      </div>
-
-      <div className="tier-row">
-        <TextBox
-          value={data.paxTier2.numOfPax}
-          onChange={(value) => updateValue("paxTier2", "numOfPax", value)}
-        />
-        <p>+</p>
-        <TextBox
-          value={data.paxTier2.free}
-          onChange={(value) => updateValue("paxTier2", "free", value)}
-        />
-      </div>
-
-      <div className="tier-row">
-        <TextBox
-          value={data.paxTier3.numOfPax}
-          onChange={(value) => updateValue("paxTier3", "numOfPax", value)}
-        />
-        <p>+</p>
-        <TextBox
-          value={data.paxTier3.free}
-          onChange={(value) => updateValue("paxTier3", "free", value)}
-        />
-      </div>
-
-      <div className="tier-row">
-        <TextBox
-          value={data.paxTier4.numOfPax}
-          onChange={(value) => updateValue("paxTier4", "numOfPax", value)}
-        />
-        <p>+</p>
-        <TextBox
-          value={data.paxTier4.free}
-          onChange={(value) => updateValue("paxTier4", "free", value)}
-        />
-      </div>
-
-      <div className="tier-row">
-        <TextBox
-          value={data.paxTier5.numOfPax}
-          onChange={(value) => updateValue("paxTier5", "numOfPax", value)}
-        />
-        <p>+</p>
-        <TextBox
-          value={data.paxTier5.free}
-          onChange={(value) => updateValue("paxTier5", "free", value)}
-        />
-      </div>
-
-      <div className="tier-row">
-        <TextBox
-          value={data.paxTier6.numOfPax}
-          onChange={(value) => updateValue("paxTier6", "numOfPax", value)}
-        />
-        <p>+</p>
-        <TextBox
-          value={data.paxTier6.free}
-          onChange={(value) => updateValue("paxTier6", "free", value)}
-        />
-      </div>
-
-      <div className="tier-row">
-        <TextBox
-          value={data.paxTier7.numOfPax}
-          onChange={(value) => updateValue("paxTier7", "numOfPax", value)}
-        />
-        <p>+</p>
-        <TextBox
-          value={data.paxTier7.free}
-          onChange={(value) => updateValue("paxTier7", "free", value)}
-        />
-      </div>
+      {Object.entries(data).map(([tierName, values]) => (
+        <div className="tier-row" key={tierName}>
+          <TextBox
+            value={values.numOfPax}
+            onChange={(value) => updateValue(tierName, "numOfPax", value)}
+          />
+          <p>+</p>
+          <TextBox
+            value={values.free}
+            onChange={(value) => updateValue(tierName, "free", value)}
+          />
+        </div>
+      ))}
     </div>
   );
 }

@@ -383,7 +383,7 @@ html {
 
 .bar {
     display: flex;
-
+    align-items: center;
     padding: 12px 28px;
     max-width: 100%;
     background-color: var(--Btn-clicked);
@@ -1798,6 +1798,21 @@ footer .legal_section .legal_section_links > a {
 .price_tiers_form_complete .comission_content * > :last-child {
     flex: 4;
 }
+
+.profit_margin_container .margin_content .margin_display_container {
+    display: flex;
+    gap: 8px;
+}
+
+.profit_margin_container .margin_content .margin_display_container > :first-child {
+    flex: 1;
+}
+
+.profit_margin_container .margin_content .margin_display_container > :nth-child(2) {
+    flex: 2;
+}
+
+
 
 /* ---- Details ---- */
 
