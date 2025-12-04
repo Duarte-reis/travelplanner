@@ -181,10 +181,9 @@ p, a, select, button, ::placeholder {
 
 /* ---- Text Box ---- */
 
-.text_box {
-    display: flex;
-    width: 100%;
+.text_box, .text_area {
     text-align: center;
+    width: 100%;
     height: 32px;
     padding: 8px;
     color: var(--P--color);
@@ -192,17 +191,28 @@ p, a, select, button, ::placeholder {
     box-shadow: var(--Shadow-default);
     border-radius: 6px;
     cursor: pointer;
+    font-size: 14px;
+}
+
+.text_area {
+    text-align: left;
 }
 
 input::placeholder {
     opacity: .5;
 }
 
-.text_box:hover {
+.text_box:hover, 
+.text_area:hover {
     box-shadow: var(--Shadow-hover);
 }
 
 input:focus {
+    outline: none;
+    border: 1px solid var(--P--color);
+}
+
+textarea:focus {
     outline: none;
     border: 1px solid var(--P--color);
 }
@@ -1301,19 +1311,24 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
 }
 
+#hotel_form .travel_date .date_row {
+    display: flex;
+    gap: 8px;
+}
+
+#hotel_form .travel_date .date_row > :first-child {
+    flex: 1;
+}
+
+#hotel_form .travel_date .date_row > :nth-child(2) {
+    flex: 2;
+}
+
 #hotel_form .guide_driver_dropdown {
     width: 100%;
     flex: 2;
     display: flex;
     gap: 8px;
-}
-
-#hotel_form .travel_date > :first-child {
-    flex: 1;
-}
-
-#hotel_form .travel_date > :nth-child(2) {
-    flex: 2;
 }
 
 #hotel_form .city_text_box {
@@ -1781,11 +1796,17 @@ footer .legal_section .legal_section_links > a {
 
 .price_tiers_form_complete .pax_plus_free_container,
 .price_tiers_form_complete .type_of_free_container,
-.price_tiers_form_complete .total_net_container,
-.price_tiers_form_complete .profit_margin_container,
 .price_tiers_form_complete .client_comission_container,
 .price_tiers_form_complete .price_per_pax_container, 
 .price_tiers_form_complete .single_supplement_container {
+    flex: 2;
+}
+
+.price_tiers_form_complete .total_net_container {
+    flex: 1;
+}
+
+.price_tiers_form_complete .profit_margin_container {
     flex: 2;
 }
 
@@ -1801,31 +1822,32 @@ footer .legal_section .legal_section_links > a {
 
 .profit_margin_container .margin_content .margin_display_container {
     display: flex;
+    align-items: center;
     gap: 8px;
 }
 
 .profit_margin_container .margin_content .margin_display_container > :first-child {
-    flex: 1;
-}
-
-.profit_margin_container .margin_content .margin_display_container > :nth-child(2) {
     flex: 2;
 }
 
-
+.profit_margin_container .margin_content .margin_display_container > :nth-child(2) {
+    flex: 1;
+}
 
 /* ---- Details ---- */
 
 .price_tiers_hotel_inclusions_container {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    margin-top: 8px;
     gap: 8px;
 }
 
 /* ---- Details Complete ---- */
 
 #details_complete {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     margin: 0px 24px;
     padding-bottom: 16px;
 }
@@ -1869,8 +1891,8 @@ footer .legal_section .legal_section_links > a {
 
 #hotel_inclusions {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: space-between;
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
     padding: 8px;
@@ -1879,32 +1901,16 @@ footer .legal_section .legal_section_links > a {
     height: 100%;
 }
 
-#hotel_inclusions .accommodation_optional {
+.accommodation_optional {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-#hotel_inclusions .hotel_details_container {
+.hotel_details_container {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    justify-content: center;
-    gap: 8px;
-}
-
-#hotel_inclusions .hotel_details_container .hotel_details_line {
-    display: flex;
-    gap: 8px;
-}
-
-#hotel_inclusions .hotel_details_line :first-child, 
-#hotel_inclusions .hotel_details_line :nth-child(2) {
-    flex: 5;
-}
-
-#hotel_inclusions .hotel_details_line :nth-child(3) {
-    flex: 1;
+    gap: 12px;
 }
 
 #hotel_inclusions .hotel_extras_container {
@@ -1913,42 +1919,61 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
 }
 
-#hotel_inclusions .city_tax_meal_plan_wrapper, 
-#hotel_inclusions .beverages_bellman_wrapper {
+.hotel_details_container .hotel_details_line {
     display: flex;
     gap: 8px;
 }
 
-#hotel_inclusions .hotel_extras_city_tax, 
-#hotel_inclusions .hotel_extras_meal_plan, 
-#hotel_inclusions .hotel_extras_beverages, 
-#hotel_inclusions .hotel_extras_bellman, 
-#hotel_inclusions .hotel_extras_supplement {
+.hotel_details_line :first-child, 
+.hotel_details_line :nth-child(2) {
+    flex: 5;
+}
+
+.hotel_details_line :nth-child(3) {
+    flex: 1;
+}
+
+.city_tax_meal_plan_wrapper, 
+.beverages_bellman_wrapper {
+    display: flex;
+    gap: 8px;
+}
+
+.hotel_extras_city_tax, 
+.hotel_extras_meal_plan, 
+.hotel_extras_beverages, 
+.hotel_extras_bellman, 
+.hotel_extras_supplement {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-#hotel_inclusions .hotel_extras_meal_plan {
+.beverages_bellman_wrapper .hotel_extras_beverages,
+.beverages_bellman_wrapper .hotel_extras_bellman {
+    flex: 1;
+}
+
+.beverages_bellman_wrapper .hotel_extras_beverages :nth-child(3) {
+    flex: 2;
+}
+
+
+.hotel_extras_meal_plan {
     white-space: nowrap;
     flex: 1;
 }
 
-#hotel_inclusions .hotel_extras_meal_plan > :nth-child(2),
-#hotel_inclusions .hotel_extras_bellman > :nth-child(2) {
+.hotel_extras_meal_plan > :nth-child(2) {
     flex: 1;
 }
 
-#hotel_inclusions .hotel_extras_meal_plan > :nth-child(3),
-#hotel_inclusions .hotel_extras_bellman  > :nth-child(3) {
+.hotel_extras_meal_plan > :nth-child(3),
+.hotel_extras_bellman  > :nth-child(3) {
     flex: 7;
 }
 
-#hotel_inclusions .hotel_extras_bellman {
-    flex: 1;
-}
-
-#hotel_inclusions .hotel_extras_supplement > :nth-child(3){
+.hotel_extras_supplement > :nth-child(3){
     display: flex;
     flex: 3;
 }
@@ -1966,7 +1991,6 @@ footer .legal_section .legal_section_links > a {
 .service_inclusions_complete {
     display: flex;
     flex-direction: column;
-    margin-top: 8px;
     padding: 8px;
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
@@ -2021,33 +2045,28 @@ footer .legal_section .legal_section_links > a {
     white-space: nowrap;
 }
 
-/* ---- Notes Container Details ---- */
-
-.notes_container_details_complete {
-    margin: 8px 0px;
-    padding: 8px;
-    border-radius: 8px;
-    background-color: var(--Neutral);
-    box-shadow: var(--Shadow-default);
-}
-
-#notes_container_details {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
 .free_description_child_discount_line {
     display: flex;
     gap: 8px;
 }
 
 .free_description_child_discount_line .free_description,
-.free_description_child_discount_line .child_discount,
-.free_description_child_discount_line .notes_container {
+.free_description_child_discount_line .child_discount {
     display: flex;
     gap: 8px;
     align-items: center;
+}
+
+.free_description_child_discount_line .free_description {
+    white-space: nowrap;
+}
+
+.free_description_child_discount_line :nth-child(2) {
+    flex: 1;
+}
+
+.free_description_child_discount_line :nth-child(3) {
+    flex: 4;
 }
 
 .free_description_child_discount_line .child_discount {
@@ -2060,86 +2079,87 @@ footer .legal_section .legal_section_links > a {
 }
 
 .free_description_child_discount_line .child_discount > :nth-child(3) {
-    flex: 12;
+    flex: 9;
 }
 
-#notes_container_details .notes_container {
+.notes_container {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     gap: 8px;
     min-height: 104px;
     max-height: 100%;
 }
 
-#notes_container_details .notes_container > :last-child {
+.notes_container p {
+    align-self: flex-start;
+}
+
+.notes_container > :last-child {
     flex: 1;
 }
 
 /* ---- General Terms Details ---- */
 
 .general_terms_details_complete {
-    margin-top: 8px;
     border-radius: 8px;
     padding: 8px;
-    height: 264px;
-    max-height: 100%;
+    height: fit-content;
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
 }
 
 #general_terms_details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-}
-
-.cancelation_policy_container {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.cancelation_policy_selector {
+#general_terms_details .cancelation_policy_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#general_terms_details .cancelation_policy_selector {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-#general_terms_details .cancelation_policy_container > :last-child {
-    flex: 1;
-    min-height: 208px;
+#general_terms_details .cancelation_text_container {
+    display: flex;
+    gap: 8px;
+}
+
+#general_terms_details .cancelation_text_container > :first-child, 
+#general_terms_details .cancelation_text_container > :nth-child(2) {
+    height: 216px;
     max-height: 100%;
 }
 
-.payment_bank_container, .payment_terms_container {
-    display: flex;
-    gap: 8px;
-    flex-direction: column;
-}
-
-.bank_details_container {
+#general_terms_details .payment_terms_container, 
+#general_terms_details .bank_details_container {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.payment_bank_container .payment_terms_container .payment_terms_selector, .bank_details_container .bank_details_selector {
+#general_terms_details .payment_terms_container > :last-child, 
+#general_terms_details .bank_details_container > :last-child {
+    height: 88px;
+    max-height: 100%;
+}
+
+#general_terms_details .payment_terms_container .payment_terms_selector, 
+#general_terms_details .bank_details_container .bank_details_selector {
     display: flex;
     align-items: center;
     gap: 8px
 }
 
-.payment_terms_container {
-    flex: 1;
-}
 
-.payment_terms_container > :last-child {
-    height: 100%;
-}
 
-.bank_details_container, .bank_details_container > :last-child  {
-    flex: 1;
-}
 
 /* ---- Itinerary ---- */
 
@@ -2151,6 +2171,10 @@ footer .legal_section .legal_section_links > a {
     padding-bottom: 16px;
 }
 
+#itinerary_complete > :last-child {
+    border-radius: 8px;
+}
+
 #itinerary_container {
     display: flex;
     flex-direction: column;
@@ -2158,23 +2182,26 @@ footer .legal_section .legal_section_links > a {
     height: fit-content;
 }
 
-.itinerary_title > :first-child {
+#itinerary_container .itinerary_content_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#itinerary_container .itinerary_title > :first-child {
+    text-align: center;
+    padding: 8px;
+    color: var(--Neutral);
+    background-color: var(--Btn-clicked);
+    box-shadow: var(--Shadow-default);
+    border-radius: 6px;
     height: 32px;
     max-width: fit-content;
 }
 
-#itinerary_container .itinerary_title > :first-child {
-    border-radius: 8px;
-}
-
 #itinerary_container .itinerary_title {
     display: flex;
-    flex: 1;
     gap: 8px;
-}
-
-#itinerary_container .itinerary_title > :last-child {
-    flex: 1;
 }
 
 #itinerary_container .itinerary_text_area {
@@ -2217,10 +2244,17 @@ footer .legal_section .legal_section_links > a {
     padding: 0px 104px;
 }
 
-.final_offer_page .client_info_container * {
+.final_offer_page .client_info_container .group_info,
+.final_offer_page .client_info_container .dates_info, 
+.final_offer_page .client_info_container .client_name {
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+
+.final_offer_page .dates_info .dates_data {
+    display: flex;
+    gap: 8px;
 }
 
 /* ---- Final Offer Pricing Details ---- */
@@ -2261,8 +2295,17 @@ footer .legal_section .legal_section_links > a {
     border-radius: 8px;
 }
 
-#final_offer_inclusions_container .final_offer_inclusions_content {
+#final_offer_inclusions_container .final_offer_inclusions_content,
+#final_offer_exclusions_container .final_offer_exclusions_content {
     margin-top: 8px;
+    padding: 8px;
+    box-shadow: var(--Shadow-default);
+    border-radius: 8px;
+}
+
+#final_offer_inclusions_container .final_offer_inclusions_content .city_hotel_inclusions_container {
+    display: flex;
+    gap: 8px;
 }
 
 /* ---- Final Offer Exclusions ---- */
@@ -2338,6 +2381,15 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
 }
 
+#final_offer_general_terms_container .final_offer_payment_terms_container .bank_details {
+    display: flex;
+    flex-direction: column;
+}
+
+#final_offer_general_terms_container .final_offer_payment_terms_container .bank_details .text_container{
+    flex: 1;
+}
+
 #final_offer_general_terms_container .final_offer_payment_terms_container .payment_terms > :first-child,
 #final_offer_general_terms_container .final_offer_payment_terms_container .bank_details > :first-child {
     border-radius: 8px;
@@ -2345,9 +2397,16 @@ footer .legal_section .legal_section_links > a {
     margin-bottom: 8px;
 }
 
+.text_container {
+    padding: 8px;
+    color: var(--P--color);
+    box-shadow: var(--Shadow-default);
+    border-radius: 8px;
+}
+
 /* ---- Final Offer Itinerary ---- */
 
-#final_offer_complete .final_offer_itinerary_container {
+.final_offer_itinerary_container {
     display: flex;
     gap: 8px;
     flex-direction: column;
@@ -2359,11 +2418,40 @@ footer .legal_section .legal_section_links > a {
     justify-content: center;
 }
 
-#final_offer_complete .final_offer_itinerary_container .final_offer_itinerary_pictures{
+#final_offer_complete .final_offer_itinerary_container .final_offer_itinerary_pictures {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
 }
 
+.final_offer_itinerary_container .itinerary_content_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.itinerary_content_container .itinerary_title {
+    display: flex;
+    gap: 8px;
+}
+
+.itinerary_content_container .itinerary_title > :first-child{
+    flex: 1;
+    color: var(--Neutral);
+    background-color: var(--Btn-clicked);
+    box-shadow: var(--Inner-Shadow-bar);
+
+}
+
+.itinerary_content_container .itinerary_title > :nth-child(2){
+    flex: 5;
+}
+
+.itinerary_content_container .final_offer_itinerary_text_area {
+    box-shadow: var(--Shadow-default);
+    border-radius: 8px;
+    padding: 8px;
+}
 
 

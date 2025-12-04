@@ -3,10 +3,23 @@ import PriceTiersDetails from "./PriceTiersDetails"
 import Bar from "../Bar"
 import HotelInclusions from "./HotelInclusions"
 import ServicesInclusions from "./ServicesInclusions"
-import NotesContainerDetails from "./NotesContainerDetails"
 import GeneralTermsDetails from "./GeneralTermsDetails"
+import { useLocalStorage } from "../../hooks/useLocalStorage"
+import { useContext } from "react"
+import { CounterContext } from "../context/CounterContext"
 
 function DetailsComplete() {
+
+    const [hotelInclusions, setHotelInclusions] = useLocalStorage("hotelinclusions", {
+        cityTaxContainer: {cityTaxSelector: ""},
+        mealPlanContainer: {mealPlanSelector: "", mealPlanText: ""},
+        beveragesContainer: {beveragesSelector:""},
+        bellmanContainer: {bellmanSelector:"", bellmanText:""},
+        supplementContainer: {supplementSelector:"", pricePerDay:"", numOfDays:"", supplementText:""}
+    })
+
+    const { generalTerms, setGeneralTerms } = useContext(CounterContext)
+
     return (
         <section id="details_complete">
             <Bar 
@@ -18,7 +31,10 @@ function DetailsComplete() {
                 </div>
 
                 <div className="hotel_inclusions_complete">
-                    <HotelInclusions />
+                    <HotelInclusions
+                        hotelInclusions={hotelInclusions}
+                        setHotelInclusions={setHotelInclusions}
+                    />
                 </div>
             </div>
             
@@ -26,18 +42,16 @@ function DetailsComplete() {
                 <ServicesInclusions />
             </div>
 
-            <div className="notes_container_details_complete">
-                <NotesContainerDetails />
-            </div>
-
             <Bar 
                 barContent = {["General Terms"]}
             />
 
             <div className="general_terms_details_complete">
-                <GeneralTermsDetails />
+                <GeneralTermsDetails 
+                    generalTerms={generalTerms}
+                    setGeneralTerms={setGeneralTerms}
+                />
             </div>
-
         </section>
     )
 }

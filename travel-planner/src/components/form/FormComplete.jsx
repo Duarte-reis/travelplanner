@@ -12,43 +12,20 @@ import FreeButton from "../FreeButton"
 import TextBox from "../TextBox"
 import AddNewElementBtn from "../AddNewElementBtn"
 import ComissionTextBox from "../ComissionTextBox"
-import {useLocalStorage} from "../../hooks/useLocalStorage"
-
+import { useLocalStorage } from "../../hooks/useLocalStorage"
+import { useContext } from "react";
+import { CounterContext } from "../context/CounterContext";
+import { useEffect } from "react"
 
 function FormComplete() {
 
     /* ---- Number of Pax + Free, displayed in Pax Tiers ---- */
 
-    const [numOfPaxData, setNumOfPaxData] = useLocalStorage("numofpaxdata", [
-        {
-            paxTier1: { numOfPax: "15", free: "1" },
-            paxTier2: { numOfPax: "20", free: "1" },
-            paxTier3: { numOfPax: "25", free: "1" },
-            paxTier4: { numOfPax: "30", free: "2" },
-            paxTier5: { numOfPax: "35", free: "2" },
-            paxTier6: { numOfPax: "40", free: "2" },
-            paxTier7: { numOfPax: "45", free: "3" }, 
-        }
-    ])
+    const { numOfPaxData, setNumOfPaxData } = useContext(CounterContext);
     
     /* ---- Update Hotel Form - Save information and allow creating new forms --- */
     
-    const [hotelFormData, setHotelFormData] = useLocalStorage("hotelformdata", [
-        {   
-            dateContainer: [{day:"", date:""}],
-            cityContainer: [{city: ""}], 
-            hotelContainer: [{hotel: ""}], 
-            hotelPriceContainer: [{hotelPrice: ""}], //price per person
-            singleSupplementContainer: [{singleSupplement: ""}], //price per person
-            mealPlanContainer: [{mealPlan: ""}], 
-            dinnerContainer: [{dinner: ""}], 
-            dinnerPriceContainer: [{dinnerPrice: ""}], //price per person
-            lunchContainer: [{lunch: ""}], 
-            lunchPriceContainer: [{lunchPrice: ""}], //price per person
-            guideSelectorContainer: [{guideSelector: ""}], 
-            driverSelectorContainer: [{driverSelector: ""}],
-        }    
-    ])
+    const { hotelFormData, setHotelFormData } = useContext(CounterContext);
 
     const updateHotelFormData = (formIndex, section, key, index, value) => {
         const updated = [...hotelFormData];
@@ -97,19 +74,7 @@ function FormComplete() {
 
     /* ---- Update Local Guides Form - Save information and allow creating new forms --- */
 
-    const [localGuidesFormData, setLocalGuidesFormData] = useLocalStorage("localguidesformdata", [
-        {
-            countryInitialsContainer: [{countryInitials:""}],
-            serviceNameContainer: [{serviceName: ""}],
-            price1Container: [{price1: ""}], // price per pax tier
-            price2Container: [{price2: ""}], // price per pax tier
-            price3Container: [{price3: ""}], // price per pax tier
-            price4Container: [{price4: ""}], // price per pax tier
-            price5Container: [{price5: ""}], // price per pax tier
-            price6Container: [{price6: ""}], // price per pax tier
-            price7Container: [{price7: ""}], // price per pax tier
-        } 
-    ])
+    const { localGuidesFormData, setLocalGuidesFormData } = useContext(CounterContext) 
 
     const updateLocalGuidesFormData = (formIndex, section, key, index, value) => {
         const updated = [...localGuidesFormData];
@@ -228,13 +193,7 @@ function FormComplete() {
 
     /* ---- Update Activities Form - Save information and allow creating new forms --- */
     
-    const [activitiesFormData, setActivitiesFormData] = useLocalStorage("activitiesformdata", [
-        {
-            countryContainer: [{ country: "" }],
-            nameOfActivityContainer: [{ nameOfActivity: "" }],
-            pricePerPersonContainer: [{ pricePerPerson: "" }]
-        }
-    ])
+    const { activitiesFormData, setActivitiesFormData } = useContext(CounterContext)
 
     const updateActivityField = (formIndex, section, key, index, value) => {
         const updated = [...activitiesFormData];
@@ -463,8 +422,15 @@ function FormComplete() {
         const marginAmount = netValue * (profitMargin / 100);
         return netValue + marginAmount;
     });
-    
 
+    // Send Rrp result to Context to share with other components
+
+    const { setFinalRrpPerTier } = useContext(CounterContext);
+
+    useEffect(() => {
+        setFinalRrpPerTier(finalRrpPerTier);
+    }, [JSON.stringify(finalRrpPerTier)]);
+    
     return (
         <section id="form_complete">
             <div className="hotel_form_complete">
@@ -477,6 +443,7 @@ function FormComplete() {
                         key={index}
                         formIndex={index}
                         hotelFormData={hotelFormData}
+                        setHotelFormData={setHotelFormData}
                         cityContainer={form.cityContainer}
                         hotelContainer={form.hotelContainer}
                         hotelPriceContainer={form.hotelPriceContainer}
@@ -490,7 +457,6 @@ function FormComplete() {
                         lunchPriceContainer={form.lunchPriceContainer}
                         dateContainer={form.dateContainer}
                         updateHotelFormData={updateHotelFormData}
-                        addHotelForm={addHotelForm}
                     />
                 ))}
                 <AddNewElementBtn
@@ -685,8 +651,10 @@ function FormComplete() {
                                 <div className="margin_display_container" key={idx}>
                                     <TextBox
                                         key={`percent-${idx}`} 
-                                        value={profitMargin + "%"}
+                                        value={profitMargin}
+                                        onChange={(value) => setProfitMargin((value))}
                                     />
+                                    <p>%</p>
                                     <TextBox
                                         key={`amount-${idx}`} 
                                         value={marginAmount + "€"}

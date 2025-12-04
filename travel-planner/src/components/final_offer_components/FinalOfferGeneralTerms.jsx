@@ -1,8 +1,12 @@
 import "../../index.css"
 import Bar from "../Bar"
-import TextBox from "../TextBox"
+import { useContext } from "react"
+import { CounterContext } from "../context/CounterContext"
 
 function FinalOfferGeneralTerms() {
+
+    const { generalTerms } = useContext(CounterContext)
+
     return (
         <section id="final_offer_general_terms_container">
             <div className="final_offer_general_terms_bar">
@@ -17,13 +21,17 @@ function FinalOfferGeneralTerms() {
                         <Bar 
                             barContent = {["Total cancelation"]}
                         />
-                        <TextBox />
+                        <div className="text_container"> 
+                            <p>{generalTerms.cancelationPolicyContainer?.totalCancelationText}</p>
+                        </div>
                     </div>
                     <div className="partial_cancelation"> 
                         <Bar 
                             barContent = {["Partial cancelation"]}
                         />
-                        <TextBox />
+                        <div className="text_container"> 
+                            <p>{generalTerms.cancelationPolicyContainer?.partialCancelationText}</p>
+                        </div>
                     </div>
                 </div>
 
@@ -32,14 +40,18 @@ function FinalOfferGeneralTerms() {
                         <Bar 
                             barContent = {["Payment terms"]}
                         />
-                        <TextBox />
+                        <div className="text_container">
+                            <p>{generalTerms.paymentTermsPolicyContainer?.paymentText}</p>
+                        </div>
                     </div>
 
                     <div className="bank_details">
                         <Bar 
                             barContent = {["Bank details"]}
                         />
-                        <TextBox />
+                        <div className="text_container"> 
+                            <p>{generalTerms.bankDetailsContainer?.bankText}</p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,8 @@
 import "../../index.css";
 import TextBox from "../TextBox";
 
-function PaxTiers({ index = 0, numOfPaxData, setNumOfPaxData }) {
+function PaxTiers({ index, numOfPaxData, setNumOfPaxData }) {
+
   const defaultData = {
     paxTier1: { numOfPax: "15", free: "1" },
     paxTier2: { numOfPax: "20", free: "1" },

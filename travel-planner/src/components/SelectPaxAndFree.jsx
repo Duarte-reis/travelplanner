@@ -2,7 +2,7 @@ import "../index.css"
 import TextBox from "./TextBox"
 import OptionalButton from "./OptionalButton"
 
-function SelectPaxAndFree({tierName, numOfPax, free}) {
+function SelectPaxAndFree({numOfPax, free}) {
     return (
         <section id="select_pax_and_free">
             <div className="pax_and_free">

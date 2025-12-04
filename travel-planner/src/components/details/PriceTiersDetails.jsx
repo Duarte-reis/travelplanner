@@ -25,11 +25,12 @@ function PriceTiersDetails() {
             </div>
             
             <div className="pax_and_free_container">
-                {Object.entries(numOfPaxData[0]).map(([values,idx]) => (
+                {Object.entries(numOfPaxData[0]).map(([tierName, values]) => (
                     <SelectPaxAndFree 
-                        key={idx}
-                        numOfPaxData={values.numOfPax}
-                        free={values.free}
+                        key={tierName}
+                        tierName={tierName}
+                        numOfPax={values.numOfPax} 
+                        free={values.free} 
                     />
                 ))}
             </div>

@@ -1,10 +1,12 @@
 import "../../index.css"
-import { useLocalStorage } from "../../hooks/useLocalStorage"
 import TextBox from "../TextBox"
 import Selector from "../Selector"
+import { useContext } from "react"
+import { CounterContext } from "../context/CounterContext"
 
 function FormHeader({pageTitle}) {
 
+    const { formHeaderValues, setFormHeaderValues } = useContext(CounterContext);
 
     const language = [
         {value: "English", label: "English"},
@@ -17,10 +19,15 @@ function FormHeader({pageTitle}) {
         {value:"Dollar $", label:"Dollar $"},
     ]
 
-    const [values, setValues] = useLocalStorage("textBoxValues", {}); 
-    const updateValue = (id, value) => {
-        setValues({...values, [id]: value})
-    }
+    const updateValue = (section, key, value) => {
+        setFormHeaderValues({
+            ...formHeaderValues,
+            [section]: { 
+            ...formHeaderValues[section],
+            [key]: value
+            }
+        });
+    };
 
     return (
         <section id="form_header_container">
@@ -30,18 +37,18 @@ function FormHeader({pageTitle}) {
                     <div className="top_section">
                         <div className="text_content">
                             <TextBox 
-                                value={values.year || ""}
-                                onChange={(value) => updateValue("year", value)}
+                                value={formHeaderValues.topSection.year || ""}
+                                onChange={(value) => updateValue("topSection", "year", value)}
                                 placeholder = "Year"
                             />
                             <TextBox 
-                                value={values.startDate || ""}
-                                onChange={(value) => updateValue("startDate", value)}
+                                value={formHeaderValues.topSection.startDate || ""}
+                                onChange={(value) => updateValue("topSection", "startDate", value)}
                                 placeholder = "Start date"
                             />
                             <TextBox 
-                                value={values.endDate || ""}
-                                onChange={(value) => updateValue("endDate", value)}
+                                value={formHeaderValues.topSection.endDate || ""}
+                                onChange={(value) => updateValue("topSection", "endDate", value)}
                                 placeholder = "End date"
                             />
                         </div>
@@ -61,26 +68,26 @@ function FormHeader({pageTitle}) {
                     </div> 
                     <div className="middle_section">
                         <TextBox 
-                            value={values.destination || ""}
-                            onChange={(value) => updateValue("destination", value)}
+                            value={formHeaderValues.middleSection.destination || ""}
+                            onChange={(value) => updateValue("middleSection", "destination", value)}
                             placeholder = "Destination"
                         />
                         <TextBox 
-                            value={values.groupName || ""}
-                            onChange={(value) => updateValue("groupName", value)}
+                            value={formHeaderValues.middleSection.groupName || ""}
+                            onChange={(value) => updateValue("middleSection", "groupName", value)}
                             placeholder = "Group name" 
                         />
                         <TextBox 
-                            value={values.clientName || ""}
-                            onChange={(value) => updateValue("clientName", value)}
+                            value={formHeaderValues.middleSection.clientName || ""}
+                            onChange={(value) => updateValue("middleSection", "clientName", value)}
                             placeholder = "Client name" 
                         />
                     </div>
 
                     <div className="bottom_section">
                         <TextBox 
-                            value={values.tripTitle || ""}
-                            onChange={(value) => updateValue("tripTitle", value)}
+                            value={formHeaderValues.bottomSection.tripTitle || ""}
+                            onChange={(value) => updateValue("bottomSection", "tripTitle", value)}
                             placeholder = "Trip title" 
                         />
                     </div>   
@@ -88,8 +95,8 @@ function FormHeader({pageTitle}) {
 
                 <div className="notes_box">
                     <TextBox 
-                        value={values.notes || ""}
-                        onChange={(value) => updateValue("notes", value)}
+                        value={formHeaderValues.notesSection.notes || ""}
+                        onChange={(value) => updateValue("notesSection", "notes", value)}
                         placeholder = "Notes" 
                     />
                 </div>

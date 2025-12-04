@@ -15,18 +15,16 @@ function HotelForm({ formIndex, updateHotelFormData, dateContainer = [], cityCon
         <section id="hotel_form">
             <div className="travel_date">
                 {dateContainer.map((data, index) => (
-                    <TextBox 
-                        key={index}
-                        value={data.day}
-                        onChange={(value) => updateHotelFormData(formIndex, "dateContainer", "day", index, value)}
-                    />
-                ))}
-                {dateContainer.map((data, index) => (
-                    <TextBox 
-                        key={index}
-                        value={data.date}
-                        onChange={(value) => updateHotelFormData(formIndex, "dateContainer", "date", index, value)}
-                    />
+                    <div className="date_row" key={index}>
+                        <TextBox 
+                            value={data.day}
+                            onChange={(value) => updateHotelFormData(formIndex, "dateContainer", "day", index, value)}
+                        />
+                        <TextBox 
+                            value={data.date}
+                            onChange={(value) => updateHotelFormData(formIndex, "dateContainer", "date", index, value)}
+                        />
+                    </div>
                 ))}
                 
             </div>
