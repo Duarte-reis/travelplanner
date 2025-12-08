@@ -3,15 +3,11 @@ import Bar from "../Bar"
 import { useContext } from "react"
 import { CounterContext } from "../context/CounterContext"
 
-function FinalOfferInclusions() {
+function FinalOfferInclusions({tierName}) {
 
-    const { hotelInclusions } = useContext(CounterContext)
-
-    const { hotelInclusionsExtras } = useContext(CounterContext);
+    const { hotelInclusions, hotelInclusionsExtras, servicesInclusions, includeOptions  } = useContext(CounterContext)
 
     const container = hotelInclusions?.cityInclusionsContainer || [];
-
-    const { servicesInclusions } = useContext(CounterContext);
 
     return (
         <section id="final_offer_inclusions_container">
@@ -21,14 +17,18 @@ function FinalOfferInclusions() {
                 />
             </div>
             <div className="final_offer_inclusions_content">
-                <h4>Accommodation:</h4>
-                {container.map((item, idx) => (
-                    <div className="city_hotel_inclusions_container" key={idx}>
-                        <p>{item.city}:</p>
-                        <p>{item.hotel}</p>
-                        <p>{item.hotelRateStars}</p>
-                    </div>
-                ))}
+                {includeOptions[tierName] ? ( // If accommodation is not included (false), do not render (null). If we select "Yes" (true), render
+                    <>
+                        <h4>Accommodation:</h4>
+                        {container.map((item, idx) => (
+                            <div className="city_hotel_inclusions_container" key={idx}>
+                                <p>{item.city}:</p>
+                                <p>{item.hotel}</p>
+                                <p>{item.hotelRateStars}</p>
+                            </div>
+                        ))}
+                    </>
+                ) : null}
 
                 {hotelInclusionsExtras.cityTax === "Yes" && (
                     <div className="final_offer_inclusions_city_tax">
@@ -38,19 +38,24 @@ function FinalOfferInclusions() {
                 )}
 
                 <div className="final_offer_inclusions_meal_plan">
-                    <h4>Meal Plan:</h4>
-                    {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "RO" && (
-                        <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
-                    )}
-                    {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "BB" && (
-                        <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
-                    )}
-                    {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "HB" && (
-                        <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
-                    )}
-                    {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "FB" && (
-                        <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
-                    )}
+                    {hotelInclusionsExtras.mealPlan?.mealPlanSelector !== "" ? ( // If there's nothing selected on Selector, don't display anything.
+                        <div>
+                            <h4>Meal Plan:</h4>
+                            {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "RO" && (
+                                <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
+                            )}
+                            {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "BB" && (
+                                <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
+                            )}
+                            {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "HB" && (
+                                <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
+                            )}
+                            {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "FB" && (
+                                <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
+                            )}
+                        </div>
+                    ) :null }
+                    
                 </div>
 
                 {hotelInclusionsExtras.beverages.beveragesSelector === "Yes" && (
@@ -149,10 +154,12 @@ function FinalOfferInclusions() {
                     </div>    
                 )}
 
-                <div className="final_offer_inclusions_notes">
-                    <h4>Notes:</h4>
-                    <p>{servicesInclusions.notesInclusionsContainer?.notesText}</p>
-                </div>    
+                {servicesInclusions.notesInclusionsContainer?.notesText !== "" ? ( // If there's nothing written inside "Notes", don't display
+                    <div className="final_offer_inclusions_notes">
+                        <h4>Notes:</h4>
+                        <p>{servicesInclusions.notesInclusionsContainer.notesText}</p>
+                    </div>
+                ) : null}   
             </div>
         </section>
     )

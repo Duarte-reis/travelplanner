@@ -95,17 +95,22 @@ function FormComplete() {
                 price5Container: [{price5: ""}],
                 price6Container: [{price6: ""}],
                 price7Container: [{price7: ""}],
+                checkButtonContainer: [{checkButton: false}],
             }
         ])
     }
 
-    /* ---- Divide each Local Guides tier for the respective number of pax ---- */
+    /* ---- Divide each Local Guides tier for the respective number of pax. Ignore the ones marked as "optional" ---- */
 
     const getLocalGuidesPerPax = (priceContainerKey, tierKey) => {
-        const total = localGuidesFormData.reduce(
-            (sum, form) => sum + parseFloat(form[priceContainerKey][0]?.[priceContainerKey.replace("Container", "")] || 0),
-            0
-        );
+        const total = localGuidesFormData.reduce((sum, form) => {
+            const isChecked = form.checkButtonContainer[0]?.checkButton; // There's only one CheckButton
+            if (isChecked) return sum; // If it's checked, ignore it
+
+            const price = parseFloat(form[priceContainerKey][0]?.[priceContainerKey.replace("Container", "")] || 0);
+            return sum + price;
+        }, 0);
+
         const pax = parseInt(numOfPaxData[0][tierKey].numOfPax) || 1;
         return Math.round(total / pax);
     };
@@ -120,12 +125,7 @@ function FormComplete() {
 
     /* ---- Update Tour Guide Form - Save information and allow creating new forms --- */
 
-    const [tourGuideFormData, setTourGuideFormData] = useLocalStorage("tourguideformdata", [ 
-        {   multiplicationPrice: [{ pricePerDay: "", numOfDays: "" }],
-            guideLandExpensesContainer: [{guideLandExpenses: ""}],
-            multiplicationMeals: [{ pricePerDay: "", numOfDays: "" }],
-            multiplicationAccommodation: [{ pricePerDay: "", numOfDays: "" }], } 
-    ])
+    const {tourGuideFormData, setTourGuideFormData} = useContext(CounterContext)
 
     const updateMultiplicationData = (formIndex, section, key, index, value) => {
         const updated = [...tourGuideFormData];
@@ -140,7 +140,8 @@ function FormComplete() {
             multiplicationPrice: [{ pricePerDay: "", numOfDays: "" }],
             guideLandExpensesContainer: [{guideLandExpenses: ""}],
             multiplicationMeals: [{ pricePerDay: "", numOfDays: "" }],
-            multiplicationAccommodation: [{ pricePerDay: "", numOfDays: "" }]
+            multiplicationAccommodation: [{ pricePerDay: "", numOfDays: "" }],
+            checkButtonContainer: [{checkButtonContainer: false}],
         }
         ]);
     };
@@ -187,8 +188,12 @@ function FormComplete() {
 
     const tourGuidePerTier = Object.values(numOfPaxData[0]).map((tier) => {
         const pax = parseInt(tier.numOfPax) || 1;
-        const total = tourGuideTotalPerForm.reduce((sum, val) => sum + val, 0);
-        return Math.round(total / pax);
+        const totalForTier = tourGuideFormData.reduce((sum, form, formIdx) => { // Sum the forms not checked by CheckButton
+            const isChecked = form.checkButtonContainer?.[0]?.checkButton;
+            if (isChecked) return sum; // Ignore the checked forms
+            return sum + tourGuideTotalPerForm[formIdx];
+        }, 0);
+        return Math.round(totalForTier / pax) // divide by the number of pax
     });
 
     /* ---- Update Activities Form - Save information and allow creating new forms --- */
@@ -208,28 +213,25 @@ function FormComplete() {
             {
                 countryContainer:[{country:""}],
                 nameOfActivityContainer:[{nameOfActivity:""}],
-                pricePerPersonContainer:[{pricePerPerson:""}]
+                pricePerPersonContainer:[{pricePerPerson:""}],
+                checkButtonContainer: [{checkButton: false}],
             }
         ])
     }
 
     /* ---- The value in pricePerPerson will be sent to NET --- */
 
-    const activityPriceTotal = activitiesFormData.reduce((sum, form) => {
-        const activityPrice = parseFloat(form.pricePerPersonContainer[0]?.pricePerPerson || 0);
-        return sum + activityPrice;
-    }, 0);
+    // This const calculates the total sum of all activity prices, but only includes the prices whose CheckButton is NOT checked.
+    const activityPriceTotal = activitiesFormData.flatMap(form =>
+        form.pricePerPersonContainer.map((priceObj, index) => {
+            const isChecked = form.checkButtonContainer[index]?.checkButton;
+            return isChecked ? 0 : parseFloat(priceObj.pricePerPerson) || 0;
+        })
+    ).reduce((sum, value) => sum + value, 0);
 
     /* ---- Update Transportation Form - Save information and allow creating new forms --- */
 
-    const [transportationFormData, setTransportationFormData] = useLocalStorage("transportationformdata", [
-        {
-            priceOfVehicleContainer: [{typeOfVehicle:"", priceOfVehicle:""}],
-            driverLandExpensesContainer: [{driverLandExpenses: ""}],
-            multiplicationDriverMeals:[{pricePerDay:"", numOfDays:""}],
-            multiplicationDriverAccommodation:[{pricePerDay:"", numOfDays:""}]
-        }
-    ])
+    const {transportationFormData, setTransportationFormData} = useContext(CounterContext)
 
     const updateTransportationData = (formIndex, section, key, index, value) => {
         const updated = [...transportationFormData];
@@ -244,7 +246,8 @@ function FormComplete() {
                 priceOfVehicleContainer: [{typeOfVehicle:"", priceOfVehicle:""}],
                 driverLandExpensesContainer: [{driverLandExpenses: ""}],
                 multiplicationDriverMeals:[{pricePerDay:"", numOfDays:""}],
-                multiplicationDriverAccommodation:[{pricePerDay:"", numOfDays:""}]
+                multiplicationDriverAccommodation:[{pricePerDay:"", numOfDays:""}],
+                checkButtonContainer: [{checkButton: ""}],
             }
         ])
     }
@@ -286,32 +289,60 @@ function FormComplete() {
         )
     })
 
-    /* ---- The total will be sent to NET and divided by the number of Pax ---- */
+    /* ---- The total will be sent to NET and divided by the number of Pax, unless the CheckButton is checked ---- */
 
-    const transportationPerTier = Object.values(numOfPaxData[0]).map(tier => {
+    const transportationPerTier = Object.values(numOfPaxData[0]).map((tier) => {
         const pax = parseInt(tier.numOfPax) || 1;
-        const total = driverTotalPerFrorm.reduce((sum, val) => sum + val, 0);
-        return Math.round(total / pax);
+        const totalForTier = transportationFormData.reduce((sum, form, formIdx) => { // Sum the forms not checked by CheckButton
+            const isChecked = form.checkButtonContainer?.[0]?.checkButton; 
+            if (isChecked) return sum; // Ignore the checked forms
+            return sum + driverTotalPerFrorm[formIdx]; // sum total
+        }, 0);
+        return Math.round(totalForTier / pax); // divide by the number of pax
     });
 
     /* ---- Update Extras Form - - Save information. There's no need to create new forms --- */
     
-    const [extrasFormData, setExtrasFormData] = useLocalStorage("extrasformdata", [
-        {
-            multiplicationHeadsets:[{pricePerDay:"", numOfDays:""}],
-            multiplicationBellman:[{pricePerDay:"", numOfDays:""}],
-            multiplicationGratuities:[{pricePerDay:"", numOfDays:""}],
-        }
-    ])
+    const {extrasFormData, setExtrasFormData} = useContext(CounterContext)
 
-    const updateExtrasMultiplicationData = (formIndex, section, key, index, value) => {
+    const updateExtrasMultiplicationData = (formIndex, section, key, index, value) => { // Updates the results inside Multiplications
         const updated = [...extrasFormData];
         updated[formIndex] = {...updated[formIndex],[section]: updated[formIndex][section].map((line, i) => i === index ? { ...line, [key]: value } : line )
         };
         setExtrasFormData(updated);
     };
 
-    /* ---- Add Extras values and send it to NET ---- */
+    const updateExtrasCheckData = (formIndex, key, value) => { // Updates the results marked with CheckButton
+        const updated = [...extrasFormData];
+        updated[formIndex] = {
+            ...updated[formIndex],
+            [key]: value
+        };
+        setExtrasFormData(updated);
+    };  
+
+    /* ---- Add Extras values and send it to NET (unless the CheckButton is checked) ---- */
+
+    const extrasPriceTotal = extrasFormData.reduce((grandTotal, form) => { // Starts a global calculation that loops through every extras form
+        const headsetsTotal = form.multiplicationHeadsets.reduce((total, item) => // Calculates the total cost for the “Headsets” section.
+            total + ((parseFloat(item.pricePerDay) || 0) * (parseFloat(item.numOfDays) || 0)) // For each row, multiplies price × days.
+        , 0); // Uses 0 as default
+
+        const bellmanTotal = form.multiplicationBellman.reduce((total, item) => // Calculates de total cost for the "Bellman" section.
+            total + ((parseFloat(item.pricePerDay) || 0) * (parseFloat(item.numOfDays) || 0)) // For each row, multiplies price x days.
+        , 0); // Uses 0 as default
+
+        const gratuitiesTotal = form.multiplicationGratuities.reduce((total, item) => // Calcultates the total cost for the "Gratuities" section.
+            total + ((parseFloat(item.pricePerDay) || 0) * (parseFloat(item.numOfDays) || 0)) // For each row, multiplies price x days.
+        , 0); // Uses 0 as default
+
+        const formTotal = // Creates the total for each form.
+            (form.checkHeadsets ? 0 : headsetsTotal) + // If the checkbox is ON, ignore the value (use 0)
+            (form.checkBellman ? 0 : bellmanTotal) +
+            (form.checkGratuities ? 0 : gratuitiesTotal);
+
+        return grandTotal + formTotal;
+    }, 0); // Starts the global total at zero.
 
     const [extrasTotal, setExtrasTotal] = useLocalStorage("extrastotal", 0);
 
@@ -321,16 +352,7 @@ function FormComplete() {
     
     /* ---- Update Flight/Train Form - Save information and create new forms --- */
     
-    const [flightTrainFormData, setFlightTrainFormData] = useLocalStorage("flighttrainformdata", [
-        {
-            flightOrTrainSelectorContainer: [{flightOrTrainSelector: ""}],
-            companyContainer: [{company:""}],
-            routeContainer: [{route:""}],
-            fareContainer: [{fare:""}],
-            taxContainer: [{tax:""}],
-            flightTrainGuideSelectorContainer: [{flightTrainGuideSelector:""}],
-        }
-    ])
+    const {flightTrainFormData, setFlightTrainFormData} = useContext(CounterContext)
 
     const addFlightTrainFormData = () =>
         setFlightTrainFormData([
@@ -342,6 +364,7 @@ function FormComplete() {
                 fareContainer: [{fare:""}],
                 taxContainer: [{tax:""}],
                 flightTrainGuideSelectorContainer: [{flightTrainGuideSelector:""}],
+                checkButtonContainer: [{checkButton: false}]
             }
         ]);
     
@@ -361,6 +384,9 @@ function FormComplete() {
         const pax = parseInt(tier.numOfPax) || 1;
 
         return flightTrainFormData.reduce((sum, form) => {
+            const isChecked = form.checkButtonContainer?.[0]?.checkButton; // Is button checked?
+            if (isChecked) return sum; // If it's checked, ignore it (goes to FinalOfferOptional.jsx)
+
             const farePrice = parseFloat(form.fareContainer[0]?.fare || 0);
             const taxPrice = parseFloat(form.taxContainer[0]?.tax || 0);
             const totalPerPerson = farePrice + taxPrice;
@@ -401,7 +427,7 @@ function FormComplete() {
         const netPerPayingPax =
             hotelPriceTotal +
             flightTrainPerTier[idx] +
-            extrasTotal +
+            extrasPriceTotal +
             activityPriceTotal +
             (idx === 0 ? localGuidesPerPaxTier1 : 0) +
             (idx === 1 ? localGuidesPerPaxTier2 : 0) +
@@ -430,7 +456,7 @@ function FormComplete() {
     useEffect(() => {
         setFinalRrpPerTier(finalRrpPerTier);
     }, [JSON.stringify(finalRrpPerTier)]);
-    
+
     return (
         <section id="form_complete">
             <div className="hotel_form_complete">
@@ -470,8 +496,11 @@ function FormComplete() {
                     <Bar 
                         barContent = {["Local Guides"]}
                     />
-                    <Bar 
-                        barContent= {["Type of service", "15pax", "20pax", "25pax", "30pax", "35pax", "40pax", "45pax" ]}
+                    <Bar
+                        barContent={[
+                            "Type of service",
+                            ...Object.values(numOfPaxData[0]).map(tier => tier.numOfPax + "pax")
+                        ]}
                     />
 
                     {localGuidesFormData.map((form, index) => (
@@ -488,6 +517,7 @@ function FormComplete() {
                             price5Container={form.price5Container}
                             price6Container={form.price6Container}
                             price7Container={form.price7Container}
+                            checkButtonContainer={form.checkButtonContainer}
                         />
                     ))}
                     <AddNewElementBtn
@@ -507,6 +537,7 @@ function FormComplete() {
                             guideLandExpensesContainer={form.guideLandExpensesContainer}
                             multiplicationMeals={form.multiplicationMeals}
                             multiplicationAccommodation={form.multiplicationAccommodation}
+                            checkButtonContainer={form.checkButtonContainer}
                             updateMultiplicationData={updateMultiplicationData}
                             addTourGuideForm={addTourGuideForm}
                             hotelExpenses={hotelExpensesTotalPerTourGuide}
@@ -530,6 +561,7 @@ function FormComplete() {
                             countryContainer={form.countryContainer}
                             nameOfActivityContainer={form.nameOfActivityContainer}
                             pricePerPersonContainer={form.pricePerPersonContainer}
+                            checkButtonContainer={form.checkButtonContainer}
                             updateActivityField={updateActivityField}
                         />
                     ))}
@@ -549,6 +581,7 @@ function FormComplete() {
                             multiplicationDriverMeals={form.multiplicationDriverMeals}
                             multiplicationDriverAccommodation={form.multiplicationDriverAccommodation}
                             driverLandExpensesContainer={form.driverLandExpensesContainer}
+                            checkButtonContainer={form.checkButtonContainer}
                             hotelExpenses={hotelExpensesTotalPerDriver}
                         />
                     ))}
@@ -562,6 +595,10 @@ function FormComplete() {
                             multiplicationHeadsets={form.multiplicationHeadsets}
                             multiplicationBellman={form.multiplicationBellman}
                             multiplicationGratuities={form.multiplicationGratuities}
+                            checkHeadsets={form.checkHeadsets}
+                            checkBellman={form.checkBellman}
+                            checkGratuities={form.checkGratuities}
+                            updateExtrasCheckData={updateExtrasCheckData}
                             updateExtrasMultiplicationData={updateExtrasMultiplicationData}
                             sendTotalToNet={updateExtrasTotal}
                         />
@@ -587,6 +624,7 @@ function FormComplete() {
                         flightOrTrainSelectorContainer={form.flightOrTrainSelectorContainer}
                         flightTrainGuideSelectorContainer={form.flightTrainGuideSelectorContainer}
                         updateFlightTrainFormData={updateFlightTrainFormData}
+                        checkButtonContainer={form.checkButtonContainer}
                     />
                 ))}                
                 <AddNewElementBtn 
@@ -707,7 +745,8 @@ function FormComplete() {
                         />
                     ))}
                 </div>
-            </div>          
+            </div> 
+      
         </section>
     )
 }

@@ -1,8 +1,21 @@
-import "../index.css"
-import TextBox from "./TextBox"
-import OptionalButton from "./OptionalButton"
+import "../index.css";
+import TextBox from "./TextBox";
+import OptionalButton from "./OptionalButton";
+import { useContext } from "react";
+import { CounterContext } from "./context/CounterContext";
 
-function SelectPaxAndFree({numOfPax, free}) {
+function SelectPaxAndFree({ numOfPax, free, tierName }) {
+
+    const { includeOptions, setIncludeOptions } = useContext(CounterContext);
+
+    // When we click, it change the value of include to the opposite of what it currently is.
+    const toggleInclude = (tier) => {
+        setIncludeOptions({
+            ...includeOptions,
+            [tier]: !includeOptions[tier]
+        });
+    };
+
     return (
         <section id="select_pax_and_free">
             <div className="pax_and_free">
@@ -20,14 +33,14 @@ function SelectPaxAndFree({numOfPax, free}) {
             </div>
 
             <div className="include">
-                <p>Include:</p>
-                <p>Price</p>
-                <OptionalButton />
-                <p>Free</p>
-                <OptionalButton />
+                <p>Display:</p>
+                <OptionalButton 
+                    active={includeOptions[tierName]}
+                    onToggle={() => toggleInclude(tierName)}
+                />
             </div>
         </section>
-    )
+    );
 }
 
-export default SelectPaxAndFree
+export default SelectPaxAndFree;

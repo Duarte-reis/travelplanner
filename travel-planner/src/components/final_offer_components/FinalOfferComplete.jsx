@@ -6,9 +6,12 @@ import FinalOfferExclusions from "./FinalOfferExclusions"
 import FinalOfferOptional from "./FinalOfferOptional"
 import FinalOfferGeneralTerms from "./FinalOfferGeneralTerms"
 import FinalOfferItinerary from "./FinalOfferItinerary"
+import { useContext } from "react"
+import { CounterContext } from "../context/CounterContext"
 
 
 function FinalOfferComplete() {
+
     return (
         <section id="final_offer_complete">
             <FinalOfferCover />

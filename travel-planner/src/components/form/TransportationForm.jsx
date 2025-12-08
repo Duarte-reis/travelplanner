@@ -1,11 +1,11 @@
 import "../../index.css";
 import TextBox from "../TextBox";
-import OptionalButton from "../OptionalButton";
 import Bar from "../Bar";
 import AddNewElementBtn from "../AddNewElementBtn";
 import Multiplication from "../Multiplication";
+import CheckButton from "../CheckButton";
 
-function TransportationForm({formIndex, updateTransportationData, priceOfVehicleContainer = [], multiplicationDriverMeals = [], driverLandExpensesContainer = [], multiplicationDriverAccommodation = [], addTransportationForm, hotelExpenses}) {
+function TransportationForm({formIndex, updateTransportationData, priceOfVehicleContainer = [], multiplicationDriverMeals = [], driverLandExpensesContainer = [], multiplicationDriverAccommodation = [], checkButtonContainer = [], addTransportationForm, hotelExpenses}) {
    
   return (
     <section id="transportation_form_container">
@@ -28,9 +28,21 @@ function TransportationForm({formIndex, updateTransportationData, priceOfVehicle
                 />
             </div>
             ))}
-        <div className="optional_button_container">
-          <OptionalButton />
-        </div>
+            {checkButtonContainer.map((data, index) => (
+                <CheckButton
+                    key={index}
+                    active={data.checkButton}
+                    onToggle={() =>
+                        updateTransportationData(
+                            formIndex,
+                            "checkButtonContainer",
+                            "checkButton",
+                            index,
+                            !data.checkButton
+                        )
+                    }
+                />
+            ))}
       </div>
 
       <div id="driver_expenses_form">

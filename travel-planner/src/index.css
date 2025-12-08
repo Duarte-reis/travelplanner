@@ -120,6 +120,19 @@ p, a, select, button, ::placeholder {
     font-weight: var(--P-weight);
 }
 
+/* ---- Check Button ----*/
+
+#check_button {
+    width: 32px;
+    box-shadow: var(--Shadow-default);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#check_button:hover {
+    box-shadow: var(--Shadow-hover);
+}
+
 /* ---- Cta Btns ---- */
 
 .btns_cta_container {
@@ -421,7 +434,7 @@ html {
 #select_pax_and_free .pax_and_free, .include {
     display: flex;
     align-items: center;
-    gap: 8px
+    gap: 8px;
 }
 
 #select_pax_and_free .pax_and_free {
@@ -1412,21 +1425,25 @@ footer .legal_section .legal_section_links > a {
 
 #local_guides_form .type_of_service {
     display: flex;
+    flex: 5;
     gap: 8px;
 }
 
-#local_guides_form .type_of_service > :first-child {
+#local_guides_form .type_of_service > :first-child{
     flex: 1;
 }
 
-#local_guides_form .type_of_service > :last-child {
-    flex: 4;
+#local_guides_form .type_of_service > :last-child{
+    flex: 5;
 }
 
 #local_guides_form .price_tier_container {
     display: flex;
+    flex: 10;
     gap: 8px;
 }
+
+
 
 .local_guides_tour_guide_container_form_complete {
     display: flex;
@@ -1492,6 +1509,15 @@ footer .legal_section .legal_section_links > a {
     justify-content: center;
 }
 
+#tour_guide_form > .price_container > :first-child > :nth-child(1),
+#tour_guide_form > .price_container > :first-child > :nth-child(5) {
+    flex: 2;
+}
+
+#tour_guide_form > .price_container > :first-child > :nth-child(3) {
+    flex: 1;
+}
+
 #tour_guide_form .tour_guide_expenses_form > :first-child{
     justify-content: center;
 }
@@ -1504,6 +1530,14 @@ footer .legal_section .legal_section_links > a {
     display: flex;
     gap: 8px;
     padding: 8px;
+}
+
+#tour_guide_form .price_container > :last-child {
+    flex: 1;
+}
+
+#tour_guide_form .price_container > :first-child {
+    flex: 6;
 }
 
 /* ---- Activities Form ---- */
@@ -1625,6 +1659,45 @@ footer .legal_section .legal_section_links > a {
     border-radius: 8px;       
 }
 
+#extras_form .headsets_container {
+    display: flex;
+    flex-direction: column;
+}
+
+#extras_form .headsets_container .headsets_content, 
+#extras_form .bellman_container .bellman_content,
+#extras_form .gratuities_container .gratuities_content {
+    display: flex;
+    gap: 8px;
+}
+
+#extras_form .headsets_container .headsets_content > :first-child, 
+#extras_form .bellman_container .bellman_content > :first-child,
+#extras_form .gratuities_container .gratuities_content > :first-child {
+    flex: 7;
+}
+
+#extras_form .headsets_container .headsets_content > :first-child > :first-child,
+#extras_form .bellman_container .bellman_content > :first-child > :first-child,
+#extras_form .gratuities_container .gratuities_content > :first-child > :first-child {
+    flex: 2;
+}
+
+#extras_form .headsets_container .headsets_content > :first-child > :nth-child(3),
+#extras_form .headsets_container .headsets_content > :first-child > :nth-child(5),
+#extras_form .bellman_container .bellman_content > :first-child > :nth-child(3),
+#extras_form .bellman_container .bellman_content > :first-child > :nth-child(5),
+#extras_form .gratuities_container .gratuities_content > :first-child > :nth-child(3),
+#extras_form .gratuities_container .gratuities_content > :first-child > :nth-child(5) {
+    flex: 1;
+}
+
+#extras_form .headsets_container .headsets_content > :last-child, 
+#extras_form .bellman_container .bellman_content > :last-child,
+#extras_form .gratuities_container .gratuities_content > :last-child {
+    flex: 1;
+}
+
 #extras_form .headsets_container > :first-child {
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
@@ -1643,8 +1716,7 @@ footer .legal_section .legal_section_links > a {
 /* ---- Flight/Train Form ---- */
 
 #flight_train_form {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    display: flex;
     padding: 8px;
     gap: 8px;
     background-color: var(--Neutral);
@@ -1662,11 +1734,27 @@ footer .legal_section .legal_section_links > a {
 }
 
 #flight_train_form .flight_tain_type_company {
-    grid-column: span 4;
+    flex: 7;
+}
+
+#flight_train_form .flight_tain_route {
+    flex: 12;
+}
+
+#flight_train_form .flight_tain_price_container {
+    flex: 6;
+}
+
+#flight_train_form .selector_optionalbtn_container {
+    flex: 2;
+}
+
+#flight_train_form > :last-child {
+    flex: 1;
 }
 
 #flight_train_form .flight_tain_type_company > :first-child {
-    flex: 1;
+    flex: 2;
 }
 
 #flight_train_form .flight_tain_type_company .flight_train_selector select {
@@ -1677,16 +1765,7 @@ footer .legal_section .legal_section_links > a {
     flex: 3;
 }
 
-#flight_train_form .flight_tain_route {
-    grid-column: span 5;
-}
-
-#flight_train_form .flight_tain_price_container {
-    grid-column: span 2;
-}
-
 #flight_train_form .selector_optionalbtn_container {
-    grid-column: span 1;
     width: 100%;
 }
 
@@ -1838,7 +1917,7 @@ footer .legal_section .legal_section_links > a {
 
 .price_tiers_hotel_inclusions_container {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1fr 2fr;
     gap: 8px;
 }
 
@@ -2260,12 +2339,20 @@ footer .legal_section .legal_section_links > a {
 /* ---- Final Offer Pricing Details ---- */
 
 #final_offer_pricing_details {
-    display: flex;
-    flex-direction: column;
     padding-inline: 32px;
 }
 
+#final_offer_pricing_details .final_offer_price_tiers{
+    display: flex;
+    flex-direction: column;
+}
+
 #final_offer_pricing_details .final_offer_price_tiers > :first-child{
+    border-radius: 8px;
+    justify-content: center;
+}
+
+#final_offer_pricing_details .final_offer_price_tiers > :nth-child(2){
     border-radius: 8px;
     justify-content: center;
 }
@@ -2339,7 +2426,34 @@ footer .legal_section .legal_section_links > a {
 }
 
 #final_offer_optional_container .final_offer_optional_content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: var(--Shadow-default);
+    border-radius: 8px;
+    padding: 8px;
     margin-top: 8px;
+}
+
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_activities,
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides {
+    display: flex;
+    gap: 8px;
+}
+
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :nth-child(2){
+    display: flex;
+    gap: 8px;
+}
+
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :nth-child(2) p {
+    border-right: 1px solid var(--P--color);
+    padding-right: 8px;
+}
+
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :first-child,
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_activities > :first-child {
+    font-weight: 600;
 }
 
 /* ---- Final Offer General Terms ---- */
@@ -2453,5 +2567,3 @@ footer .legal_section .legal_section_links > a {
     border-radius: 8px;
     padding: 8px;
 }
-
-

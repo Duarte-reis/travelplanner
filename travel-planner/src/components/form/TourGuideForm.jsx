@@ -1,11 +1,11 @@
 import "../../index.css" 
 import Multiplication from "../Multiplication" 
-import OptionalButton from "../OptionalButton" 
+import CheckButton from "../CheckButton"; 
 import Bar from "../Bar" 
 import TextBox from "../TextBox"; 
 import AddNewElementBtn from "../AddNewElementBtn";
 
-function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeals = [], multiplicationAccommodation = [], guideLandExpensesContainer = [], updateMultiplicationData, addTourGuideForm, hotelExpenses, flightTrainGuideExpenses }) {
+function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeals = [], multiplicationAccommodation = [], guideLandExpensesContainer = [], checkButtonContainer = [], updateMultiplicationData, addTourGuideForm, hotelExpenses, flightTrainGuideExpenses }) {
 
   return (
     <section id="tour_guide_form">
@@ -21,9 +21,21 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
             }
           />
         ))}
-        <div className="optional_button_container">
-          <OptionalButton />
-        </div>
+        {checkButtonContainer.map((data, index) => (
+                <CheckButton
+                    key={index}
+                    active={data.checkButton}
+                    onToggle={() =>
+                        updateMultiplicationData(
+                            formIndex,
+                            "checkButtonContainer",
+                            "checkButton",
+                            index,
+                            !data.checkButton
+                        )
+                    }
+                />
+            ))}
       </div>
 
       <div className="tour_guide_expenses_form">

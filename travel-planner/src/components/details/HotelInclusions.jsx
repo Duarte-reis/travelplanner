@@ -2,14 +2,13 @@ import "../../index.css";
 import OptionalButton from "../OptionalButton";
 import TextBox from "../TextBox";
 import Selector from "../Selector";
-import Multiplication from "../Multiplication";
 import { useContext } from "react";
 import { CounterContext } from "../context/CounterContext";
 import HotelInclusionsExtras from "./HotelInclusionsExtras";
 
-function HotelInclusions() {
+function HotelInclusions({tierName}) {
 
-    const { hotelFormData, hotelInclusions, setHotelInclusions } = useContext(CounterContext);
+    const { hotelFormData, hotelInclusions, setHotelInclusions, includeOptions, setIncludeOptions } = useContext(CounterContext);
 
     const selectHotelRateStars = [
     { value: "", label: "" },
@@ -20,30 +19,23 @@ function HotelInclusions() {
     { value: "5*", label: "5*" },
     ];
 
-    const mealPlan = [
-    { value: "", label: "" },
-    { value: "RO", label: "RO" },
-    { value: "BB", label: "BB" },
-    { value: "HB", label: "HB" },
-    { value: "FB", label: "FB" },
-    ];
-
-    const supplementOptions = [
-    { value: "", label: "" },
-    { value: "BB", label: "BB" },
-    { value: "HB", label: "HB" },
-    { value: "FB", label: "FB" },
-    ];
+    // When we click, it change the value of include to the opposite of what it currently is.
+    const toggleInclude = (tier) => {
+        setIncludeOptions({
+            ...includeOptions,
+            [tier]: !includeOptions[tier]
+        });
+    };
 
     return (
         <section id="hotel_inclusions">
             <div className="hotel_details_container">
                 <div className="accommodation_optional">
-                    <p>Accommodation:</p>
-                    <p>Yes</p>
-                    <OptionalButton />
-                    <p>No</p>
-                    <OptionalButton />
+                    <p>Include accommodation:</p>
+                    <OptionalButton 
+                        active={includeOptions[tierName]}
+                        onToggle={() => toggleInclude(tierName)}
+                    />
                 </div>
 
                 {hotelFormData.map((form, formIndex) =>

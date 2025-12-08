@@ -1,12 +1,8 @@
 import "../../index.css"
 import TextBox from "../TextBox"
-import OptionalButton from "../OptionalButton"
+import CheckButton from "../CheckButton"
 
-function ActivitiesForm({formIndex, activitiesFormData, setActivitiesFormData, countryContainer = [], nameOfActivityContainer = [], pricePerPersonContainer = [], updateActivityField}) {
-
-  /*const countries = countryContainer.length ? countryContainer : [{ country: "" }];
-  const activities = nameOfActivityContainer.length ? nameOfActivityContainer : [{ nameOfActivity: "" }];
-  const prices = pricePerPersonContainer.length ? pricePerPersonContainer : [{ pricePerPerson: "" }];*/
+function ActivitiesForm({formIndex, countryContainer = [], nameOfActivityContainer = [], pricePerPersonContainer = [], checkButtonContainer = [], updateActivityField}) {
 
   return (
     <section id="activities_form">
@@ -42,9 +38,16 @@ function ActivitiesForm({formIndex, activitiesFormData, setActivitiesFormData, c
         ))}
       </div>
 
-      <div className="optional_button_container">
-        <OptionalButton />
-      </div>
+      {checkButtonContainer.map((data, index) => (
+          <CheckButton
+            key={index}
+            active={data.checkButton}
+            onToggle={() =>
+              updateActivityField(formIndex, "checkButtonContainer", "checkButton", index, !data.checkButton)
+            }
+          />
+        ))}
+        
     </section>
   )
 }

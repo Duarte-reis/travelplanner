@@ -1,8 +1,8 @@
 import "../../index.css"
 import TextBox from "../TextBox"
-import OptionalButton from "../OptionalButton"
+import CheckButton from "../CheckButton"
 
-function LocalGuidesForm({formIndex, updateLocalGuidesFormData, countryInitialsContainer = [], serviceNameContainer = [], price1Container = [], price2Container = [], price3Container = [], price4Container = [], price5Container = [], price6Container = [], price7Container = []}) {
+function LocalGuidesForm({formIndex, updateLocalGuidesFormData, countryInitialsContainer = [], serviceNameContainer = [], price1Container = [], price2Container = [], price3Container = [], price4Container = [], price5Container = [], price6Container = [], price7Container = [], checkButtonContainer = []}) {
 
     return (
         <section id="local_guides_form">
@@ -73,11 +73,16 @@ function LocalGuidesForm({formIndex, updateLocalGuidesFormData, countryInitialsC
                         onChange={(value) => updateLocalGuidesFormData(formIndex, "price7Container", "price7", index, value)}
                     />
                 ))}
-                
             </div>
-            <div className="optional_button_container">
-                <OptionalButton />
-            </div>
+            {checkButtonContainer.map((data, index) => (
+                <CheckButton
+                    key={index}
+                    active={data.checkButton}
+                    onToggle={() =>
+                        updateLocalGuidesFormData(formIndex, "checkButtonContainer", "checkButton", index, !data.checkButton)
+                    }
+                />
+            ))}
         </section>
     )
 }

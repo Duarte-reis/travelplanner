@@ -1,18 +1,17 @@
 import "../index.css";
 
-function OptionalButton({ active, onToggle }) {
-
+function CheckButton({ active, onToggle }) {
     return (
         <button
-            id="optional_button"
+            id="check_button"
             type="button"
-            aria-label="optional button"
+            aria-label="check button"
             className={active ? "active" : ""}
             onClick={onToggle}
         >
-            {active ? "Yes" : "No"}
+            {active && "✕"}
         </button>
     );
 }
 
-export default OptionalButton;
+export default CheckButton;

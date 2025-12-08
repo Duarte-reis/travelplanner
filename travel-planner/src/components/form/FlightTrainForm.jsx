@@ -1,9 +1,9 @@
 import "../../index.css"
 import TextBox from "../TextBox"
-import OptionalButton from "../OptionalButton"
+import CheckButton from "../CheckButton"
 import Selector from "../Selector"
 
-function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSelectorContainer = [], companyContainer = [], routeContainer = [], fareContainer = [], taxContainer = [], flightTrainGuideSelectorContainer = []}) {
+function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSelectorContainer = [], companyContainer = [], routeContainer = [], fareContainer = [], taxContainer = [], checkButtonContainer = [], flightTrainGuideSelectorContainer = []}) {
 
     const selectFlightTrain = [
         {value:"", label:""},
@@ -63,8 +63,16 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
                         onChange={(value) => updateFlightTrainFormData(formIndex,                 "flightTrainGuideSelectorContainer", "flightTrainGuideSelector", index, value)}
                     />
                 ))}
-                <OptionalButton />
             </div>
+            {checkButtonContainer.map((data, index) => (
+                <CheckButton
+                    key={index}
+                    active={data.checkButton}
+                    onToggle={() =>
+                    updateFlightTrainFormData(formIndex, "checkButtonContainer", "checkButton", index, !data.checkButton)
+                    }
+                />
+                ))}
         </section>
     )
 }
