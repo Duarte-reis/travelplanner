@@ -6,21 +6,18 @@ import { CounterContext } from "../context/CounterContext"
 
 function PriceTiersDetails() {
 
-    const { numOfPaxData } = useContext(CounterContext);
-
-    const selectRoomType = [
-        {value:"Double Twin", label:"Double Twin"},
-        {value:"Single room", label:"Single room"}
-    ]
-
+    const { numOfPaxData, selectRoomType, setSelectRoomType, roomTypeOptions } = useContext(CounterContext);
+    
     return (
         <section id="price_tiers_details">
             <div className="price_per_room_type">
                 <p>Price tiers in:</p>
-                <Selector 
-                    options={selectRoomType}
-                    defaultValue=""
+
+                <Selector
+                    options={roomTypeOptions}
+                    value={selectRoomType}
                     className="room_type_selector"
+                    onChange={(value) => setSelectRoomType(value)}
                 />
             </div>
             

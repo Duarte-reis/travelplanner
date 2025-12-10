@@ -9,7 +9,7 @@ function CheckButton({ active, onToggle }) {
             className={active ? "active" : ""}
             onClick={onToggle}
         >
-            {active && "✕"}
+            {active && "Opt."}
         </button>
     );
 }

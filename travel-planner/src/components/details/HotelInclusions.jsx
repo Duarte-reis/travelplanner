@@ -41,35 +41,35 @@ function HotelInclusions({tierName}) {
                 {hotelFormData.map((form, formIndex) =>
                     form.cityContainer.map((cityObj, idx) => { // The city is the first item that comes in this line (City --> Hotel --> Stars). We want to render a line for each city within each form, with the respective hotel and its stars. The city and the hotel come from hotelFormData and are displayed in this component.
                         const index = formIndex * form.cityContainer.length + idx; // cityContainer is an array, we need an index to access the corret item inside the array
-                    return (
-                        <div className="hotel_details_line" key={`${formIndex}-${idx}`}>
-                            <TextBox
-                                value={cityObj.city || ""}
-                                readOnly
-                            />
-                            <TextBox // hotelInclusions (Context) receives the name of the hotel from hotelFormData. onChange allows us to update it, send it to FinalOffer, without changing hotelFormData.
-                                value={hotelInclusions.cityInclusionsContainer[index]?.hotel || ""} 
-                                onChange={(value) => {
-                                    setHotelInclusions(prev => {
-                                        const updated = [...prev.cityInclusionsContainer];
-                                        updated[index] = {...updated[index], hotel: value};
-                                        return {cityInclusionsContainer: updated};
+                        return (
+                            <div className="hotel_details_line" key={`${formIndex}-${idx}`}>
+                                <TextBox
+                                    value={cityObj.city || ""}
+                                    readOnly
+                                />
+                                <TextBox // hotelInclusions (Context) receives the name of the hotel from hotelFormData. onChange allows us to update it, send it to FinalOffer, without changing hotelFormData.
+                                    value={hotelInclusions.cityInclusionsContainer[index]?.hotel || ""} 
+                                    onChange={(value) => {
+                                        setHotelInclusions(prev => {
+                                            const updated = [...prev.cityInclusionsContainer];
+                                            updated[index] = {...updated[index], hotel: value};
+                                            return {cityInclusionsContainer: updated};
+                                            });
+                                    }}
+                                />
+                                <Selector
+                                    options={selectHotelRateStars}
+                                    className="hotel_rate_stars_selector"
+                                    value={hotelInclusions.cityInclusionsContainer[index]?.hotelRateStars || ""}
+                                    onChange={(value) => {
+                                        setHotelInclusions(prev => {
+                                            const updated = [...prev.cityInclusionsContainer];
+                                            updated[index] = {...updated[index], hotelRateStars: value};
+                                            return {cityInclusionsContainer: updated};
                                         });
-                                }}
-                            />
-                            <Selector
-                                options={selectHotelRateStars}
-                                className="hotel_rate_stars_selector"
-                                value={hotelInclusions.cityInclusionsContainer[index]?.hotelRateStars || ""}
-                                onChange={(value) => {
-                                    setHotelInclusions(prev => {
-                                        const updated = [...prev.cityInclusionsContainer];
-                                        updated[index] = {...updated[index], hotelRateStars: value};
-                                    return {cityInclusionsContainer: updated};
-                                    });
-                                }}
-                            />
-                        </div>
+                                    }}
+                                />
+                            </div>
                         );
                     })
                 )}

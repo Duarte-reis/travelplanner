@@ -16,41 +16,42 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
             key={index}
             index={index}
             data={data}
+            placeholder={"Days"}
             updateMultiplicationData={(key, value) =>
               updateMultiplicationData(formIndex, "multiplicationPrice", key, index, value)
             }
           />
         ))}
         {checkButtonContainer.map((data, index) => (
-                <CheckButton
-                    key={index}
-                    active={data.checkButton}
-                    onToggle={() =>
-                        updateMultiplicationData(
-                            formIndex,
-                            "checkButtonContainer",
-                            "checkButton",
-                            index,
-                            !data.checkButton
-                        )
-                    }
-                />
-            ))}
+          <CheckButton
+              key={index}
+              active={data.checkButton}
+              onToggle={() =>
+                  updateMultiplicationData(
+                      formIndex,
+                      "checkButtonContainer",
+                      "checkButton",
+                      index,
+                      !data.checkButton
+                  )
+              }
+          />
+        ))}
       </div>
 
       <div className="tour_guide_expenses_form">
         <Bar barContent={["Guide Expenses"]} />
           <div className="land">
-          <p>Land</p>
-          {guideLandExpensesContainer.map((data, index) => (
-            <TextBox 
-              key={index}
-              index={index}
-              value={`${Number(hotelExpenses || 0) + Number(flightTrainGuideExpenses || 0)}€`}
-              readOnly
-            />
-          ))}
-        </div>
+            <p>Land</p>
+            {guideLandExpensesContainer.map((data, index) => (
+              <TextBox 
+                key={index}
+                index={index}
+                value={`${Number(hotelExpenses || 0) + Number(flightTrainGuideExpenses || 0)}€`}
+                readOnly
+              />
+            ))}
+          </div>
 
         <div className="meals">
           <p>Meals</p>
@@ -59,6 +60,7 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
               key={index}
               index={index}
               data={data}
+              placeholder={"Meals"}
               updateMultiplicationData={(key, value) =>
                 updateMultiplicationData(formIndex, "multiplicationMeals", key, index, value)
               }
@@ -73,6 +75,7 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
               key={index}
               index={index}
               data={data}
+              placeholder={"Nights"}
               updateMultiplicationData={(key, value) =>
                 updateMultiplicationData(formIndex, "multiplicationAccommodation", key, index, value)
               }
@@ -80,10 +83,10 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
           ))}
         </div>
       </div>
-            <AddNewElementBtn 
-              onAdd={addTourGuideForm}
-              text="Add another line"
-            /> 
+        <AddNewElementBtn 
+          onAdd={addTourGuideForm}
+          text="Add another line"
+        /> 
     </section>
   );
 }

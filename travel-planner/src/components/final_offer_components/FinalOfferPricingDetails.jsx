@@ -3,14 +3,15 @@ import Bar from "../Bar"
 import TextBox from "../TextBox"
 import { useContext } from "react";
 import { CounterContext } from "../context/CounterContext";
+
 function FinalOfferPricingDetails() {
 
-    const { finalRrpPerTier, numOfPaxData, includeOptions } = useContext(CounterContext);
+    const { finalRrpPerTier, singleSupplementTotal, numOfPaxData, includeOptions, selectRoomType } = useContext(CounterContext);
 
     return (
         <section id="final_offer_pricing_details">
         <div className="final_offer_price_tiers">
-            <Bar barContent={["Price per person in double/twin room (pax minimum + free)"]} />
+            <Bar barContent={[`Price per person in ${selectRoomType?.label} (minimum pax + free)`]} />
 
             <div className="final_offer_price_per_pax_container">
                 {Object.entries(numOfPaxData[0]).map(([tierName, values], index) => {
@@ -24,6 +25,10 @@ function FinalOfferPricingDetails() {
                         </div>
                     );
                 })}
+                <div className="single_room_supplement">
+                    <Bar barContent={["Single"]} />
+                    <TextBox value={Math.round(singleSupplementTotal) + "€"}/>
+                </div>
             </div>
         </div>
     </section>

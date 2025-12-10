@@ -2,22 +2,10 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import CheckButton from "../CheckButton"
 
-function ActivitiesForm({formIndex, countryContainer = [], nameOfActivityContainer = [], pricePerPersonContainer = [], checkButtonContainer = [], updateActivityField}) {
+function ActivitiesForm({formIndex, nameOfActivityContainer = [], pricePerPersonContainer = [], checkButtonContainer = [], updateActivityField}) {
 
   return (
     <section id="activities_form">
-      <div className="choose_country">
-        {countryContainer.map((data, index) => (
-          <TextBox
-              key={index}
-              value={data.country}
-              onChange={(value) => updateActivityField(formIndex, "countryContainer", "country", index, value)}
-          />
-        ))}
-
-        
-      </div>
-
       <div className="activity_name">
         {nameOfActivityContainer.map((data, index) => (
           <TextBox 

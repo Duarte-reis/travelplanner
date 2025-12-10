@@ -22,7 +22,11 @@ function FinalOfferGeneralTerms() {
                             barContent = {["Total cancelation"]}
                         />
                         <div className="text_container"> 
-                            <p>{generalTerms.cancelationPolicyContainer?.totalCancelationText}</p>
+                            {generalTerms.cancelationPolicyContainer?.totalCancelationText // This allows the text to be edited in CSS
+                                ?.split("\n")
+                                .map((line, i) => (
+                                <p key={i}>{line}</p>
+                                ))}                        
                         </div>
                     </div>
                     <div className="partial_cancelation"> 
@@ -30,7 +34,11 @@ function FinalOfferGeneralTerms() {
                             barContent = {["Partial cancelation"]}
                         />
                         <div className="text_container"> 
-                            <p>{generalTerms.cancelationPolicyContainer?.partialCancelationText}</p>
+                            {generalTerms.cancelationPolicyContainer?.partialCancelationText
+                                ?.split("\n")
+                                .map((line, i) => (
+                                <p key={i}>{line}</p>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -41,8 +49,11 @@ function FinalOfferGeneralTerms() {
                             barContent = {["Payment terms"]}
                         />
                         <div className="text_container">
-                            <p>{generalTerms.paymentTermsPolicyContainer?.paymentText}</p>
-                        </div>
+                            {generalTerms.paymentTermsPolicyContainer?.paymentText
+                                ?.split("\n")
+                                .map((line, i) => (
+                                <p key={i}>{line}</p>
+                            ))}                        </div>
                     </div>
 
                     <div className="bank_details">
@@ -50,7 +61,11 @@ function FinalOfferGeneralTerms() {
                             barContent = {["Bank details"]}
                         />
                         <div className="text_container"> 
-                            <p>{generalTerms.bankDetailsContainer?.bankText}</p>
+                            {generalTerms.bankDetailsContainer?.bankText
+                                ?.split("\n")
+                                .map((line, i) => (
+                                <p key={i}>{line}</p>
+                            ))}
                         </div>
                     </div>
                 </div>

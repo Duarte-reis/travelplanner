@@ -33,3 +33,4 @@
 
 ## Screens
 - Smaller: 1024px
+- Bigger: 1440px

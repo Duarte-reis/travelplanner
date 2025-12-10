@@ -61,28 +61,31 @@ function FinalOfferOptional() {
                     </div>
                 ))}
 
+                {checkedTransportation.map((form, index) => (
+                    <div key={index} className="final_offer_optional_transportation">
+                        <p>{form.typeOfVehicle + " (pax + free)"}:</p>
+                        <div>
+                            {(form.transportationPerTier || []).map((value, tierIndex) => (
+                                <p key={tierIndex}>
+                                    {paxArray[tierIndex]} + {freeArray[tierIndex]}: {Math.round(value)}€
+                                </p>
+                            ))}
+                        </div>
+                    </div>
+                ))}
 
-            {checkedTransportation.map((form, index) => (
-                <div key={index}>
-                    <p>{form.typeOfVehicle}:</p>
-                    {(form.transportationPerTier || []).map((value, tierIndex) => (
-                        <p key={tierIndex}>
-                            {paxArray[tierIndex]} + {freeArray[tierIndex]}: {Math.round(value)}€
-                        </p>
-                    ))}
-                </div>
-            ))}
-
-            {checkedTourGuide.map((form, index) => (
-                <div key={index}>
-                    <p>Tour Guide:</p>
-                    {(form.tourGuidePerTier || []).map((value, tierIndex) => (
-                        <p key={tierIndex}>
-                            {paxArray[tierIndex]} + {freeArray[tierIndex]}: {Math.round(value)}€
-                        </p>
-                    ))}
-                </div>
-            ))}
+                {checkedTourGuide.map((form, index) => (
+                    <div key={index} className="final_offer_optional_tour_guide">
+                        <p>Tour Guide (pax + free):</p>
+                        <div>
+                            {(form.tourGuidePerTier || []).map((value, tierIndex) => (
+                                <p key={tierIndex}>
+                                    {paxArray[tierIndex]} + {freeArray[tierIndex]}: {Math.round(value)}€
+                                </p>
+                            ))}
+                        </div>
+                    </div>
+                ))}
             </div>
         </section>
     )

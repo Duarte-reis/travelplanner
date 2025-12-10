@@ -1,7 +1,6 @@
 import "../../index.css";
 import Bar from "../Bar";
 import TextBox from "../TextBox";
-import TextArea from "../TextArea";
 import { useContext } from "react";
 import { CounterContext } from "../context/CounterContext";
 

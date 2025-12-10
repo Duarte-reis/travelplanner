@@ -67,10 +67,18 @@ function FormComplete() {
         return sum + roomPrice + dinnerPrice + lunchPrice;
     }, 0);
 
-    const singelSupplementTotal = hotelFormData.reduce((sum, form) => {
+    // Single supplement is calculated separately
+    const singleSupplementTotal = hotelFormData.reduce((sum, form) => {
         const singleSupplement = parseFloat(form.singleSupplementContainer[0]?.singleSupplement || 0);
         return sum + singleSupplement
     }, 0);
+
+    // Send singleSupplement result to Context to share with other components
+    const { setSingleSupplementTotal } = useContext(CounterContext);
+
+    useEffect(() => {
+        setSingleSupplementTotal(singleSupplementTotal);
+    }, [JSON.stringify(singleSupplementTotal)]);
 
     /* ---- Update Local Guides Form - Save information and allow creating new forms --- */
 
@@ -86,7 +94,6 @@ function FormComplete() {
         setLocalGuidesFormData([
             ...localGuidesFormData,
             {
-                countryInitialsContainer: [{countryInitials:""}],
                 serviceNameContainer: [{serviceName: ""}],
                 price1Container: [{price1: ""}],
                 price2Container: [{price2: ""}],
@@ -211,7 +218,6 @@ function FormComplete() {
         setActivitiesFormData([
             ...activitiesFormData,
             {
-                countryContainer:[{country:""}],
                 nameOfActivityContainer:[{nameOfActivity:""}],
                 pricePerPersonContainer:[{pricePerPerson:""}],
                 checkButtonContainer: [{checkButton: false}],
@@ -301,7 +307,7 @@ function FormComplete() {
         return Math.round(totalForTier / pax); // divide by the number of pax
     });
 
-    /* ---- Update Extras Form - - Save information. There's no need to create new forms --- */
+    /* ---- Update Extras Form and save information. There's no need to create new forms --- */
     
     const {extrasFormData, setExtrasFormData} = useContext(CounterContext)
 
@@ -413,9 +419,17 @@ function FormComplete() {
         return sum;
     }, 0)
 
+    /* ---- Control the Type Of Free ---- */
+
+    const [activeIndex, setActiveIndex] = useLocalStorage("activeindex", 1); // Twin button active by default (1)
+
     /* ---- Generate profit margin and add it to NET to generate RRP ---- */
 
     const [profitMargin, setProfitMargin] = useLocalStorage("profitmargin", 12);
+
+    /* ---- Generate comission margin and add it to NET to generate RRP ---- */
+
+    const [comissionMargin, setComissionMargin] = useLocalStorage("comissionmargin", 0);
 
     /* ---- First, We need to calculate the NET price per paying passenger (numOfPax). The "free" passenger doesn't pay, but their cost must be distributed among the paying passengers. ---- */
 
@@ -424,7 +438,7 @@ function FormComplete() {
         const free = Number(tier.free);
 
         // Sum all the values inserted in each component to generate the NET value per paying pax
-        const netPerPayingPax =
+        let netPerPayingPax =
             hotelPriceTotal +
             flightTrainPerTier[idx] +
             extrasPriceTotal +
@@ -439,21 +453,34 @@ function FormComplete() {
             tourGuidePerTier[idx] +
             transportationPerTier[idx];
 
+        // If we choose "sgl", in the FreeType, we have to calculate the singleSupplement * the number of Free and divide by the number of paying pax. This means that the Frees will stay in a single room
+        if (activeIndex === 0 && free > 0) { // 0 = sgl
+            netPerPayingPax += singleSupplementTotal * (free / numOfPax); // += adds the calculated single supplement for the Free passengers to the existing netPerPayingPax instead of replacing it.
+        }
+
         // Add the cost of the free passengers and distribute it evenly among the corresponding number of paying passengers.
         return netPerPayingPax + (netPerPayingPax * free) / numOfPax;
     });
 
-    // Add the margin to NET and generate RRP
-    const finalRrpPerTier = finalNetPerPayingPaxArray.map(netValue => {
-        const marginAmount = netValue * (profitMargin / 100);
-        return netValue + marginAmount;
-    });
+    // Add the margin to NET and generate Rrp
+    const marginPerTier = finalNetPerPayingPaxArray.map(netValue =>
+        Math.round(netValue * (profitMargin / 100)) // Converts % to decimal number
+    );
+    
+    // Add the comission to NET and generate Rrp
+    const comissionPerTier = finalNetPerPayingPaxArray.map(netValue =>
+        Math.round(netValue * (comissionMargin / 100))
+    );
+
+    // Rrp per pax per tier
+    const finalRrpPerTier = finalNetPerPayingPaxArray.map((netValue, idx) => 
+        netValue + marginPerTier[idx] + comissionPerTier[idx]
+    );
 
     // Send Rrp result to Context to share with other components
-
     const { setFinalRrpPerTier } = useContext(CounterContext);
 
-    useEffect(() => {
+    useEffect(() => { // Whenever finalRrpPerTier changes, the useEffect triggers, calls setFinalRrpPerTier(finalRrpPerTier), and updates the global Context so other components can access the updated RRP values.
         setFinalRrpPerTier(finalRrpPerTier);
     }, [JSON.stringify(finalRrpPerTier)]);
 
@@ -461,7 +488,7 @@ function FormComplete() {
         <section id="form_complete">
             <div className="hotel_form_complete">
                 <Bar 
-                    barContent= {["Day", "City", "Hotel", "Single", "Meal", "Dinner", "Lunch", "Guide/Driver"]}
+                    barContent= {["Hotel"]}
                 />
                 
                 {hotelFormData.map((form, index) => (
@@ -496,19 +523,12 @@ function FormComplete() {
                     <Bar 
                         barContent = {["Local Guides"]}
                     />
-                    <Bar
-                        barContent={[
-                            "Type of service",
-                            ...Object.values(numOfPaxData[0]).map(tier => tier.numOfPax + "pax")
-                        ]}
-                    />
-
                     {localGuidesFormData.map((form, index) => (
                         <LocalGuidesForm 
                             key={index}
                             formIndex={index}
+                            numOfPaxData={form.numOfPaxData}
                             updateLocalGuidesFormData={updateLocalGuidesFormData}
-                            countryInitialsContainer={form.countryInitialsContainer}
                             serviceNameContainer={form.serviceNameContainer}
                             price1Container={form.price1Container}
                             price2Container={form.price2Container}
@@ -558,7 +578,6 @@ function FormComplete() {
                             formIndex={index}
                             activitiesFormData={activitiesFormData}
                             setActivitiesFormData={setActivitiesFormData}
-                            countryContainer={form.countryContainer}
                             nameOfActivityContainer={form.nameOfActivityContainer}
                             pricePerPersonContainer={form.pricePerPersonContainer}
                             checkButtonContainer={form.checkButtonContainer}
@@ -586,7 +605,32 @@ function FormComplete() {
                         />
                     ))}
                 </div>
+            </div>
 
+            <div className="flight_train_extras_form_complete">
+                <div className="flight_train_form_complete">
+                    <Bar 
+                        barContent = {["Flight/Train"]}
+                    />
+                    {flightTrainFormData.map((form, index) => (
+                        <FlightTrainForm 
+                            key={index}
+                            formIndex={index}
+                            companyContainer={form.companyContainer}
+                            routeContainer={form.routeContainer}
+                            fareContainer={form.fareContainer}
+                            taxContainer={form.taxContainer}
+                            flightOrTrainSelectorContainer={form.flightOrTrainSelectorContainer}
+                            flightTrainGuideSelectorContainer={form.flightTrainGuideSelectorContainer}
+                            updateFlightTrainFormData={updateFlightTrainFormData}
+                            checkButtonContainer={form.checkButtonContainer}
+                        />
+                    ))}                
+                    <AddNewElementBtn 
+                        onAdd={addFlightTrainFormData}
+                        text="Add another line"
+                    />
+                </div>
                 <div className="extras_form_complete">
                     {extrasFormData.map((form, formIndex) => (
                         <ExtrasForm
@@ -604,33 +648,6 @@ function FormComplete() {
                         />
                     ))}
                 </div>
-            </div>
-
-            <div className="flight_train_form_complete">
-                <Bar 
-                    barContent = {["Flight/Train"]}
-                />
-                <Bar 
-                    barContent = {["Type", "Company", "Route", "Fare", "Tax", "Guide" ]}
-                />
-                {flightTrainFormData.map((form, index) => (
-                    <FlightTrainForm 
-                        key={index}
-                        formIndex={index}
-                        companyContainer={form.companyContainer}
-                        routeContainer={form.routeContainer}
-                        fareContainer={form.fareContainer}
-                        taxContainer={form.taxContainer}
-                        flightOrTrainSelectorContainer={form.flightOrTrainSelectorContainer}
-                        flightTrainGuideSelectorContainer={form.flightTrainGuideSelectorContainer}
-                        updateFlightTrainFormData={updateFlightTrainFormData}
-                        checkButtonContainer={form.checkButtonContainer}
-                    />
-                ))}                
-                <AddNewElementBtn 
-                    onAdd={addFlightTrainFormData}
-                    text="Add another line"
-                />
             </div> 
 
             <div className="price_tiers_form_complete">
@@ -652,13 +669,13 @@ function FormComplete() {
                         barContent = {["Free type"]}
                     />    
                     <div className="type_of_free_content">
-                        <FreeButton />
-                        <FreeButton />
-                        <FreeButton />
-                        <FreeButton />
-                        <FreeButton />
-                        <FreeButton />
-                        <FreeButton />
+                        {Object.values(numOfPaxData[0]).map((tier, idx) => (
+                            <FreeButton
+                                key={idx}
+                                activeIndex={activeIndex}
+                                setActiveIndex={setActiveIndex}
+                            />
+                        ))}
                     </div>
                 </div>
 
@@ -669,12 +686,11 @@ function FormComplete() {
                     <div className="total_net_content">
                         {finalNetPerPayingPaxArray.map((netValue, idx) => (
                             <TextBox 
-                                key={idx}
-                                value={Math.round(netValue) + "€"}
-                                readOnly
+                                key={idx} 
+                                value={Math.round(netValue) + "€"} 
+                                readOnly 
                             />
                         ))}
-                         
                     </div>
                 </div>
 
@@ -683,23 +699,19 @@ function FormComplete() {
                         barContent = {["Margin"]}
                     />    
                     <div className="margin_content">
-                        {finalRrpPerTier.map((rrp, idx) => {
-                            const marginAmount = Math.round(rrp - finalNetPerPayingPaxArray[idx]);
-                            return (
-                                <div className="margin_display_container" key={idx}>
-                                    <TextBox
-                                        key={`percent-${idx}`} 
-                                        value={profitMargin}
-                                        onChange={(value) => setProfitMargin((value))}
-                                    />
-                                    <p>%</p>
-                                    <TextBox
-                                        key={`amount-${idx}`} 
-                                        value={marginAmount + "€"}
-                                    />
-                                </div>
-                            );
-                        })}
+                        {finalNetPerPayingPaxArray.map((_, idx) => (
+                            <div className="margin_display_container" key={idx}>
+                                <TextBox
+                                    value={profitMargin}
+                                    onChange={(value) => setProfitMargin(Number(value))}
+                                />
+                                <p>%</p>
+                                <TextBox 
+                                    value={marginPerTier[idx] + "€"} 
+                                    readOnly 
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -708,16 +720,21 @@ function FormComplete() {
                         barContent = {["Comission"]}
                     />    
                     <div className="comission_content">
-                        <ComissionTextBox />
-                        <ComissionTextBox />
-                        <ComissionTextBox />
-                        <ComissionTextBox />
-                        <ComissionTextBox />
-                        <ComissionTextBox />
-                        <ComissionTextBox />
+                        {finalNetPerPayingPaxArray.map((_, idx) => (
+                            <div className="comission_display_container" key={idx}>
+                                <TextBox
+                                    value={comissionMargin}
+                                    onChange={(value) => setComissionMargin(Number(value))}
+                                />
+                                <p>%</p>
+                                <TextBox 
+                                    value={comissionPerTier[idx] + "€"} 
+                                    readOnly 
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>    
-
                 <div className="price_per_pax_container">
                     <Bar 
                         barContent = {["Price"]}
@@ -740,7 +757,8 @@ function FormComplete() {
                     {Object.values(numOfPaxData[0]).map((tier, idx) => (
                         <TextBox
                             key={idx}
-                            value={singelSupplementTotal + "€"}
+                            className="class"
+                            value={singleSupplementTotal + "€"}
                             readOnly
                         />
                     ))}

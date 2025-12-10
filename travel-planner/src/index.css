@@ -60,6 +60,7 @@
 
 body {
     width: 1024px;
+    padding-bottom: 24px;
     background-color: var(--Primary-bg);
 }
 
@@ -126,11 +127,16 @@ p, a, select, button, ::placeholder {
     width: 32px;
     box-shadow: var(--Shadow-default);
     border-radius: 4px;
+    padding: 4px;
     cursor: pointer;
 }
 
 #check_button:hover {
     box-shadow: var(--Shadow-hover);
+}
+
+#check_button.active {
+    border: solid var(--Btn-clicked)
 }
 
 /* ---- Cta Btns ---- */
@@ -222,7 +228,7 @@ input::placeholder {
 
 input:focus {
     outline: none;
-    border: 1px solid var(--P--color);
+    border: 1px solid var(--Btn-clicked);
 }
 
 textarea:focus {
@@ -242,16 +248,11 @@ textarea:focus {
     border-radius: 4px;
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
+    cursor: pointer;
 }
 
-input[type="checkbox"] {
-    width: 12px;
-    height: 12px;
-    background: var(--Neutral);
-    border-radius: 2px;
-    box-shadow: var(--Shadow-default);
-    outline: none;
-    cursor: pointer;
+#optional_button:hover {
+    box-shadow: var(--Shadow-hover);
 }
 
 /* ---- Pax Tiers ---- */
@@ -305,6 +306,20 @@ input[type="checkbox"] {
 #free_button {
     display: flex;
     gap: 8px;
+}
+
+#free_button #optional_button {
+    color: transparent; /* Hides "Yes" and "No" */
+    position: relative;
+}
+
+#free_button #optional_button.active::after {
+    content: "✔️"; /* Replaces "Yes with emoji"*/
+    color: black;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* ---- Add New Element Button ---- */
@@ -1368,39 +1383,11 @@ footer .legal_section .legal_section_links > a {
 .hotel_form_complete {
     display: flex;
     flex-direction: column;
-    margin: 24px 24px 0px 24px;
+    margin: 24px 24px 8px 24px;
 }
 
-.hotel_form_complete .bar :first-child {
-    margin-left: 8px;
-}
-
-.hotel_form_complete .bar :nth-child(2) {
-    margin-left: 128px;
-}
-
-.hotel_form_complete .bar :nth-child(3) {
-    margin-left: 168px;
-}
-
-.hotel_form_complete .bar :nth-child(4) {
-    margin-left: 80px;
-}
-
-.hotel_form_complete .bar :nth-child(5) {
-    margin-left: 10px;
-}
-
-.hotel_form_complete .bar :nth-child(6) {
-    margin-left: 48px;
-}
-
-.hotel_form_complete .bar :nth-child(7) {
-    margin-left: 72px;
-}
-
-.hotel_form_complete .bar :nth-child(8) {
-    margin-left: 72px;
+.hotel_form_complete > :first-child {
+    justify-content: center;
 }
 
 .hotel_form_complete > :last-child, .local_guides_form_complete > :last-child {
@@ -1429,26 +1416,35 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
 }
 
-#local_guides_form .type_of_service > :first-child{
-    flex: 1;
-}
-
-#local_guides_form .type_of_service > :last-child{
-    flex: 5;
+#local_guides_form .type_of_service {
+    flex: 4;
 }
 
 #local_guides_form .price_tier_container {
     display: flex;
-    flex: 10;
+    flex: 15;
     gap: 8px;
 }
 
-
+#local_guides_form > :last-child {
+    flex: 1;
+}
 
 .local_guides_tour_guide_container_form_complete {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     gap: 8px;
-    margin: 8px 24px 0px 24px;
+    margin: 0px 24px;
+}
+
+.local_guides_tour_guide_container_form_complete .local_guides_form_complete {
+    grid-column: span 5;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+    border-radius: 8px;
+    max-height: 100%;
+    gap: 8px;
+    margin-bottom: 8px;
 }
 
 .local_guides_tour_guide_container_form_complete .local_guides_form_complete > :first-child {
@@ -1457,36 +1453,8 @@ footer .legal_section .legal_section_links > a {
     justify-content: center;
 }
 
-.local_guides_tour_guide_container_form_complete .local_guides_form_complete > :nth-child(2) > :first-child {
-    margin-left: 4px;
-}
-
-.local_guides_tour_guide_container_form_complete .local_guides_form_complete > :nth-child(2) > :nth-child(2) {
-    margin-left: 36px;
-}
-
-.local_guides_tour_guide_container_form_complete .local_guides_form_complete > :nth-child(2) > :nth-child(3) {
-    margin-left: 32px;
-}
-
-.local_guides_tour_guide_container_form_complete .local_guides_form_complete > :nth-child(2) > :nth-child(4) {
-    margin-left: 28px;
-}
-
-.local_guides_tour_guide_container_form_complete .local_guides_form_complete > :nth-child(2) > :nth-child(5) {
-    margin-left: 32px;
-}
-
-.local_guides_tour_guide_container_form_complete .local_guides_form_complete > :nth-child(2) > :nth-child(6) {
-    margin-left: 30px;
-}
-
-.local_guides_tour_guide_container_form_complete .local_guides_form_complete > :nth-child(2) > :nth-child(7) {
-    margin-left: 32px;
-}
-
-.local_guides_tour_guide_container_form_complete .local_guides_form_complete > :nth-child(2) > :nth-child(8) {
-    margin-left: 28px;
+.local_guides_tour_guide_container_form_complete .tour_guide_form_complete {
+    grid-column: span 2;
 }
 
 /* ---- Tour Guide Form ---- */
@@ -1509,23 +1477,6 @@ footer .legal_section .legal_section_links > a {
     justify-content: center;
 }
 
-#tour_guide_form > .price_container > :first-child > :nth-child(1),
-#tour_guide_form > .price_container > :first-child > :nth-child(5) {
-    flex: 2;
-}
-
-#tour_guide_form > .price_container > :first-child > :nth-child(3) {
-    flex: 1;
-}
-
-#tour_guide_form .tour_guide_expenses_form > :first-child{
-    justify-content: center;
-}
-
-#tour_guide_form .tour_guide_expenses_form > *:not(:first-child) {
-    padding: 8px;
-}
-
 #tour_guide_form > .price_container {
     display: flex;
     gap: 8px;
@@ -1540,29 +1491,70 @@ footer .legal_section .legal_section_links > a {
     flex: 6;
 }
 
+#tour_guide_form > .price_container > :first-child > :nth-child(1),
+#tour_guide_form > .price_container > :first-child > :nth-child(5) {
+    flex: 2;
+}
+
+#tour_guide_form > .price_container > :first-child > :nth-child(5) {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
+}
+
+#tour_guide_form > .price_container > :first-child > :nth-child(3) {
+    flex: 1;
+}
+
+#tour_guide_form .tour_guide_expenses_form > :first-child{
+    justify-content: center;
+}
+
+#tour_guide_form .tour_guide_expenses_form .land > :nth-child(2) {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
+}
+
+#tour_guide_form .tour_guide_expenses_form .meals > :nth-child(2) > :nth-child(5),
+#tour_guide_form .tour_guide_expenses_form .accommodation > :nth-child(2) > :nth-child(5) {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
+}
+
+#tour_guide_form .tour_guide_expenses_form > *:not(:first-child) {
+    padding: 8px;
+}
+
+/* ---- Activities Transportation Extras Form Complete ---- */
+
+.activities_transportation_form_complete {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin: 0 24px;
+}
+
 /* ---- Activities Form ---- */
 
 #activities_form {
     display: flex;
     padding: 8px;
     gap: 8px;
-    background-color: var(--Neutral);
-    box-shadow: var(--Shadow-default);
-    width: 416px;
 }
 
-#activities_form .choose_country, 
-#activities_form .activity_price, 
-#activities_form .optional_button_container {
+#activities_form .activity_price {
     display: flex;
-    flex: 1;
+    flex: 2;
     height: 100%;
+}
+
+#activities_form > :last-child {
+    flex: 1;
 }
 
 #activities_form .activity_name {
     display: flex;
     height: 100%;
-    flex: 5;
+    flex: 20;
 }
 
 #activities_form .optional_button_container {
@@ -1571,8 +1563,12 @@ footer .legal_section .legal_section_links > a {
 
 .activities_form_complete {
     display: flex;
-    flex: 3;
     flex-direction: column;
+    grid-column: span 5;
+    margin-bottom: 8px;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+    border-radius: 8px;
 }
 
 .activities_form_complete > :first-child {
@@ -1601,16 +1597,16 @@ footer .legal_section .legal_section_links > a {
     margin-bottom: 8px;
 }
 
-.transportatioin_vehicle_container {
+.transportation_vehicle_container {
     display: flex;
     gap: 8px;
 }
 
-.transportatioin_vehicle_container > :first-child {
+.transportation_vehicle_container > :first-child {
     flex: 2;
 }
 
-.transportatioin_vehicle_container > :nth-child(2) {
+.transportation_vehicle_container > :nth-child(2) {
     flex: 1;
 }
 
@@ -1625,6 +1621,14 @@ footer .legal_section .legal_section_links > a {
     padding: 8px;
 }
 
+#transportation_form_container .transportation_form > :nth-child(2){
+    flex: 1;
+}
+
+#transportation_form_container .transportation_form > :first-child{
+    flex: 6;
+}
+
 #transportation_form_container .transportation_expenses_form > *:not(:first-child) {
     padding: 8px;
 }
@@ -1633,14 +1637,97 @@ footer .legal_section .legal_section_links > a {
     justify-content: center;
 }
 
+#transportation_form_container .transportation_expenses_form > :nth-child(2) > :nth-child(2) {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
+}
+
+#transportation_form_container .transportation_expenses_form > .meals > :nth-child(2) > :nth-child(5), 
+#transportation_form_container .transportation_expenses_form > .accommodation > :nth-child(2) > :nth-child(5) {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
+}
+
 .transportation_form_complete {
+    flex: 2;
+    grid-column: span 2;
+}
+
+/* ---- Flight/Train and Extras Form Complete ---- */
+
+.flight_train_extras_form_complete {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin: 0 24px;
+}
+
+.flight_train_extras_form_complete .flight_train_form_complete {
+    grid-column: span 5;
+    background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
+    border-radius: 8px;
+} 
+
+/* ---- Flight/Train Form ---- */
+
+#flight_train_form {
+    display: flex;
+    padding: 8px;
+    gap: 8px;
+}
+
+#flight_train_form .flight_tain_type_company, 
+#flight_train_form .flight_tain_route, 
+#flight_train_form .flight_tain_price_container, 
+#flight_train_form .selector_optionalbtn_container {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+#flight_train_form .flight_tain_type_company {
+    flex: 7;
+}
+
+#flight_train_form .flight_tain_route {
+    flex: 8;
+}
+
+#flight_train_form .flight_tain_price_container {
+    flex: 5;
+}
+
+#flight_train_form .selector_optionalbtn_container {
     flex: 2;
 }
 
-.activities_transportation_form_complete {
-    display: flex;
-    gap: 8px;
-    margin: 8px 24px 0px 24px;
+#flight_train_form > :last-child {
+    flex: 1;
+}
+
+#flight_train_form .flight_tain_type_company > :first-child,
+#flight_train_form .flight_tain_type_company > :last-child  {
+    flex: 3;
+}
+
+#flight_train_form .flight_tain_type_company .flight_train_selector select {
+    width: 100%;
+}
+
+#flight_train_form .selector_optionalbtn_container {
+    width: 100%;
+}
+
+.flight_train_form_complete > :first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    justify-content: center;
+}
+
+.flight_train_form_complete > :last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 /* ---- Extras ---- */
@@ -1648,15 +1735,14 @@ footer .legal_section .legal_section_links > a {
 #extras_form {
     display: flex;
     flex-direction: column;
+    box-shadow: var(--Shadow-default);
+    background-color: var(--Neutral);
+    border-radius: 8px;
 }
 
 .extras_form_complete {
-    display: flex;
-    flex: 2;
-    flex-direction: column;
-    height: fit-content;
-    background-color: var(--Neutral);
-    border-radius: 8px;       
+    border-radius: 8px;
+    grid-column: span 2;     
 }
 
 #extras_form .headsets_container {
@@ -1709,117 +1795,15 @@ footer .legal_section .legal_section_links > a {
     padding: 8px;
 }
 
+#extras_form .headsets_container .headsets_content > :first-child > :nth-child(5),
+#extras_form .bellman_container .bellman_content > :first-child > :nth-child(5),
+#extras_form .gratuities_container .gratuities_content > :first-child > :nth-child(5) {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
+}
+
 #extras_form .bar {
     justify-content: center;
-}
-
-/* ---- Flight/Train Form ---- */
-
-#flight_train_form {
-    display: flex;
-    padding: 8px;
-    gap: 8px;
-    background-color: var(--Neutral);
-    box-shadow: var(--Shadow-default);
-    max-width: 1020px;
-}
-
-#flight_train_form .flight_tain_type_company, 
-#flight_train_form .flight_tain_route, 
-#flight_train_form .flight_tain_price_container, 
-#flight_train_form .selector_optionalbtn_container {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-}
-
-#flight_train_form .flight_tain_type_company {
-    flex: 7;
-}
-
-#flight_train_form .flight_tain_route {
-    flex: 12;
-}
-
-#flight_train_form .flight_tain_price_container {
-    flex: 6;
-}
-
-#flight_train_form .selector_optionalbtn_container {
-    flex: 2;
-}
-
-#flight_train_form > :last-child {
-    flex: 1;
-}
-
-#flight_train_form .flight_tain_type_company > :first-child {
-    flex: 2;
-}
-
-#flight_train_form .flight_tain_type_company .flight_train_selector select {
-    width: 100%;
-}
-
-#flight_train_form .flight_tain_type_company > :last-child {
-    flex: 3;
-}
-
-#flight_train_form .selector_optionalbtn_container {
-    width: 100%;
-}
-
-#flight_train_form .selector_optionalbtn_container > :first-child {
-    flex: 2;
-}
-
-#flight_train_form .selector_optionalbtn_container > :last-child {
-    flex: 1;
-}
-
-.flight_train_form_complete > :first-child {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-.flight_train_form_complete > :last-child{
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-}
-
-.flight_train_form_complete {
-    display: flex;
-    flex-direction: column;
-    max-width: 1020px;
-    margin: 8px 24px 0px 24px;
-}
-
-.flight_train_form_complete > :first-child {
-    justify-content: center;
-}
-
-.flight_train_form_complete > :nth-child(2) > :first-child {
-    margin-left: 4px;
-}
-
-.flight_train_form_complete > :nth-child(2) > :nth-child(2) {
-    margin-left: 96px;
-}
-
-.flight_train_form_complete > :nth-child(2) > :nth-child(3) {
-    margin-left: 256px;
-}
-
-.flight_train_form_complete > :nth-child(2) > :nth-child(4) {
-    margin-left: 224px;
-}
-
-.flight_train_form_complete > :nth-child(2) > :nth-child(5) {
-    margin-left: 56px;
-}
-
-.flight_train_form_complete > :nth-child(2) > :nth-child(6) {
-    margin-left: 32px;
 }
 
 /* ---- Price Tiers From Small Screen ---- */
@@ -1841,8 +1825,7 @@ footer .legal_section .legal_section_links > a {
 .price_tiers_form_complete .price_per_pax_content ,
 .price_tiers_form_complete .type_of_free_content,
 .price_tiers_form_complete .total_net_content,
-.price_tiers_form_complete .comission_content,
-.price_tiers_form_complete .price_per_pax_content {
+.price_tiers_form_complete .comission_content {
     margin-top: 8px;
     display: flex;
     flex-direction: column;
@@ -1850,10 +1833,25 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
 }
 
+.price_tiers_form_complete .price_per_pax_content > * {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
+}
+
 .price_tiers_form_complete .single_supplement_container {
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.price_tiers_form_complete .single_supplement_container .text_box {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
+}
+
+.price_tiers_form_complete .total_net_content > * {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
 }
 
 .price_tiers_form_complete .type_of_free_content > :first-child, 
@@ -1879,6 +1877,12 @@ footer .legal_section .legal_section_links > a {
 .price_tiers_form_complete .price_per_pax_container, 
 .price_tiers_form_complete .single_supplement_container {
     flex: 2;
+}
+
+.price_tiers_form_complete .comission_content > * {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
 .price_tiers_form_complete .total_net_container {
@@ -1911,6 +1915,11 @@ footer .legal_section .legal_section_links > a {
 
 .profit_margin_container .margin_content .margin_display_container > :nth-child(2) {
     flex: 1;
+}
+
+.profit_margin_container .margin_content .margin_display_container > :nth-child(3) {
+    cursor: default;
+    box-shadow: var(--Shadow-default);
 }
 
 /* ---- Details ---- */
@@ -2237,9 +2246,6 @@ footer .legal_section .legal_section_links > a {
     gap: 8px
 }
 
-
-
-
 /* ---- Itinerary ---- */
 
 #itinerary_complete {
@@ -2248,6 +2254,7 @@ footer .legal_section .legal_section_links > a {
     gap: 8px;
     margin-inline: 24px;
     padding-bottom: 16px;
+    min-height: 100vh;
 }
 
 #itinerary_complete > :last-child {
@@ -2296,25 +2303,56 @@ footer .legal_section .legal_section_links > a {
 #final_offer_complete {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     background-color: var(--Neutral);
+    box-shadow: var(--Shadow-default);
     border-radius: 8px;
-    max-width: 1020px;
+    max-width: 1024px;
     margin-inline: 24px;
     padding-bottom: 8px;
-    
 }
 
 .final_offer_page {
     display: flex;
-    padding: 56px 32px;
-    background-image: url("../src/images/final-offer-cover.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    padding: 16px;
     height: 568px;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.final_offer_page .img_search_btn {
+    display: flex;
+    align-items: center;
+    box-shadow: var(--Shadow-default);
+    width: fit-content;
+    padding: 8px;
+    gap: 8px;
+    border-radius: 10px;
+
+}
+
+.final_offer_page .img_search_btn > input:focus {
+    outline: none;
+    border: var(--Btn-clicked);
+}
+
+.final_offer_content_page {
+    display: flex;
+    padding: 16px;
+    height: 568px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.final_offer_page .img_search_btn:hover {
+    box-shadow: var(--Shadow-hover);
+}
+
+.final_offer_page h3 {
+    font-weight: 500;
+    font-size: 52px;
+    color: var(--H1-color);
+    text-transform: uppercase;
 }
 
 .final_offer_page .client_info_container {
@@ -2367,6 +2405,16 @@ footer .legal_section .legal_section_links > a {
     justify-content: center;
     border-radius: 8px;
     margin-bottom: 8px;
+}
+
+#final_offer_pricing_details .final_offer_price_tiers .single_room_supplement {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#final_offer_pricing_details .final_offer_price_tiers .single_room_supplement > :first-child {
+    border-radius: 8px;
 }
 
 /* ---- Final Offer Inclusions ---- */
@@ -2436,23 +2484,27 @@ footer .legal_section .legal_section_links > a {
 }
 
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_activities,
-#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides {
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides,
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :nth-child(2), 
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_transportation,
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_transportation > :nth-child(2),
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_tour_guide,
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_tour_guide > :nth-child(2) {
     display: flex;
     gap: 8px;
 }
 
-#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :nth-child(2){
-    display: flex;
-    gap: 8px;
-}
-
-#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :nth-child(2) p {
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :nth-child(2) p,
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_transportation > :nth-child(2) p,
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_tour_guide > :nth-child(2) p {
     border-right: 1px solid var(--P--color);
     padding-right: 8px;
 }
 
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :first-child,
-#final_offer_optional_container .final_offer_optional_content .final_offer_optional_activities > :first-child {
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_activities > :first-child,
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_transportation > :first-child,
+#final_offer_optional_container .final_offer_optional_content .final_offer_optional_tour_guide > :first-child {
     font-weight: 600;
 }
 
@@ -2545,25 +2597,26 @@ footer .legal_section .legal_section_links > a {
     margin-bottom: 8px;
 }
 
-.itinerary_content_container .itinerary_title {
+.final_offer_itinerary_container .itinerary_content_container .itinerary_title {
     display: flex;
     gap: 8px;
 }
 
-.itinerary_content_container .itinerary_title > :first-child{
+.final_offer_itinerary_container .itinerary_content_container .itinerary_title > :first-child {
     flex: 1;
     color: var(--Neutral);
     background-color: var(--Btn-clicked);
-    box-shadow: var(--Inner-Shadow-bar);
-
 }
 
-.itinerary_content_container .itinerary_title > :nth-child(2){
+.final_offer_itinerary_container .itinerary_content_container .itinerary_title > :nth-child(2) {
     flex: 5;
 }
 
-.itinerary_content_container .final_offer_itinerary_text_area {
+.final_offer_itinerary_container .itinerary_content_container .final_offer_itinerary_text_area {
+    background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
-    border-radius: 8px;
     padding: 8px;
+    border-radius: 8px;
 }
+
+

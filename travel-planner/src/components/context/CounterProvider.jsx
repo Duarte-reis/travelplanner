@@ -34,7 +34,6 @@ function CounterProvider({ children }) {
 
     const [localGuidesFormData, setLocalGuidesFormData] = useLocalStorage("localguidesformdata", [
         {
-            countryInitialsContainer: [{countryInitials:""}],
             serviceNameContainer: [{serviceName: ""}],
             price1Container: [{price1: ""}], // price per pax tier
             price2Container: [{price2: ""}], // price per pax tier
@@ -49,7 +48,6 @@ function CounterProvider({ children }) {
 
     const [activitiesFormData, setActivitiesFormData] = useLocalStorage("activitiesformdata", [
         {
-            countryContainer: [{ country: "" }],
             nameOfActivityContainer: [{ nameOfActivity: "" }],
             pricePerPersonContainer: [{ pricePerPerson: "" }],
             checkButtonContainer: [{checkButton: false}]
@@ -64,6 +62,8 @@ function CounterProvider({ children }) {
     });
 
     const [finalRrpPerTier, setFinalRrpPerTier] = useLocalStorage("finalRrpPerTier", []);
+
+    const [singleSupplementTotal, setSingleSupplementTotal] = useLocalStorage("singleSupplementTotal", []);
 
     const [hotelInclusions, setHotelInclusions] = useLocalStorage("hotelinclusions", {
         cityInclusionsContainer: hotelFormData.map(form => form.cityContainer.map((cityObj, idx) => ({
@@ -160,7 +160,6 @@ function CounterProvider({ children }) {
         const selected = localGuidesFormData.flatMap((form) => {
             if (form.checkButtonContainer[0]?.checkButton) { // Only include forms where CheckButton is checked
                 return [{ // Return an object containing relevant info
-                    countryInitials: form.countryInitialsContainer[0]?.countryInitials || "",
                     serviceName: form.serviceNameContainer[0]?.serviceName || "",
                     prices: [
                         parseFloat(form.price1Container[0]?.price1 || 0),
@@ -312,82 +311,86 @@ function CounterProvider({ children }) {
     const [checkedTourGuide, setCheckedTourGuide] = useLocalStorage("checkedtourguide", []);
 
     useEffect(() => {
-    // 1️⃣ Somar Hotel Expenses quando o selector do guia estiver "Yes"
-    const hotelExpensesTotalPerGuide = hotelFormData.reduce((sum, hotel) => {
-        const applyGuideExpenses =
-            hotel.guideSelectorContainer?.[0]?.guideSelector === "Yes";
 
-        if (applyGuideExpenses) {
-            const room = parseFloat(hotel.hotelPriceContainer[0]?.hotelPrice || 0);
-            const single = parseFloat(hotel.singleSupplementContainer[0]?.singleSupplement || 0);
-            const dinner = parseFloat(hotel.dinnerPriceContainer[0]?.dinnerPrice || 0);
-            const lunch = parseFloat(hotel.lunchPriceContainer[0]?.lunchPrice || 0);
+        const hotelExpensesTotalPerGuide = hotelFormData.reduce((sum, hotel) => {
+            const applyGuideExpenses =
+                hotel.guideSelectorContainer?.[0]?.guideSelector === "Yes";
 
-            return sum + room + single + dinner + lunch;
-        }
-        return sum;
-    }, 0);
+            if (applyGuideExpenses) {
+                const room = parseFloat(hotel.hotelPriceContainer[0]?.hotelPrice || 0);
+                const single = parseFloat(hotel.singleSupplementContainer[0]?.singleSupplement || 0);
+                const dinner = parseFloat(hotel.dinnerPriceContainer[0]?.dinnerPrice || 0);
+                const lunch = parseFloat(hotel.lunchPriceContainer[0]?.lunchPrice || 0);
 
-    // 2️⃣ Calcular apenas os formulários com Check ON
-    const selected = tourGuideFormData
-        .filter(form => form.checkButtonContainer?.[0]?.checkButton)
-        .map(form => {
+                return sum + room + single + dinner + lunch;
+            }
+            return sum;
+        }, 0);
 
-            // 3️⃣ Para cada Tier calcular preço por pax + free
-            const tourGuidePerTier = Object.values(numOfPaxData[0]).map(tier => {
-                const numOfPax = Number(tier.numOfPax) || 1;
-                const free = Number(tier.free) || 0;
+        const selected = tourGuideFormData
+            .filter(form => form.checkButtonContainer?.[0]?.checkButton)
+            .map(form => {
 
-                const guidePrice = form.multiplicationPrice.reduce(
-                    (sum, item) =>
-                        sum +
-                        (parseFloat(item.pricePerDay) || 0) *
-                        (parseFloat(item.numOfDays) || 0),
-                    0
-                );
+                const tourGuidePerTier = Object.values(numOfPaxData[0]).map(tier => {
+                    const numOfPax = Number(tier.numOfPax) || 1;
+                    const free = Number(tier.free) || 0;
 
-                const landPrice = parseFloat(
-                    form.guideLandExpensesContainer?.[0]?.guideLandExpenses || 0
-                );
+                    const guidePrice = form.multiplicationPrice.reduce(
+                        (sum, item) =>
+                            sum +
+                            (parseFloat(item.pricePerDay) || 0) *
+                            (parseFloat(item.numOfDays) || 0),
+                        0
+                    );
 
-                const mealsPrice = form.multiplicationMeals.reduce(
-                    (sum, item) =>
-                        sum +
-                        (parseFloat(item.pricePerDay) || 0) *
-                        (parseFloat(item.numOfDays) || 0),
-                    0
-                );
+                    const landPrice = parseFloat(
+                        form.guideLandExpensesContainer?.[0]?.guideLandExpenses || 0
+                    );
 
-                const accPrice = form.multiplicationAccommodation.reduce(
-                    (sum, item) =>
-                        sum +
-                        (parseFloat(item.pricePerDay) || 0) *
-                        (parseFloat(item.numOfDays) || 0),
-                    0
-                );
+                    const mealsPrice = form.multiplicationMeals.reduce(
+                        (sum, item) =>
+                            sum +
+                            (parseFloat(item.pricePerDay) || 0) *
+                            (parseFloat(item.numOfDays) || 0),
+                        0
+                    );
 
-                // Soma total para este guia
-                const totalForm =
-                    guidePrice +
-                    landPrice +
-                    mealsPrice +
-                    accPrice +
-                    hotelExpensesTotalPerGuide;
+                    const accPrice = form.multiplicationAccommodation.reduce(
+                        (sum, item) =>
+                            sum +
+                            (parseFloat(item.pricePerDay) || 0) *
+                            (parseFloat(item.numOfDays) || 0),
+                        0
+                    );
 
-                const totalPerPayingPax =
-                    Math.round((totalForm / numOfPax) * (1 + free / numOfPax));
+                    const totalForm =
+                        guidePrice +
+                        landPrice +
+                        mealsPrice +
+                        accPrice +
+                        hotelExpensesTotalPerGuide;
 
-                return totalPerPayingPax;
+                    const totalPerPayingPax =
+                        Math.round((totalForm / numOfPax) * (1 + free / numOfPax));
+
+                    return totalPerPayingPax;
+                });
+
+                return { tourGuidePerTier };
             });
 
-            return { tourGuidePerTier };
-        });
+        setCheckedTourGuide(selected);
+    }, [tourGuideFormData, hotelFormData, numOfPaxData]);
 
-    // ❗❗ ERRO ESTAVA AQUI
-    setCheckedTourGuide(selected);
-}, [tourGuideFormData, hotelFormData, numOfPaxData]);
+    const roomTypeOptions = [
+        { value: "double/twin", label: "double/twin" },
+        { value: "single room", label: "single room" }
+    ];
 
-
+    const [selectRoomType, setSelectRoomType] = useLocalStorage(
+        "selectroomtype",
+        roomTypeOptions[0]
+    );
 
     return (
         <CounterContext.Provider value={{
@@ -397,6 +400,7 @@ function CounterProvider({ children }) {
             activitiesFormData, setActivitiesFormData,
             formHeaderValues, setFormHeaderValues,
             finalRrpPerTier, setFinalRrpPerTier,
+            singleSupplementTotal, setSingleSupplementTotal,
             hotelInclusions, setHotelInclusions,
             hotelInclusionsExtras, setHotelInclusionsExtras,
             servicesInclusions, setServicesInclusions,
@@ -413,7 +417,9 @@ function CounterProvider({ children }) {
             transportationFormData, setTransportationFormData,
             checkedTransportation, setCheckedTransportation,
             tourGuideFormData, setTourGuideFormData,
-            checkedTourGuide, setCheckedTourGuide
+            checkedTourGuide, setCheckedTourGuide,
+            selectRoomType, setSelectRoomType,
+            roomTypeOptions
         }}>
             {children}
         </CounterContext.Provider>

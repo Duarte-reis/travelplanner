@@ -70,7 +70,6 @@ function ExtrasForm({
                 </div>
             </div>
 
-            {/* BELLMAN */}
             <div className="bellman_container">
                 <Bar barContent={["Bellman"]} />
                 <div className="bellman_content">
@@ -92,7 +91,6 @@ function ExtrasForm({
                 </div>
             </div>
 
-            {/* GRATUITIES */}
             <div className="gratuities_container">
                 <Bar barContent={["Gratuities"]} />
                 <div className="gratuities_content">

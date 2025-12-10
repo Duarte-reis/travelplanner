@@ -6,10 +6,15 @@ import Selector from "../Selector"
 function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSelectorContainer = [], companyContainer = [], routeContainer = [], fareContainer = [], taxContainer = [], checkButtonContainer = [], flightTrainGuideSelectorContainer = []}) {
 
     const selectFlightTrain = [
-        {value:"", label:""},
+        {value:"", label:"Flight/Train", disabled: true},
         {value:"Flight", label:"Flight"},
         {value:"Train", label:"Train"}
     ]
+
+    const guideSelector = [
+        {value:"", label:"Guide", disabled: true}, 
+        {value:"Yes", label:"Yes"}, 
+        {value:"No", label:"No"} ]
     
     return (
         <section id="flight_train_form">
@@ -26,6 +31,7 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
                     <TextBox 
                         key={index}
                         value={data.company}
+                        placeholder={"Company"}
                         onChange={(value) => updateFlightTrainFormData(formIndex, "companyContainer", "company", index, value)}
                     />
                 ))}
@@ -35,6 +41,7 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
                     <TextBox 
                         key={index}
                         value={data.route}
+                        placeholder={"Route"}
                         onChange={(value) => updateFlightTrainFormData(formIndex, "routeContainer", "route", index, value)}
                     />
                 ))}
@@ -44,6 +51,7 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
                     <TextBox 
                         key={index}
                         value={data.fare}
+                        placeholder={"Fare €"}
                         onChange={(value) => updateFlightTrainFormData(formIndex, "fareContainer", "fare", index, value)}
                     />
                 ))}
@@ -51,6 +59,7 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
                     <TextBox 
                         key={index}
                         value={data.tax}
+                        placeholder={"Tax €"}
                         onChange={(value) => updateFlightTrainFormData(formIndex, "taxContainer", "tax", index, value)}
                     />
                 ))}
@@ -59,7 +68,7 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
                 {flightTrainGuideSelectorContainer.map((data, index) => (
                     <Selector 
                         key={index}
-                        value={data.flightTrainGuideSelector}
+                        options={guideSelector}
                         onChange={(value) => updateFlightTrainFormData(formIndex,                 "flightTrainGuideSelectorContainer", "flightTrainGuideSelector", index, value)}
                     />
                 ))}
