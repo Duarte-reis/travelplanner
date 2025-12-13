@@ -68,8 +68,9 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
                 {flightTrainGuideSelectorContainer.map((data, index) => (
                     <Selector 
                         key={index}
+                        value={data.flightTrainGuideSelector}
                         options={guideSelector}
-                        onChange={(value) => updateFlightTrainFormData(formIndex,                 "flightTrainGuideSelectorContainer", "flightTrainGuideSelector", index, value)}
+                        onChange={(value) => updateFlightTrainFormData(formIndex, "flightTrainGuideSelectorContainer", "flightTrainGuideSelector", index, value)}
                     />
                 ))}
             </div>

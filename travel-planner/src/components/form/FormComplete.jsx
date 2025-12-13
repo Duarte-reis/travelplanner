@@ -488,7 +488,7 @@ function FormComplete() {
         <section id="form_complete">
             <div className="hotel_form_complete">
                 <Bar 
-                    barContent= {["Hotel"]}
+                    barContent= {["Accommodation and meals"]}
                 />
                 
                 {hotelFormData.map((form, index) => (

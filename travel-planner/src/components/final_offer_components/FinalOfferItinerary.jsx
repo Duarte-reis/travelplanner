@@ -1,22 +1,106 @@
 import "../../index.css";
 import Bar from "../Bar";
 import TextBox from "../TextBox";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CounterContext } from "../context/CounterContext";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import defaultImg from "../../images/final-offer-cover.png";
 
 function FinalOfferItinerary() {
     const { hotelFormData, globalItineraries } = useContext(CounterContext);
+
+    const [images, setImages] = useLocalStorage("images", [
+        defaultImg,
+        defaultImg,
+        defaultImg,
+        defaultImg,
+    ]);
+
+    const updateImages = (index, url) => {
+        const updated = [...images];
+        updated[index] = url;
+        setImages(updated);
+    };
+
+    const [activeSearchIndex, setActiveSearchIndex] = useState(null);
+    const [unsplashSearch, setUnsplashSearch] = useState("");
+    const [unsplashResults, setUnsplashResults] = useState([]);
+
+    const handleUnsplashSearch = () => {
+        if (!unsplashSearch) return;
+        fetch(`https://api.unsplash.com/search/photos?query=${encodeURIComponent(unsplashSearch)}&client_id=uaoBiXZyWkF3HB6wReVardjcEZe6qT8O-a1-0ZnLAq8`)
+            .then((response) => response.json())
+            .then((result) => setUnsplashResults(result.results || []));
+    };
+
+    const handleUnsplashSelect = (url, index) => {
+        updateImages(index, url);
+        setUnsplashResults([]);
+        setUnsplashSearch("");
+        setActiveSearchIndex(null);
+    };
+
+    const handleCloseSearch = () => {
+        setUnsplashResults([]);
+        setUnsplashSearch("");
+        setActiveSearchIndex(null);
+    };
 
     return (
         <div className="final_offer_itinerary_container">
             <Bar barContent={["Itinerary"]} />
 
             <div className="final_offer_itinerary_pictures">
-                <img src="../src/images/final-offer-cover.png" alt="destination image" />
-                <img src="../src/images/final-offer-cover.png" alt="destination image" />
-                <img src="../src/images/final-offer-cover.png" alt="destination image" />
-                <img src="../src/images/final-offer-cover.png" alt="destination image" />
+                {images.map((img, index) => (
+                    <div key={index} className="itinerary_img_wrapper">
+                        <img src={img} alt={`itinerary ${index}`} />
+
+                        <button
+                            className="itinerary_img_search_btn"
+                            onClick={() =>
+                                setActiveSearchIndex(activeSearchIndex === index ? null : index)
+                            }
+                        >
+                            <img src="./src/images/magnify.svg" alt="search button" />
+                        </button>
+                    </div>
+                ))}
             </div>
+
+            {activeSearchIndex !== null && (
+                <>
+                    <div className="itinerary_unsplash_modal_overlay" onClick={handleCloseSearch}></div>
+
+                    <div className="unsplash_modal">
+                        <div className="itinerary_search_container">
+                            <div className="itinerary_search_field">
+                                <input
+                                    type="text"
+                                    placeholder="Search image"
+                                    value={unsplashSearch}
+                                    onChange={(e) => setUnsplashSearch(e.target.value)}
+                                    onKeyDown={(e) => e.key === "Enter" && handleUnsplashSearch()}
+                                    className="itinerary_img_search_input"
+                                />
+                                <button className="itinerary_close_search_btn" onClick={handleCloseSearch}>
+                                    <img src="./src/images/close.svg" alt="close search" />
+                                </button>
+                            </div>
+                            
+                            <div className="itinerary_unsplash_results">
+                            {unsplashResults.map((image) => (
+                                <img
+                                    key={image.id}
+                                    src={image.urls.thumb}
+                                    className="itinerary_unsplash_thumb"
+                                    onClick={() => handleUnsplashSelect(image.urls.regular, activeSearchIndex)}
+                                />
+                            ))}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
 
             <div className="final_offer_itinerary_content">
                 {hotelFormData.map((hotelForm, formIndex) => {
@@ -31,18 +115,11 @@ function FinalOfferItinerary() {
                                 return (
                                     <div key={dayIdx} className="itinerary_content_container">
                                         <div className="itinerary_title">
-                                            <TextBox
-                                                value={`Day: ${dayObj.date}`}
-                                                readOnly
-                                            />
-                                            <TextBox
-                                                value={dayData.itineraryTitle || ""}
-                                                readOnly
-                                            />
+                                            <TextBox value={`Day: ${dayObj.date}`} readOnly />
+                                            <TextBox value={dayData.itineraryTitle || ""} readOnly />
                                         </div>
-
                                         <div className="final_offer_itinerary_text_area">
-                                            <p> {dayData.itineraryDescription || ""} </p>
+                                            <p>{dayData.itineraryDescription || ""}</p>
                                         </div>
                                     </div>
                                 );

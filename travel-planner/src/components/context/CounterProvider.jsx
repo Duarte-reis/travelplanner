@@ -66,7 +66,7 @@ function CounterProvider({ children }) {
     const [singleSupplementTotal, setSingleSupplementTotal] = useLocalStorage("singleSupplementTotal", []);
 
     const [hotelInclusions, setHotelInclusions] = useLocalStorage("hotelinclusions", {
-        cityInclusionsContainer: hotelFormData.map(form => form.cityContainer.map((cityObj, idx) => ({
+                cityInclusionsContainer: hotelFormData.map(form => form.cityContainer.map((cityObj, idx) => ({
                 city: cityObj.city || "",
                 hotel: form.hotelContainer[idx]?.hotel || ""
             })))
