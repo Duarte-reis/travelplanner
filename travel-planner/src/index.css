@@ -2412,7 +2412,6 @@ footer .legal_section .legal_section_links > a {
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
     border-radius: 8px;
-    max-width: 1024px;
     margin-inline: 24px;
     padding-bottom: 16px;
 }
@@ -2639,6 +2638,12 @@ footer .legal_section .legal_section_links > a {
     border-radius: 8px;
 }
 
+#final_offer_inclusions_container .final_offer_inclusions_content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 #final_offer_inclusions_container .final_offer_inclusions_content .city_hotel_inclusions_container {
     display: flex;
     gap: 8px;
@@ -2685,6 +2690,7 @@ footer .legal_section .legal_section_links > a {
 }
 
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_activities,
+#final_offer_optional_container .final_offer_optional_content .final_offer_inclusions_supplement,
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides,
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :nth-child(2), 
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_transportation,
@@ -2703,6 +2709,7 @@ footer .legal_section .legal_section_links > a {
 }
 
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_local_guides > :first-child,
+#final_offer_optional_container .final_offer_optional_content .final_offer_inclusions_supplement > :first-child,
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_activities > :first-child,
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_transportation > :first-child,
 #final_offer_optional_container .final_offer_optional_content .final_offer_optional_tour_guide > :first-child {
@@ -3074,4 +3081,35 @@ footer .legal_section .legal_section_links > a {
     .hotel_extras_city_tax > :first-child {
         width: 120px;
     }
+
+    .dates_container .border_top {
+        bottom: 104px;
+        border: 4px solid var(--Neutral);
+        left: 48px;
+        width: 310px;
+    }
+
+    .dates_container .border_bottom {
+        border: 4px solid var(--Neutral);   
+        position: absolute;
+        top: 104px;
+        right: 45px;
+        width: 320px;
+    }
+
+    .dates_container .border_right {
+        border: 4px solid var(--Neutral);
+        position: absolute;
+        bottom: 56px;
+        left: 358px;
+        height: 56px;
+    }
+
+.dates_container .border_left {
+    border: 5px solid var(--Neutral);
+    position: absolute;
+    top: 56px;
+    right: 358px;
+    height: 56px;
+}
 }

@@ -5,6 +5,7 @@ import { CounterContext } from "../context/CounterContext"
 
 function FinalOfferOptional() {
     const { 
+        hotelInclusionsExtras,
         checkedActivities, 
         checkedLocalGuides, 
         numOfPaxData, 
@@ -25,6 +26,13 @@ function FinalOfferOptional() {
             </div>
 
             <div className="final_offer_optional_content">
+
+                {hotelInclusionsExtras.supplement?.supplementSelector && ( /* optional chaining to avoid crash if supplement or its properties are undefined */
+                    <div className="final_offer_inclusions_supplement">
+                        <p>Supplement:</p>
+                        <p>{hotelInclusionsExtras.supplement?.supplementText}: {hotelInclusionsExtras.supplement?.supplementTotal}€ per person</p>
+                    </div>
+                )}
 
                 {checkedActivities.map((activity, index) => (
                     <div key={index} className="final_offer_optional_activities">

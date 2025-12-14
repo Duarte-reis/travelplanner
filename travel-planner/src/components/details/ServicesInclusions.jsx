@@ -61,6 +61,7 @@ function ServicesInclusions() {
         { value: "", label: "Free description", disabled: true },
         { value: "Free description in: double/twin", label: "Free description in: double/twin" },
         { value: "Free description in: single", label: "Free description in: single" },
+        { value: "Free description: no", label: "Free description: no" },
     ];
 
     const childDiscount = [
@@ -304,7 +305,7 @@ function ServicesInclusions() {
                                 ...servicesInclusions,
                                 freeInclusionsContainer: {
                                     freeSelector: value,
-                                    freeText: value === "Free description in: double/twin" ? "Frees apply per half double/twin room" : value === "Free description in: single" ? "Frees apply per single room" : ""
+                                    freeText: value === "Free description in: double/twin" ? "Frees apply per half double/twin room" : value === "Free description in: single" ? "Frees apply per single room" : value === "Free description: no" ? "" : ""
                                 }
                             })
                         }

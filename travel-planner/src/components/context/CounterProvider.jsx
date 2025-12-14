@@ -66,7 +66,7 @@ function CounterProvider({ children }) {
     const [singleSupplementTotal, setSingleSupplementTotal] = useLocalStorage("singleSupplementTotal", []);
 
     const [hotelInclusions, setHotelInclusions] = useLocalStorage("hotelinclusions", {
-                cityInclusionsContainer: hotelFormData.map(form => form.cityContainer.map((cityObj, idx) => ({
+            cityInclusionsContainer: hotelFormData.map(form => form.cityContainer.map((cityObj, idx) => ({
                 city: cityObj.city || "",
                 hotel: form.hotelContainer[idx]?.hotel || ""
             })))
@@ -98,7 +98,7 @@ function CounterProvider({ children }) {
         mealPlan: {mealPlanSelector: "", mealPlanText: ""},
         beverages: {beveragesSelector: "", beveragesText: ""},
         bellman: {bellmanSelector: "", bellmanText: ""},
-        supplement: {supplementSelector: "", multiplication: { pricePerDay: 0, numOfDays: 0 }, supplementText: ""}
+        supplement: {supplementSelector: "", multiplication: { pricePerDay: 0, numOfDays: 0 }, supplementText: "", supplementTotal: 0}
     })
 
     const [servicesInclusions, setServicesInclusions] = useLocalStorage("servicenclusions", {

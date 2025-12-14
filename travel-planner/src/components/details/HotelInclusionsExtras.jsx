@@ -185,16 +185,23 @@ function HotelInclusionsExtras() {
                 <Multiplication
                     data={hotelInclusionsExtras.supplement.multiplication}
                     updateMultiplicationData={(field, value) => {
-                    setHotelInclusionsExtras({
-                        ...hotelInclusionsExtras,
-                        supplement: {
-                            ...hotelInclusionsExtras.supplement,
-                            multiplication: {
-                                ...hotelInclusionsExtras.supplement.multiplication,
-                                [field]: value
-                        }
-                        }
-                    });
+                        const updatedMultiplication = {
+                            ...hotelInclusionsExtras.supplement.multiplication,
+                            [field]: value
+                        };
+
+                        const price = Number(updatedMultiplication.pricePerDay) || 0;
+                        const days = Number(updatedMultiplication.numOfDays) || 0;
+                        const total = price * days;
+
+                        setHotelInclusionsExtras({
+                            ...hotelInclusionsExtras,
+                            supplement: {
+                                ...hotelInclusionsExtras.supplement,
+                                multiplication: updatedMultiplication,
+                                supplementTotal: total
+                            }
+                        });
                     }}
                 />
 

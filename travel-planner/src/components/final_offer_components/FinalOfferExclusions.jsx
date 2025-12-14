@@ -17,78 +17,79 @@ function FinalOfferExclusions() {
                 />
             </div>
             <div className="final_offer_exclusions_content">
-                {hotelInclusionsExtras.cityTax === "No" && (
+                {hotelInclusionsExtras.cityTax === "City Tax: No" && (
                     <div className="final_offer_exclusions_city_tax">
                         <p>City Tax</p>
                     </div>
                 )}
-                {hotelInclusionsExtras.beverages.beveragesSelector === "No" && (
+                {hotelInclusionsExtras.beverages.beveragesSelector === "Beverages: No" && (
                     <div className="final_offer_exclusions_beverages">
                         <p>Beverages</p>
                     </div>
                 )}
 
-                {hotelInclusionsExtras.bellman.bellmanSelector === "No" && (
+                {hotelInclusionsExtras.bellman.bellmanSelector === "Bellman: No" && (
                     <div className="final_offer_exclusions_bellman">
                         <p>Bellman</p>
                     </div>
                 )}
 
-                {servicesInclusions.transportationInclusionsContainer?.transportationSelector === "No" && (
+                {servicesInclusions.transportationInclusionsContainer?.transportationSelector === "Transportation: No" && (
                     <div className="final_offer_exclusions_transportation">
                         <p>Transportation</p>
                     </div>    
                 )}
 
-                {servicesInclusions.guideInclusionsContainer?.guideSelector === "No" && (
+                {servicesInclusions.guideInclusionsContainer?.guideSelector === "Tour Guide: No" && (
                     <div className="final_offer_exclusions_tour_guide">
                         <p>Tour Guide</p>
                     </div>    
                 )}
 
-                {servicesInclusions.flightInclusionsContainer?.flightSelector === "No" && (
+                {servicesInclusions.flightInclusionsContainer?.flightSelector === "Flights: No" && (
                     <div className="final_offer_exclusions_flights">
                         <p>Flights</p>
                     </div>    
                 )}
 
-                {servicesInclusions.trainInclusionsContainer?.trainSelector === "No" && (
+                {servicesInclusions.trainInclusionsContainer?.trainSelector === "Train: No" && (
                     <div className="final_offer_exclusions_train">
                         <p>Train</p>
                     </div>    
                 )}
 
-                {servicesInclusions.localGuidesInclusionsContainer?.localGuidesSelector === "No" && (
+                {servicesInclusions.localGuidesInclusionsContainer?.localGuidesSelector === "Local Guides: No" && (
                     <div className="final_offer_exclusions_train">
                         <p>Local Guides</p>
                     </div>    
                 )}
 
-                <p>Entrance fees not mentioned in "The price includes"</p>
-
-                {servicesInclusions.headsetsInclusionsContainer?.headsetsSelector === "No" && (
+                {servicesInclusions.headsetsInclusionsContainer?.headsetsSelector === "Headsets: No" && (
                     <div className="final_offer_exclusions_headsets">
                         <p>Headsets</p>
                     </div>    
                 )}
 
-                {servicesInclusions.gratuitiesInclusionsContainer?.gratuitiesSelector === "No" && (
+                {servicesInclusions.gratuitiesInclusionsContainer?.gratuitiesSelector === "Gratuities: No" && (
                     <div className="final_offer_exclusions_gratuities">
                         <p>Gratuities</p>
                     </div>    
                 )}
 
-                {servicesInclusions.freeInclusionsContainer?.freeSelector === "No" && (
+                {servicesInclusions.freeInclusionsContainer?.freeSelector === "Free description: no" && (
                     <div className="final_offer_inclusions_free">
                         <p>Frees</p>
                     </div>    
                 )}
 
-                {servicesInclusions.childDiscountInsclusionsContainer?.childDiscountSelector === "No" && (
+                {servicesInclusions.childDiscountInsclusionsContainer?.childDiscountSelector === "Child discount description: No" && (
                     <div className="final_offer_inclusions_child_discount">
                         <p>Child discount</p>
                     </div>    
                 )}
+
+                <p>Entrance fees not mentioned in "The price includes"</p>
+
 
             </div>
         </section>
