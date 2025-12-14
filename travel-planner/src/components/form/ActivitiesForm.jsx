@@ -11,6 +11,7 @@ function ActivitiesForm({formIndex, nameOfActivityContainer = [], pricePerPerson
           <TextBox 
             key={index}
             value={data.nameOfActivity}
+            placeholder={"Name"}
             onChange={(value) => updateActivityField(formIndex, "nameOfActivityContainer", "nameOfActivity", index, value)}
           />
         ))}
@@ -21,6 +22,7 @@ function ActivitiesForm({formIndex, nameOfActivityContainer = [], pricePerPerson
           <TextBox 
             key={index}
             value={data.pricePerPerson}
+            placeholder={"€"}
             onChange={(value) => updateActivityField(formIndex, "pricePerPersonContainer", "pricePerPerson", index, value)}
           />
         ))}

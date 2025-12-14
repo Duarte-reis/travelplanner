@@ -570,7 +570,7 @@ function FormComplete() {
             <div className="activities_transportation_form_complete">
                 <div className="activities_form_complete">
                     <Bar 
-                        barContent = {["Activities"]}
+                        barContent = {["Admissions included"]}
                     />
                     {activitiesFormData.map((form, index) => (
                         <ActivitiesForm 
@@ -696,7 +696,7 @@ function FormComplete() {
 
                 <div className="profit_margin_container">
                     <Bar 
-                        barContent = {["Margin"]}
+                        barContent = {["Profit Margin"]}
                     />    
                     <div className="margin_content">
                         {finalNetPerPayingPaxArray.map((_, idx) => (
@@ -717,7 +717,7 @@ function FormComplete() {
 
                 <div className="client_comission_container">
                     <Bar 
-                        barContent = {["Comission"]}
+                        barContent = {["Client Comission"]}
                     />    
                     <div className="comission_content">
                         {finalNetPerPayingPaxArray.map((_, idx) => (
@@ -737,7 +737,7 @@ function FormComplete() {
                 </div>    
                 <div className="price_per_pax_container">
                     <Bar 
-                        barContent = {["Price"]}
+                        barContent = {["RRP"]}
                     />    
                     <div className="price_per_pax_content">
                         {finalRrpPerTier.map((rrpValue, idx) => (
@@ -752,7 +752,7 @@ function FormComplete() {
                 </div>
                 <div className="single_supplement_container">
                     <Bar 
-                        barContent = {["Single"]}
+                        barContent = {["S. Single"]}
                     />
                     {Object.values(numOfPaxData[0]).map((tier, idx) => (
                         <TextBox

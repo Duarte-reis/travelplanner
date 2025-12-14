@@ -303,6 +303,15 @@ textarea:focus {
 
 #free_button {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+}
+
+#free_button .sgl_free,
+#free_button .twin_free {
+    display: flex;
+    align-items: center;
     gap: 8px;
 }
 
@@ -312,7 +321,7 @@ textarea:focus {
 }
 
 #free_button #optional_button.active::after {
-    content: "✔️"; /* Replaces "Yes with emoji"*/
+    content: "✔️"; /* Replaces "Yes with emoji */
     color: black;
     position: absolute;
     left: 50%;
@@ -1402,7 +1411,8 @@ footer .legal_section .legal_section_links > a {
     justify-content: center;
 }
 
-.hotel_form_complete > :last-child, .local_guides_form_complete > :last-child {
+.hotel_form_complete > :last-child, 
+.local_guides_form_complete > :last-child {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
@@ -1495,12 +1505,12 @@ footer .legal_section .legal_section_links > a {
     padding: 8px;
 }
 
-#tour_guide_form .price_container > :last-child {
-    flex: 1;
-}
-
 #tour_guide_form .price_container > :first-child {
     flex: 6;
+}
+
+#tour_guide_form .price_container > :last-child {
+    flex: 1;
 }
 
 #tour_guide_form > .price_container > :first-child > :nth-child(1),
@@ -1832,7 +1842,6 @@ footer .legal_section .legal_section_links > a {
 .price_tiers_form_complete .total_net_content,
 .price_tiers_form_complete .margin_content,
 .price_tiers_form_complete .price_per_pax_content ,
-.price_tiers_form_complete .type_of_free_content,
 .price_tiers_form_complete .total_net_content,
 .price_tiers_form_complete .comission_content {
     margin-top: 8px;
@@ -1863,43 +1872,46 @@ footer .legal_section .legal_section_links > a {
     box-shadow: var(--Shadow-default);
 }
 
-.price_tiers_form_complete .type_of_free_content > :first-child, 
-.price_tiers_form_complete .type_of_free_content > :nth-child(2), 
-.price_tiers_form_complete .type_of_free_content > :nth-child(3), 
-.price_tiers_form_complete .type_of_free_content > :nth-child(4), 
-.price_tiers_form_complete .type_of_free_content > :nth-child(5), 
-.price_tiers_form_complete .type_of_free_content > :nth-child(6), 
-.price_tiers_form_complete .type_of_free_content > :nth-child(7) { 
-    height: 32px;
-    display: flex;
-    align-items: center;
-}
-
 .price_tiers_form_complete .bar {
     border-radius: 8px;
     justify-content: center;
 }
 
-.price_tiers_form_complete .pax_plus_free_container,
-.price_tiers_form_complete .type_of_free_container,
-.price_tiers_form_complete .client_comission_container,
-.price_tiers_form_complete .price_per_pax_container, 
-.price_tiers_form_complete .single_supplement_container {
+.price_tiers_form_complete .total_net_container,
+.price_tiers_form_complete .type_of_free_container {
     flex: 2;
+}
+
+.price_tiers_form_complete .pax_plus_free_container,
+.price_tiers_form_complete .profit_margin_container {
+    flex: 3;
+}
+
+.price_tiers_form_complete .price_per_pax_container {
+    flex: 2;
+}
+
+.price_tiers_form_complete .client_comission_container,
+.price_tiers_form_complete .single_supplement_container {
+    flex: 1;
+}
+
+
+.price_tiers_form_complete .profit_margin_container > :first-child,
+.price_tiers_form_complete .client_comission_container > :first-child,
+.price_tiers_form_complete .single_supplement_container > :first-child {
+    white-space: nowrap;
+}
+
+.type_of_free_container {
+    display: flex;
+    flex-direction: column;
 }
 
 .price_tiers_form_complete .comission_content > * {
     display: flex;
     gap: 8px;
     align-items: center;
-}
-
-.price_tiers_form_complete .total_net_container {
-    flex: 1;
-}
-
-.price_tiers_form_complete .profit_margin_container {
-    flex: 2;
 }
 
 .price_tiers_form_complete .margin_content * > :first-child,
@@ -1919,10 +1931,6 @@ footer .legal_section .legal_section_links > a {
 }
 
 .profit_margin_container .margin_content .margin_display_container > :first-child {
-    flex: 2;
-}
-
-.profit_margin_container .margin_content .margin_display_container > :nth-child(2) {
     flex: 1;
 }
 
@@ -2881,6 +2889,34 @@ footer .legal_section .legal_section_links > a {
 
     #flight_train_form .flight_tain_price_container {
         flex: 7;
+    }
+
+    .price_tiers_form_complete .type_of_free_container,
+    .price_tiers_form_complete .total_net_container {
+        flex: 1;
+    }
+
+    .price_tiers_form_complete .profit_margin_container,
+    .price_tiers_form_complete .client_comission_container {
+        flex: 3;
+    }
+
+    #local_guides_form .type_of_service {
+        flex: 7;
+    }
+
+    #transportation_form_container .transportation_form > :first-child{
+        flex: 8;
+    }
+
+    #extras_form .headsets_container .headsets_content > :first-child, 
+    #extras_form .bellman_container .bellman_content > :first-child,
+    #extras_form .gratuities_container .gratuities_content > :first-child {
+        flex: 9;
+    }
+
+    .price_tiers_form_complete .total_net_container {
+        flex: 3;
     }
 
 }

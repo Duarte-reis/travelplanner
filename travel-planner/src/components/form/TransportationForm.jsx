@@ -15,6 +15,7 @@ function TransportationForm({formIndex, updateTransportationData, priceOfVehicle
                     <div key={index} className="transportation_vehicle_container">
                         <TextBox 
                             value={data.typeOfVehicle}
+                            placeholder={"Vehicle type"}
                             onChange={(value) =>
                                 updateTransportationData(formIndex, "priceOfVehicleContainer", "typeOfVehicle", index, value)
                             }
