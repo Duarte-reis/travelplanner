@@ -98,7 +98,7 @@ function CounterProvider({ children }) {
         mealPlan: {mealPlanSelector: "", mealPlanText: ""},
         beverages: {beveragesSelector: "", beveragesText: ""},
         bellman: {bellmanSelector: "", bellmanText: ""},
-        supplement: {supplementSelector: "", multiplication:"", supplementText: ""}
+        supplement: {supplementSelector: "", multiplication: { pricePerDay: 0, numOfDays: 0 }, supplementText: ""}
     })
 
     const [servicesInclusions, setServicesInclusions] = useLocalStorage("servicenclusions", {

@@ -7,25 +7,81 @@ import { CounterContext } from "../context/CounterContext"
 
 function ServicesInclusions() {
 
-    const { localGuidesFormData } = useContext(CounterContext)
+    const { localGuidesFormData, activitiesFormData, servicesInclusions, setServicesInclusions} = useContext(CounterContext)
 
-    const { activitiesFormData } = useContext(CounterContext)
+    const transportation = [
+        { value: "", label: "Transportation", disabled: true },
+        { value: "Transportation: Yes", label: "Transportation: Yes" },
+        { value: "Transportation: No", label: "Transportation: No" },
+    ];
 
-    const { servicesInclusions, setServicesInclusions } = useContext(CounterContext)
+    const tourGuide = [
+        { value: "", label: "Tour Guide", disabled: true },
+        { value: "Tour Guide: Yes", label: "Tour Guide: Yes" },
+        { value: "Tour Guide: No", label: "Tour Guide: No" },
+    ];
+
+    const flights = [
+        { value: "", label: "Flights", disabled: true },
+        { value: "Flights: Yes", label: "Flights: Yes" },
+        { value: "Flights: No", label: "Flights: No" },
+    ];
+
+    const train = [
+        { value: "", label: "Train", disabled: true },
+        { value: "Train: Yes", label: "Train: Yes" },
+        { value: "Train: No", label: "Train: No" },
+    ];
+
+    const localGuides = [
+        { value: "", label: "Local Guides", disabled: true },
+        { value: "Local Guides: Yes", label: "Local Guides: Yes" },
+        { value: "Local Guides: No", label: "Local Guides: No" },
+    ];
+
+    const admissions = [
+        { value: "", label: "Admissions", disabled: true },
+        { value: "Admissions: Yes", label: "Admissions: Yes" },
+        { value: "Admissions: No", label: "Admissions: No" },
+    ];
+
+    const headsets = [
+        { value: "", label: "Headsets", disabled: true },
+        { value: "Headsets: Yes", label: "Headsets: Yes" },
+        { value: "Headsets: No", label: "Headsets: No" },
+    ];
+
+    const gratuities = [
+        { value: "", label: "Gratuities", disabled: true },
+        { value: "Gratuities: Yes", label: "Gratuities: Yes" },
+        { value: "Gratuities: No", label: "Gratuities: No" },
+    ];
+
+    const freeDescription = [
+        { value: "", label: "Free description", disabled: true },
+        { value: "Free description in: double/twin", label: "Free description in: double/twin" },
+        { value: "Free description in: single", label: "Free description in: single" },
+    ];
+
+    const childDiscount = [
+        { value: "", label: "Child discount description", disabled: true },
+        { value: "Child discount description: Yes", label: "Child discount description: Yes" },
+        { value: "Child discount description: No", label: "Child discount description: No" },
+    ];
 
     return (
         <section id="services_inclusions">
             <div className="transportation_tour_guide_line">
                 <div className="transportation_inclusions">
-                    <p>Transportation:</p>
-                    <Selector 
+                    <Selector
+                        options={transportation} 
                         value={servicesInclusions.transportationInclusionsContainer?.transportationSelector || ""}
                             onChange={(value) =>
                                 setServicesInclusions ({
                                     ...servicesInclusions,
                                             transportationInclusionsContainer: {
                                                 transportationSelector: value,
-                                                transportationText: value === "Yes" ? "Tourist bus included for the entire tour, with driver expenses included." : ""
+                                                transportationText: value === "Transportation: Yes" ? "Tourist bus included for the entire tour, with driver expenses included." : ""
                                             }
                                 })
                             }
@@ -44,15 +100,15 @@ function ServicesInclusions() {
                     />
                 </div>
                 <div className="tour_guide_inclusions">
-                    <p>Guide:</p>
-                    <Selector 
+                    <Selector
+                        options={tourGuide} 
                         value={servicesInclusions.guideInclusionsContainer?.guideSelector}
                         onChange={(value) =>
                             setServicesInclusions ({
                                 ...servicesInclusions,
                                     guideInclusionsContainer: {
                                         guideSelector: value,
-                                        guideText: value === "Yes" ? "Tour Guide for the entire tour with expenses included" : ""
+                                        guideText: value === "Tour Guide: Yes" ? "Tour Guide for the entire tour with expenses included" : ""
                                     }
                             })
 
@@ -74,15 +130,15 @@ function ServicesInclusions() {
 
             <div className="flights_train_line">
                 <div className="flights_inclusions">
-                    <p>Flights:</p>
                     <Selector 
+                        options={flights}
                         value={servicesInclusions.flightInclusionsContainer?.flightSelector}
                         onChange={(value) =>
                             setServicesInclusions ({
                                 ...servicesInclusions,
                                     flightInclusionsContainer: {
                                         flightSelector: value,
-                                        flightText: value === "Yes" ? "Flights included as mentioned in the itinerary" : ""
+                                        flightText: value === "Flights: Yes" ? "Flights included as mentioned in the itinerary" : ""
                                     }
                             })
                         }
@@ -101,15 +157,15 @@ function ServicesInclusions() {
                     />
                 </div>
                 <div className="train_inclusions">
-                    <p>Train:</p>
                     <Selector 
+                        options={train}
                         value={servicesInclusions.trainInclusionsContainer?.trainSelector}
                         onChange={(value) =>
                             setServicesInclusions ({
                                 ...servicesInclusions,
                                 trainInclusionsContainer: {
                                     trainSelector: value,
-                                    trainText: value === "Yes" ? "Train included as mentioned in the itinerary" : ""
+                                    trainText: value === "Train: Yes" ? "Train included as mentioned in the itinerary" : ""
                                 }
                             })
                         }
@@ -129,15 +185,15 @@ function ServicesInclusions() {
             </div>
 
             <div className="local_guides_line">
-                <p>Local Guides:</p>
-                <Selector 
-                    value={servicesInclusions.localGuidesInclusionsContainer?.localGuidesSelector}
+                <Selector
+                    options={localGuides} 
+                    value={servicesInclusions.localGuidesInclusionsContainer?.localGuidesSelector || ""}
                     onChange={(value) =>
                         setServicesInclusions ({
                             ...servicesInclusions,
                             localGuidesInclusionsContainer: {
                                 localGuidesSelector: value,
-                                localGuidesText: value === "Yes" ? localGuidesFormData
+                                localGuidesText: value === "Local Guides: Yes" ? localGuidesFormData
                                     .map(item => item.serviceNameContainer[0].serviceName)
                                     .join(" | ") : "" || "" // .join puts all serviceName in one string separated by "|"
                             }
@@ -145,7 +201,7 @@ function ServicesInclusions() {
                     }
                 />
                 <TextBox 
-                    value={servicesInclusions.localGuidesInclusionsContainer?.localGuidesText}
+                    value={servicesInclusions.localGuidesInclusionsContainer?.localGuidesText || ""}
                     onChange={(value) => 
                         setServicesInclusions ({
                             ...servicesInclusions,
@@ -158,15 +214,15 @@ function ServicesInclusions() {
             </div>
 
             <div className="activities_line">
-                <p>Activities:</p>
-                <Selector 
+                <Selector
+                    options={admissions} 
                     value={servicesInclusions.activitiesInclusionsContainer?.activitiesSelector}
                     onChange={(value) =>
                         setServicesInclusions ({
                             ...servicesInclusions,
                             activitiesInclusionsContainer: {
                                 activitiesSelector: value,
-                                activitiesText: value === "Yes" ? activitiesFormData.map(item => item.nameOfActivityContainer[0].nameOfActivity). join(" | ") : "" || ""
+                                activitiesText: value === "Admissions: Yes" ? activitiesFormData.map(item => item.nameOfActivityContainer[0].nameOfActivity). join(" | ") : "" || ""
                             }
                         })
                     }
@@ -186,15 +242,15 @@ function ServicesInclusions() {
 
             <div className="headsets_gratuities_line">
                 <div className="headsets_inclusions">
-                    <p>Headsets:</p>
-                    <Selector 
+                    <Selector
+                        options={headsets} 
                         value={servicesInclusions.headsetsInclusionsContainer?.headsetsSelector}
                         onChange={(value) =>
                             setServicesInclusions ({
                                 ...servicesInclusions,
                                 headsetsInclusionsContainer: {
                                     headsetsSelector: value,
-                                    headsetsText: value === "Yes" ? "Headsets included for the visits" : ""
+                                    headsetsText: value === "Headsets: Yes" ? "Headsets included for the visits" : ""
                                 }
                             })
                         }
@@ -212,15 +268,15 @@ function ServicesInclusions() {
                     />
                 </div>
                 <div className="gratuities_inclusions">
-                    <p>Gratuities:</p>
-                    <Selector 
+                    <Selector
+                        options={gratuities} 
                         value={servicesInclusions.gratuitiesInclusionsContainer?.gratuitiesSelector}
                         onChange={(value) => 
                             setServicesInclusions ({
                                 ...servicesInclusions,
                                 gratuitiesInclusionsContainer: {
                                     gratuitiesSelector: value,
-                                    gratuitiesText: value === "Yes" ? "Gratuities included" : ""
+                                    gratuitiesText: value === "Gratuities: Yes" ? "Gratuities included" : ""
                                 }
                             })
                         }
@@ -240,15 +296,15 @@ function ServicesInclusions() {
             </div>
             <div className="free_description_child_discount_line">
                 <div className="free_description">
-                    <p>Free description:</p>
-                    <Selector 
+                    <Selector
+                        options={freeDescription} 
                         value={servicesInclusions.freeInclusionsContainer?.freeSelector}
                         onChange={(value) => 
                             setServicesInclusions ({
                                 ...servicesInclusions,
                                 freeInclusionsContainer: {
                                     freeSelector: value,
-                                    freeText: value === "Yes" ? "Frees apply per half double/twin room" : ""
+                                    freeText: value === "Free description in: double/twin" ? "Frees apply per half double/twin room" : value === "Free description in: single" ? "Frees apply per single room" : ""
                                 }
                             })
                         }
@@ -267,15 +323,15 @@ function ServicesInclusions() {
                 </div>
                 
                 <div className="child_discount">
-                    <p>Child discount:</p>
-                    <Selector 
+                    <Selector
+                        options={childDiscount} 
                         value={servicesInclusions.childDiscountInsclusionsContainer?.childDiscountSelector}
                         onChange={(value) => 
                             setServicesInclusions ({
                                 ...servicesInclusions,
                                 childDiscountInsclusionsContainer: {
                                     childDiscountSelector: value,
-                                    childDiscountText: value === "Yes" ? "Until 12 years old: 50% off" : ""
+                                    childDiscountText: value === "Child discount description: Yes" ? "Until 12 years old: 50% off" : ""
                                 }
                             })
                         }
@@ -295,8 +351,8 @@ function ServicesInclusions() {
             </div>
 
             <div className="notes_container">
-                <p>Notes:</p>
-                <TextArea 
+                <TextArea
+                    placeholder={"Notes:"} 
                     value={servicesInclusions.notesInclusionsContainer?.notesText}
                     onChange={(value) =>
                         setServicesInclusions ({

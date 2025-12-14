@@ -485,6 +485,7 @@ li {
 /* ---- Selector ---- */
 
 .selector_dropdown select {
+    display: flex;
     -webkit-appearance: none;
     appearance: none;
     background-image: url("./images/chevron-down.svg");
@@ -519,7 +520,106 @@ li {
 
 .meal_plan_selector select {
     width: 100%;
-    background-image: url("");
+}
+
+.hotel_extras_meal_plan > :first-child {
+    width: 136px;
+}
+
+/* ---- Beverages Selector ---- */
+
+.hotel_extras_beverages > :first-child {
+    width: 288px;
+}
+
+/* ---- Bellman Selector ---- */
+
+.hotel_extras_bellman > :first-child {
+    width: 240px;
+}
+
+/* ---- Supplement Selector ---- */
+
+.hotel_extras_supplement > :first-child select {
+    width: 156px;
+}
+
+/* ---- Transportation Selector ---- */
+
+.transportation_inclusions > :first-child {
+    width: 280px;
+}
+
+/* ---- Tour Guide Selector ---- */
+
+.tour_guide_inclusions > :first-child {
+    width: 212px;
+}
+
+/* ---- Flights Selector ---- */
+
+.flights_inclusions > :first-child {
+    width: 148px;
+}
+
+/* ---- Train Selector ---- */
+
+.train_inclusions > :first-child {
+    width: 160px;
+}
+
+/* ---- Local Guides Selector ---- */
+
+.local_guides_line > :first-child {
+    width: 188px;
+}
+
+/* ---- Admissions Selector ---- */
+
+.activities_line > :first-child {
+    width: 180px;
+}
+
+/* ---- Headsets Selector ---- */
+
+.headsets_inclusions > :first-child {
+    width: 188px;
+}
+
+/* ---- Gratuities Selector ---- */
+
+.gratuities_inclusions > :first-child {
+    width: 196px;
+}
+
+/* ---- Free Description Selector ---- */
+
+.free_description > :first-child {
+    width: 364px;
+}
+
+/* ---- Child Description Selector ---- */
+
+.child_discount > :first-child {
+    width: 348px;
+}
+
+/* ---- Cancelation Selector ---- */
+
+.cancelation_policy_selector > :first-child {
+    width: 196px;
+}
+
+/* ---- Payment Terms Selector ---- */
+
+.payment_terms_selector > :first-child {
+    width: 180px;
+}
+
+/* ---- Bank Details Selector ---- */
+
+.bank_details_selector > :first-child {
+    width: 156px;
 }
 
 /* ---- Yes No Selector ---- */
@@ -528,7 +628,6 @@ li {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    background-image: url("");
 }
 
 /* ---- Language Selector ----- */
@@ -548,7 +647,18 @@ li {
 /* ---- Room Type Selector ---- */
 
 .room_type_selector select {
-    width: 132px;
+    width: 128px;
+    background-image: url("./images/chevron-down.svg");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 8px) center;
+    text-align: left;
+}
+
+/* ---- City Tax Selector ---- */
+
+.hotel_extras_city_tax > :first-child {
+    width: 128px;
 }
 
 /* ---- Hotel Rate Stars Selector ---- */
@@ -556,9 +666,7 @@ li {
 .hotel_rate_stars_selector select {
     -webkit-appearance: none;
     appearance: none;
-    background-image: url("");
-    width: 100%;
-    text-align: center;
+    width: 56px;
 }
 
 /* ---- Supplement Options Selector ---- */
@@ -566,9 +674,7 @@ li {
 .supplement_options_selector select {
     -webkit-appearance: none;
     appearance: none;
-    background-image: url("");
-    width: 100%;
-    text-align: center;
+    width: 80px
 }
 
 /* ---- Header ---- */
@@ -2059,8 +2165,8 @@ footer .legal_section .legal_section_links > a {
     flex: 1;
 }
 
-.beverages_bellman_wrapper .hotel_extras_beverages :nth-child(3) {
-    flex: 2;
+.beverages_bellman_wrapper .hotel_extras_beverages :nth-child(2) {
+    text-align: left;
 }
 
 
@@ -2071,24 +2177,25 @@ footer .legal_section .legal_section_links > a {
 
 .hotel_extras_meal_plan > :nth-child(2) {
     flex: 1;
+    text-align: left;
 }
 
-.hotel_extras_meal_plan > :nth-child(3),
-.hotel_extras_bellman  > :nth-child(3) {
-    flex: 7;
+.hotel_extras_bellman  > :nth-child(2) {
+    text-align: left;
 }
 
-.hotel_extras_supplement > :nth-child(3){
-    display: flex;
-    flex: 3;
-}
 
-.hotel_extras_supplement > :nth-child(2) {
+.hotel_extras_supplement > :first-child {
     flex: 1;
 }
 
-.hotel_extras_supplement > :nth-child(4) {
+.hotel_extras_supplement > :nth-child(2){
     flex: 2;
+}
+
+.hotel_extras_supplement > :nth-child(3){
+    flex: 3;
+    text-align: left;
 }
 
 /* ---- Services Inclusions ---- */
@@ -2110,7 +2217,6 @@ footer .legal_section .legal_section_links > a {
 
 #services_inclusions * {
     display: flex;
-    align-items: center;
     gap: 8px;
 }
 
@@ -2123,35 +2229,25 @@ footer .legal_section .legal_section_links > a {
     flex: 1;
 }
 
-#services_inclusions .transportation_tour_guide_line .transportation_inclusions :nth-child(2),
-#services_inclusions .transportation_tour_guide_line .tour_guide_inclusions :nth-child(2),  
-#services_inclusions .flights_train_line .flights_inclusions :nth-child(2),
-#services_inclusions .flights_train_line .train_inclusions :nth-child(2),
-#services_inclusions .local_guides_line :nth-child(2),
-#services_inclusions .activities_line :nth-child(2),
-#services_inclusions .headsets_gratuities_line .headsets_inclusions :nth-child(2),
-#services_inclusions .headsets_gratuities_line .gratuities_inclusions :nth-child(2) {
-    flex: 3;
-    max-width: fit-content;
+.transportation_inclusions > :nth-child(2),
+.tour_guide_inclusions > :nth-child(2),
+.flights_inclusions > :nth-child(2),
+.train_inclusions > :nth-child(2),
+.local_guides_line > :nth-child(2),
+.activities_line > :nth-child(2),
+.headsets_inclusions > :nth-child(2),
+.gratuities_inclusions > :nth-child(2) {
+    text-align: left;
 }
-
-#services_inclusions .transportation_inclusions :nth-child(3),
-#services_inclusions .tour_guide_inclusions :nth-child(3),
-#services_inclusions .flights_train_line .flights_inclusions :nth-child(3),
-#services_inclusions .flights_train_line .train_inclusions :nth-child(3),
-#services_inclusions .local_guides_line :nth-child(3),
-#services_inclusions .activities_line :nth-child(3),
-#services_inclusions .headsets_gratuities_line .headsets_inclusions :nth-child(3),
-#services_inclusions .headsets_gratuities_line .gratuities_inclusions :nth-child(3) {
-    flex: 4;
-}
-
+ 
 #services_inclusions .local_guides_line p {
     white-space: nowrap;
 }
 
 .free_description_child_discount_line {
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     gap: 8px;
 }
 
@@ -2166,26 +2262,18 @@ footer .legal_section .legal_section_links > a {
     white-space: nowrap;
 }
 
-.free_description_child_discount_line :nth-child(2) {
-    flex: 1;
+.free_description_child_discount_line .free_description > :nth-child(2){
+    text-align: left;
 }
 
-.free_description_child_discount_line :nth-child(3) {
-    flex: 4;
+.child_discount :nth-child(2) {
+    text-align: left;
 }
 
-.free_description_child_discount_line .child_discount {
-    white-space: nowrap;
-    flex: 1;
-}
 
-.free_description_child_discount_line .child_discount > :nth-child(2) {
-    flex: 1;
-}
 
-.free_description_child_discount_line .child_discount > :nth-child(3) {
-    flex: 9;
-}
+
+
 
 .notes_container {
     display: flex;
@@ -2919,4 +3007,71 @@ footer .legal_section .legal_section_links > a {
         flex: 3;
     }
 
+    .hotel_extras_meal_plan > :nth-child(2) {
+        flex: 1;
+    }
+
+    .hotel_extras_meal_plan > :nth-child(3) {
+        flex: 10;
+    }
+
+    .hotel_extras_supplement > :nth-child(1) {
+        flex: 1;
+    }
+
+    .hotel_extras_supplement > :nth-child(2) {
+        flex: 4;
+    }
+
+    .hotel_extras_supplement > :nth-child(3) {
+        flex: 7;
+    }
+
+    .hotel_extras_beverages > :first-child {
+        width: 228px;
+    }
+
+    .hotel_extras_bellman > :first-child {
+        width: 196px;
+    }
+
+    .transportation_inclusions > :first-child {
+        width: 248px;
+    }
+
+    .tour_guide_inclusions > :first-child {
+        width: 196px;
+    }
+
+    .flights_inclusions > :first-child {
+        width: 140px;
+    }
+
+    .local_guides_line > :first-child {
+        width: 188px;
+    }
+
+    .activities_line > :first-child {
+        width: 172px;
+    }
+
+    .headsets_inclusions > :first-child {
+        width: 180px;
+    }
+
+    .gratuities_inclusions > :first-child {
+        width: 180px;
+    }
+
+    .free_description > :first-child {
+        width: 336px;
+    }
+
+    .child_discount > :first-child {
+        width: 328px;
+    }
+
+    .hotel_extras_city_tax > :first-child {
+        width: 120px;
+    }
 }

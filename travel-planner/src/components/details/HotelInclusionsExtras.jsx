@@ -7,97 +7,112 @@ import { CounterContext } from "../context/CounterContext";
 
 function HotelInclusionsExtras() {
 
-    const { hotelInclusions, setHotelInclusions } = useContext(CounterContext);
-
     const { hotelInclusionsExtras, setHotelInclusionsExtras } = useContext(CounterContext);
 
+    const cityTax = [
+    { value: "", label: "City Tax", disabled: true },
+    { value: "City Tax: Yes", label: "City Tax: Yes" },
+    { value: "City Tax: No", label: "City Tax: No" },
+    ];
+
     const mealPlan = [
-    { value: "", label: "" },
-    { value: "RO", label: "RO" },
-    { value: "BB", label: "BB" },
-    { value: "HB", label: "HB" },
-    { value: "FB", label: "FB" },
+    { value: "", label: "Meal Plan", disabled: true },
+    { value: "Meal Plan: RO", label: "Meal Plan: RO" },
+    { value: "Meal Plan: BB", label: "Meal Plan: BB" },
+    { value: "Meal Plan: HB", label: "Meal Plan: HB" },
+    { value: "Meal Plan: FB", label: "Meal Plan: FB" },
+    ];
+
+    const beverages = [
+    { value: "", label: "Beverages", disabled: true },
+    { value: "Beverages: Yes", label: "Beverages: Yes" },
+    { value: "Beverages: No", label: "Beverages: No" },
+    ];
+
+    const bellman = [
+    { value: "", label: "Bellman", disabled: true },
+    { value: "Bellman: Yes", label: "Bellman: Yes" },
+    { value: "Bellman: No", label: "Bellman: No" },
     ];
 
     const supplementOptions = [
-    { value: "", label: "" },
-    { value: "BB", label: "BB" },
-    { value: "HB", label: "HB" },
-    { value: "FB", label: "FB" },
+    { value: "", label: "Supplement" },
+    { value: "Supplement: BB", label: "Supplement: BB" },
+    { value: "Supplement: HB", label: "Supplement: HB" },
+    { value: "Supplement: FB", label: "Supplement: FB" },
     ];
 
     const mealPlanAutoText = {
-        RO: "Room only",
-        BB: "Breakfast included",
-        HB: "Breakfast and dinner included",
-        FB: "Meals as described in the itinerary"
+        "Meal Plan: RO": "Room only",
+        "Meal Plan: BB": "Breakfast included",
+        "Meal Plan: HB": "Breakfast and dinner included",
+        "Meal Plan: FB": "Meals as described in the itinerary"
     };
 
     const beveragesAutoText = {
-        Yes: "Wine and water",
-        No: ""
+        "Beverages: Yes": "Wine and water",
+        "Beverages: No": ""
     }
 
     const bellmanAutoText = {
-        Yes: "1 bag per person",
-        No: ""
+        "Bellman: Yes": "1 bag per person",
+        "Bellman: No": ""
     }
 
     const supplementAutoText = {
-        BB: "Breakfast",
-        HB: "Half-board",
-        FB: "Full-board (from breakfast on first day to lunch on last day)"
+        "Supplement: BB": "Breakfast",
+        "Supplement: HB": "Half-board",
+        "Supplement: FB": "Full-board (from breakfast on first day to lunch on last day)"
     };
 
     return (
         <div className="hotel_extras_container">
             <div className="city_tax_meal_plan_wrapper">
                 <div className="hotel_extras_city_tax">
-                <p>City Tax</p>
-                <Selector
-                    value={hotelInclusionsExtras.cityTax || ""}
-                    onChange={(value) =>
-                    setHotelInclusionsExtras({
-                        ...hotelInclusionsExtras,
-                        cityTax: value
-                    })
-                    }
-                />
-            </div>
-            
-            <div className="hotel_extras_meal_plan">
-                <p>Meal Plan</p>
-                <Selector
-                    options={mealPlan}
-                    value={hotelInclusionsExtras.mealPlan?.mealPlanSelector}
-                    onChange={(value) => {
+                    <Selector
+                        options={cityTax}
+                        value={hotelInclusionsExtras.cityTax || ""}
+                        onChange={(value) =>
                         setHotelInclusionsExtras({
-                            ...hotelInclusionsExtras, mealPlan: {
-                                ...hotelInclusionsExtras.mealPlan, 
-                                mealPlanSelector: value,
-                                mealPlanText: mealPlanAutoText[value]
-                            }
-                        });
-                    }}
-                />
-                <TextBox
-                    value={hotelInclusionsExtras.mealPlan?.mealPlanText}
-                    onChange={(value) =>
-                        setHotelInclusionsExtras ({
-                            ...hotelInclusionsExtras, mealPlan: {
-                                ...hotelInclusionsExtras.mealPlan,
-                                mealPlanText: value
-                            }
+                            ...hotelInclusionsExtras,
+                            cityTax: value
                         })
-                    }
-                />
+                        }
+                    />
+                </div>
+            
+                <div className="hotel_extras_meal_plan">
+                    <Selector
+                        options={mealPlan}
+                        value={hotelInclusionsExtras.mealPlan?.mealPlanSelector || ""}
+                        onChange={(value) => {
+                            setHotelInclusionsExtras({
+                                ...hotelInclusionsExtras, mealPlan: {
+                                    ...hotelInclusionsExtras.mealPlan, 
+                                    mealPlanSelector: value,
+                                    mealPlanText: mealPlanAutoText[value]
+                                }
+                            });
+                        }}
+                    />
+                    <TextBox
+                        value={hotelInclusionsExtras.mealPlan?.mealPlanText || ""}
+                        onChange={(value) =>
+                            setHotelInclusionsExtras ({
+                                ...hotelInclusionsExtras, mealPlan: {
+                                    ...hotelInclusionsExtras.mealPlan,
+                                    mealPlanText: mealPlanAutoText[value]
+                                }
+                            })
+                        }
+                    />
+                </div>
             </div>
-        </div>
 
             <div className="beverages_bellman_wrapper">
                 <div className="hotel_extras_beverages">
-                    <p>Beverages</p>
                         <Selector
+                            options={beverages}
                             value={hotelInclusionsExtras.beverages?.beveragesSelector}
                             onChange={(value) =>
                                 setHotelInclusionsExtras({
@@ -122,8 +137,8 @@ function HotelInclusionsExtras() {
                         />
                 </div>
             <div className="hotel_extras_bellman">
-                <p>Bellman</p>
                     <Selector
+                    options={bellman}
                         value={hotelInclusionsExtras.bellman?.bellmanSelector}
                         onChange={(value) =>
                         setHotelInclusionsExtras ({
@@ -150,46 +165,53 @@ function HotelInclusionsExtras() {
             </div>
 
             <div className="hotel_extras_supplement">
-                <p>Supplement</p>
                 <Selector
                     options={supplementOptions}
                     defaultValue=""
                     className="supplement_options_selector"
-                    value={hotelInclusionsExtras.supplement?.supplementSelector}
+                    value={hotelInclusionsExtras.supplement.supplementSelector}
                     onChange={(value) =>
-                        setHotelInclusionsExtras({
-                            ...hotelInclusionsExtras,
-                                supplement: { 
-                                    supplementSelector: value,
-                                    supplementText: supplementAutoText[value]
-                                }
-                        })
+                    setHotelInclusionsExtras({
+                        ...hotelInclusionsExtras,
+                        supplement: {
+                            ...hotelInclusionsExtras.supplement,
+                            supplementSelector: value,
+                            supplementText: supplementAutoText[value] || ""
+                        }
+                    })
                     }
-                    />
+                />
+
                 <Multiplication
-                    data={hotelInclusionsExtras.supplement?.multiplication}
-                        updateMultiplicationData={(field, value) => {
-                            setHotelInclusionsExtras({
-                                ...hotelInclusionsExtras,
-                                supplement: {
-                                    ...hotelInclusionsExtras.supplement, multiplication: {
-                                        ...hotelInclusionsExtras.supplement.multiplication, [field]: value
-                                    }
-                                }
-                            });
+                    data={hotelInclusionsExtras.supplement.multiplication}
+                    updateMultiplicationData={(field, value) => {
+                    setHotelInclusionsExtras({
+                        ...hotelInclusionsExtras,
+                        supplement: {
+                            ...hotelInclusionsExtras.supplement,
+                            multiplication: {
+                                ...hotelInclusionsExtras.supplement.multiplication,
+                                [field]: value
+                        }
+                        }
+                    });
                     }}
                 />
-                <TextBox 
-                    value={hotelInclusionsExtras.supplement?.supplementText}
+
+                <TextBox
+                    value={hotelInclusionsExtras.supplement.supplementText}
                     onChange={(value) =>
-                        setHotelInclusionsExtras ({
-                            ...hotelInclusionsExtras, supplement: {
-                                ...hotelInclusionsExtras.supplement, supplementText: value
-                            }
-                        })
+                    setHotelInclusionsExtras({
+                        ...hotelInclusionsExtras,
+                        supplement: {
+                        ...hotelInclusionsExtras.supplement,
+                        supplementText: value
+                        }
+                    })
                     }
                 />
-            </div>
+                </div>
+
         </div>
         );
     }
