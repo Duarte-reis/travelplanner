@@ -14,8 +14,10 @@ function ItineraryComplete() {
                     key={formIndex}
                     hotelFormData={hotelForm}
                     formIndex={formIndex}
+                    allHotelForms={hotelFormData}
+
                 />
-                ))}
+            ))}
         </section>
     )
 }

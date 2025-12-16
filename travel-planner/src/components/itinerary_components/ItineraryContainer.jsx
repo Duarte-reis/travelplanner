@@ -5,14 +5,12 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useContext, useEffect } from "react";
 import { CounterContext } from "../context/CounterContext";
 
-function ItineraryContainer({ hotelFormData, formIndex }) {
+function ItineraryContainer({ hotelFormData, allHotelForms, formIndex }) {
 
-    const { globalItineraries, setGlobalItineraries } = useContext(CounterContext);
+    const { setGlobalItineraries } = useContext(CounterContext);
 
-    // Cada container usa sua própria storageKey
     const storageKey = `itinerarydata-${formIndex}`;
 
-    // Dados persistentes para cada container
     const [itineraryData, setItineraryData] = useLocalStorage(
         storageKey,
         hotelFormData.dateContainer.map(() => ({
@@ -21,7 +19,7 @@ function ItineraryContainer({ hotelFormData, formIndex }) {
         }))
     );
 
-    // Sincroniza automaticamente com o Context
+    // This useEffect updates the global context (setGlobalItineraries) whenever the local itineraryData changes, keeping the context in sync with the component’s state.
     useEffect(() => {
         setGlobalItineraries(prev => ({
             ...prev,
@@ -33,14 +31,21 @@ function ItineraryContainer({ hotelFormData, formIndex }) {
         <section id="itinerary_container">
             {hotelFormData.dateContainer.map((dayObj, dayIdx) => {
                 const dayData = itineraryData[dayIdx];
+                const dayNumber = allHotelForms
+                    .slice(0, formIndex)
+                    .reduce((sum, form) => sum + form.dateContainer.length, 0) + (dayIdx + 1)
 
                 return (
                     <div key={dayIdx} className="itinerary_content_container">
                         <div className="itinerary_title">
-                            <TextBox value={`Day: ${dayObj.date}`} readOnly />
+                            <TextBox 
+                                value={`Day ${String(dayNumber).padStart(2, "0")}: ${dayObj.date}`} 
+                                readOnly
+                            />
 
                             <TextBox
                                 value={dayData.itineraryTitle}
+                                placeholder={"Title"}
                                 onChange={(value) =>
                                     setItineraryData(
                                         itineraryData.map((day, idx) =>
@@ -54,6 +59,7 @@ function ItineraryContainer({ hotelFormData, formIndex }) {
                         <div className="itinerary_text_area">
                             <TextArea
                                 value={dayData.itineraryDescription}
+                                placeholder={"Itinerary description"}
                                 onChange={(value) =>
                                     setItineraryData(
                                         itineraryData.map((day, idx) =>

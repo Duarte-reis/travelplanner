@@ -195,7 +195,7 @@ function CounterProvider({ children }) {
         const selected = flightTrainFormData
             .filter(form => form.checkButtonContainer?.[0]?.checkButton)
             .map(form => ({
-                selector: form.flightOrTrainSelectorContainer?.[0]?.flightTrainSelector || "",
+                selector: form.flightOrTrainSelectorContainer?.[0]?.flightOrTrainSelector || "",
                 route: form.routeContainer?.[0]?.route || "",
                 price:
                     (parseFloat(form.fareContainer?.[0]?.fare || 0) +

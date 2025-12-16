@@ -6,7 +6,7 @@ function Login() {
         <div className="login">
                 <img src="./src/images/account-circle-outline-icon.svg" alt="login logo" />
             <Link to="/loginsignup">    
-                <p>Log in</p>
+                <p>Log in / Sign up </p>
             </Link>
         </div>
     )

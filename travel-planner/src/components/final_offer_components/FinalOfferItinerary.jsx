@@ -7,6 +7,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import defaultImg from "../../images/final-offer-cover.png";
 
 function FinalOfferItinerary() {
+
     const { hotelFormData, globalItineraries } = useContext(CounterContext);
 
     const [images, setImages] = useLocalStorage("images", [
@@ -111,12 +112,21 @@ function FinalOfferItinerary() {
                         <div key={formIndex} className="itinerary_container_display">
                             {hotelForm.dateContainer.map((dayObj, dayIdx) => {
                                 const dayData = itineraryData[dayIdx] || {};
+                                const dayNumber = hotelFormData
+                                    .slice(0, formIndex)
+                                    .reduce((sum, form) => sum + form.dateContainer.length, 0) + (dayIdx + 1)
 
                                 return (
                                     <div key={dayIdx} className="itinerary_content_container">
                                         <div className="itinerary_title">
-                                            <TextBox value={`Day: ${dayObj.date}`} readOnly />
-                                            <TextBox value={dayData.itineraryTitle || ""} readOnly />
+                                            <TextBox 
+                                                value={`Day ${String(dayNumber).padStart(2, "0")}: ${dayObj.date}`} 
+                                                readOnly 
+                                            />
+                                            <TextBox 
+                                                value={dayData.itineraryTitle || ""} 
+                                                readOnly 
+                                            />
                                         </div>
                                         <div className="final_offer_itinerary_text_area">
                                             <p>{dayData.itineraryDescription || ""}</p>

@@ -43,7 +43,7 @@ function FinalOfferOptional() {
 
                 {checkedLocalGuides.map((form, index) => (
                     <div key={index} className="final_offer_optional_local_guides">
-                        <p>{form.serviceName + ":"}</p>
+                        <p><span>Local Guides: </span>{form.serviceName + ":"}</p>
                         <div>
                             {form.prices.map((price, tierIndex) => (
                                 <p key={tierIndex}>
@@ -63,9 +63,9 @@ function FinalOfferOptional() {
 
                 {checkedExtras.map((item, index) => (
                     <div key={index} className="final_offer_optional_extras">
-                        {item.checkHeadsets && <p>Headsets: {item.headsets}€</p>}
-                        {item.checkBellman && <p>Bellman: {item.bellman}€</p>}
-                        {item.checkGratuities && <p>Gratuities: {item.gratuities}€</p>}
+                        {item.checkHeadsets && <p><span>Headsets:</span> {item.headsets}€ per person</p>}
+                        {item.checkBellman && <p><span>Bellman:</span> {item.bellman}€ per person</p>}
+                        {item.checkGratuities && <p><span>Gratuities:</span> {item.gratuities}€ per person</p>}
                     </div>
                 ))}
 

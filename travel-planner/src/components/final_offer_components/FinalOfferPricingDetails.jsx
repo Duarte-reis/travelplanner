@@ -6,7 +6,13 @@ import { CounterContext } from "../context/CounterContext";
 
 function FinalOfferPricingDetails() {
 
-    const { finalRrpPerTier, singleSupplementTotal, numOfPaxData, includeOptions, selectRoomType } = useContext(CounterContext);
+    const { 
+        finalRrpPerTier, 
+        singleSupplementTotal, 
+        numOfPaxData, 
+        includeOptions, 
+        selectRoomType 
+    } = useContext(CounterContext);
 
     return (
         <section id="final_offer_pricing_details">

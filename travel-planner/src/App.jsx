@@ -9,7 +9,7 @@ import CounterProvider from "./components/context/CounterProvider";
 
 function App() {
   return (
-    <>
+    <div className="app_container">
       <CounterProvider>
         <Switch>
           <Route path="/" component={Homepage} />
@@ -21,7 +21,7 @@ function App() {
           <Route path="/finaloffer" component={FinalOffer} />
         </Switch>
       </CounterProvider>
-    </>
+    </div>
   );
 }
 

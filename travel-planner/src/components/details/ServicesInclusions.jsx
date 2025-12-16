@@ -7,7 +7,14 @@ import { CounterContext } from "../context/CounterContext"
 
 function ServicesInclusions() {
 
-    const { localGuidesFormData, activitiesFormData, servicesInclusions, setServicesInclusions} = useContext(CounterContext)
+    const { 
+        localGuidesFormData, 
+        activitiesFormData, 
+        servicesInclusions, 
+        setServicesInclusions, 
+        checkedActivities,
+        checkedLocalGuides,
+    } = useContext(CounterContext)
 
     const transportation = [
         { value: "", label: "Transportation", disabled: true },
@@ -189,17 +196,23 @@ function ServicesInclusions() {
                 <Selector
                     options={localGuides} 
                     value={servicesInclusions.localGuidesInclusionsContainer?.localGuidesSelector || ""}
-                    onChange={(value) =>
-                        setServicesInclusions ({
+                    onChange={(value) => {
+                        const optionalGuides = checkedLocalGuides.map(guides => guides.serviceName);
+                        const allLocalGuides = localGuidesFormData.map(
+                            item => item.serviceNameContainer[0].serviceName
+                        );
+                        const filteredLocalGuides = allLocalGuides.filter(
+                            localGuides => !optionalGuides.includes(localGuides)
+                        );
+                        setServicesInclusions({
                             ...servicesInclusions,
                             localGuidesInclusionsContainer: {
                                 localGuidesSelector: value,
-                                localGuidesText: value === "Local Guides: Yes" ? localGuidesFormData
-                                    .map(item => item.serviceNameContainer[0].serviceName)
+                                localGuidesText: value === "Local Guides: Yes" ? filteredLocalGuides
                                     .join(" | ") : "" || "" // .join puts all serviceName in one string separated by "|"
                             }
                         })
-                    }
+                    }}
                 />
                 <TextBox 
                     value={servicesInclusions.localGuidesInclusionsContainer?.localGuidesText || ""}
@@ -218,28 +231,37 @@ function ServicesInclusions() {
                 <Selector
                     options={admissions} 
                     value={servicesInclusions.activitiesInclusionsContainer?.activitiesSelector}
-                    onChange={(value) =>
-                        setServicesInclusions ({
+                    onChange={(value) => {
+                        const optionalNames = checkedActivities.map(a => a.activityName); // takes the admissions name marked as "opt."
+                        const allActivities = activitiesFormData.map( // takes all admissions
+                            item => item.nameOfActivityContainer[0].nameOfActivity
+                        );
+                        const filteredActivities = allActivities.filter( // filters the checked admissions
+                            activities => !optionalNames.includes(activities)
+                        );
+                        setServicesInclusions({
                             ...servicesInclusions,
                             activitiesInclusionsContainer: {
                                 activitiesSelector: value,
-                                activitiesText: value === "Admissions: Yes" ? activitiesFormData.map(item => item.nameOfActivityContainer[0].nameOfActivity). join(" | ") : "" || ""
+                                activitiesText: value === "Admissions: Yes" ? filteredActivities : []
                             }
-                        })
-                    }
+                        });
+                    }}
                 />
                 <TextBox 
                     value={servicesInclusions.activitiesInclusionsContainer?.activitiesText}
                     onChange={(value) =>
-                        setServicesInclusions ({
+                        setServicesInclusions({
                             ...servicesInclusions,
                             activitiesInclusionsContainer: {
-                                ...servicesInclusions.activitiesInclusionsContainer, activitiesText: value
+                                ...servicesInclusions.activitiesInclusionsContainer,
+                                activitiesText: value
                             }
                         })
                     }
                 />
             </div>
+
 
             <div className="headsets_gratuities_line">
                 <div className="headsets_inclusions">
@@ -259,7 +281,7 @@ function ServicesInclusions() {
                     <TextBox 
                         value={servicesInclusions.headsetsInclusionsContainer?.headsetsText}
                         onChange={(value) =>
-                            setServicesnclusions ({
+                            setServicesInclusions ({
                                 ...servicesInclusions,
                                 headsetsInclusionsContainer: {
                                     ...servicesInclusions.headsetsInclusionsContainer, headsetsText: value

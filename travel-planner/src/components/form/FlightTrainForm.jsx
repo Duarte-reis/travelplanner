@@ -13,8 +13,8 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
 
     const guideSelector = [
         {value:"", label:"Guide", disabled: true}, 
-        {value:"Yes", label:"Yes"}, 
-        {value:"No", label:"No"} ]
+        {value:"Guide: Yes", label:"Guide: Yes"}, 
+        {value:"Guide: No", label:"Guide: No"} ]
     
     return (
         <section id="flight_train_form">
@@ -73,16 +73,17 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
                         onChange={(value) => updateFlightTrainFormData(formIndex, "flightTrainGuideSelectorContainer", "flightTrainGuideSelector", index, value)}
                     />
                 ))}
-            </div>
-            {checkButtonContainer.map((data, index) => (
-                <CheckButton
-                    key={index}
-                    active={data.checkButton}
-                    onToggle={() =>
-                    updateFlightTrainFormData(formIndex, "checkButtonContainer", "checkButton", index, !data.checkButton)
-                    }
-                />
+                {checkButtonContainer.map((data, index) => (
+                    <CheckButton
+                        key={index}
+                        active={data.checkButton}
+                        onToggle={() =>
+                        updateFlightTrainFormData(formIndex, "checkButtonContainer", "checkButton", index, !data.checkButton)
+                        }
+                    />
                 ))}
+            </div>
+            
         </section>
     )
 }

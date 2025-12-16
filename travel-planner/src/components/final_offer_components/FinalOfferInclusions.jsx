@@ -5,7 +5,12 @@ import { CounterContext } from "../context/CounterContext"
 
 function FinalOfferInclusions({ tierName }) {
 
-    const { hotelInclusions, hotelInclusionsExtras, servicesInclusions, includeOptions } = useContext(CounterContext)
+    const { 
+        hotelInclusions, 
+        hotelInclusionsExtras, 
+        servicesInclusions, 
+        includeOptions, 
+    } = useContext(CounterContext)
 
     const container = hotelInclusions?.cityInclusionsContainer || [];
 
@@ -18,11 +23,11 @@ function FinalOfferInclusions({ tierName }) {
             </div>
             <div className="final_offer_inclusions_content">
                 {includeOptions[tierName] ? ( // If accommodation is not included (false), do not render (null). If we select "Yes" (true), render
-                    <div>
+                    <div className="final_offer_inclusions_accommodation">
                         <p>Accommodation:</p>
                         {container.map((item, idx) => (
                             <div className="city_hotel_inclusions_container" key={idx}>
-                                <p>{item.city}:</p>
+                                <p>- {item.city}:</p>
                                 <p>{item.hotel}</p>
                                 <p>{item.hotelRateStars}</p>
                             </div>
@@ -40,18 +45,17 @@ function FinalOfferInclusions({ tierName }) {
                 <div className="final_offer_inclusions_meal_plan">
                     {hotelInclusionsExtras.mealPlan?.mealPlanSelector !== "" ? ( // If there's nothing selected on Selector, don't display anything.
                         <div>
-                            <p>Meal Plan:</p>
                             {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "Meal Plan: RO" && (
-                                <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
+                                <p><span>{hotelInclusionsExtras.mealPlan?.mealPlanSelector}</span> ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
                             )}
                             {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "Meal Plan: BB" && (
-                                <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
+                                <p><span>{hotelInclusionsExtras.mealPlan?.mealPlanSelector}</span> ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
                             )}
                             {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "Meal Plan: HB" && (
-                                <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
+                                <p><span>{hotelInclusionsExtras.mealPlan?.mealPlanSelector}</span> ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
                             )}
                             {hotelInclusionsExtras.mealPlan?.mealPlanSelector === "Meal Plan: FB" && (
-                                <p>{hotelInclusionsExtras.mealPlan?.mealPlanSelector} ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
+                                <p><span>{hotelInclusionsExtras.mealPlan?.mealPlanSelector}</span> ({hotelInclusionsExtras.mealPlan?.mealPlanText})</p>
                             )}
                         </div>
                     ) :null }
@@ -114,9 +118,9 @@ function FinalOfferInclusions({ tierName }) {
 
                 {servicesInclusions.activitiesInclusionsContainer?.activitiesSelector === "Admissions: Yes" && (
                     <div className="final_offer_inclusions_activities">
-                        <p>Admissions:</p> {/* changed from "Entrance fees in" to "Admissions" */}
+                        <p>Admissions:</p>
                         <p>{servicesInclusions.activitiesInclusionsContainer?.activitiesText}</p>
-                    </div>    
+                    </div>
                 )}
 
                 {servicesInclusions.headsetsInclusionsContainer?.headsetsSelector === "Headsets: Yes" && (
@@ -133,7 +137,8 @@ function FinalOfferInclusions({ tierName }) {
                     </div>    
                 )}
 
-                {servicesInclusions.freeInclusionsContainer?.freeSelector === "Free description in: double/twin" || "Free description in: single" && (
+                {(servicesInclusions.freeInclusionsContainer?.freeSelector === "Free description in: double/twin" || 
+                servicesInclusions.freeInclusionsContainer?.freeSelector === "Free description in: single") && (
                     <div className="final_offer_inclusions_free">
                         <p>Free description:</p>
                         <p>{servicesInclusions.freeInclusionsContainer?.freeText}</p>
@@ -149,8 +154,7 @@ function FinalOfferInclusions({ tierName }) {
 
                 {servicesInclusions.notesInclusionsContainer?.notesText !== "" ? ( // If there's nothing written inside "Notes", don't display
                     <div className="final_offer_inclusions_notes">
-                        <p>Notes:</p>
-                        <p>{servicesInclusions.notesInclusionsContainer?.notesText}</p>
+                        <p><span>Notes:</span> {servicesInclusions.notesInclusionsContainer?.notesText}</p>
                     </div>
                 ) : null}   
             </div>

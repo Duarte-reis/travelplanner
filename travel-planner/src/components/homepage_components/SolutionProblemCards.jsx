@@ -4,9 +4,6 @@ import SolutionCardAutomate from "./SolutionCardAutomate"
 import SolutionCardDeliver from "./SolutionCardDeliver"
 import SolutionCardScale from "./SolutionCardScale"
 import ProblemCardSimplify from "./ProblemCardSimplify"
-import ProblemCardAutomate from "./ProblemCardAutomate"
-import ProblemCardDeliver from "./ProblemCardDeliver"
-import ProblemCardScale from "./ProblemCardScale"
 
 function SolutionProblemCards() {
     return (
@@ -20,9 +17,6 @@ function SolutionProblemCards() {
 
             <div className="problem_cards_container">
                 <ProblemCardSimplify />
-                <ProblemCardAutomate />
-                <ProblemCardDeliver />
-                <ProblemCardScale />
             </div>
         </div>
     )

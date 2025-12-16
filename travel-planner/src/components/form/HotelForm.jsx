@@ -2,10 +2,10 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import Selector from "../Selector" 
 
-function HotelForm({ formIndex, updateHotelFormData, dateContainer = [], cityContainer = [], hotelContainer = [], hotelPriceContainer = [], singleSupplementContainer = [], mealPlanContainer = [], dinnerContainer = [], dinnerPriceContainer = [], lunchContainer = [], lunchPriceContainer = [], guideSelectorContainer = [], driverSelectorContainer = [] }) {
+function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, dateContainer = [], cityContainer = [], hotelContainer = [], hotelPriceContainer = [], singleSupplementContainer = [], mealPlanContainer = [], dinnerContainer = [], dinnerPriceContainer = [], lunchContainer = [], lunchPriceContainer = [], guideSelectorContainer = [], driverSelectorContainer = [] }) {
 
     const mealPlan = [
-        {value:"", label:"Meal Plan", disabled: true}, 
+        {value:"", label:"MP", disabled: true}, 
         {value:"RO", label:"RO"}, 
         {value:"BB", label:"BB"}, 
         {value:"HB", label:"HB"}, 
@@ -20,21 +20,22 @@ function HotelForm({ formIndex, updateHotelFormData, dateContainer = [], cityCon
         {value:"", label:"Driver", disabled: true}, 
         {value:"Yes", label:"Yes"}, 
         {value:"No", label:"No"} ]
-
+    
     return (
         <section id="hotel_form">
             <div className="travel_date">
                 {dateContainer.map((data, index) => (
                     <div className="date_row" key={index}>
                         <TextBox 
-                            value={data.day}
+                            value={String(days + 1).padStart(2, "0")}
                             placeholder={"Day"}
-                            onChange={(value) => updateHotelFormData(formIndex, "dateContainer", "day", index, value)}
+                            readOnly
                         />
                         <TextBox 
                             value={data.date}
                             placeholder={"Date"}
-                            onChange={(value) => updateHotelFormData(formIndex, "dateContainer", "date", index, value)}
+                            onChange={(value) => 
+                                updateHotelFormData(formIndex, "dateContainer", "date", index, value)}
                         />
                     </div>
                 ))}

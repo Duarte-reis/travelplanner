@@ -397,7 +397,7 @@ function FormComplete() {
             const taxPrice = parseFloat(form.taxContainer[0]?.tax || 0);
             const totalPerPerson = farePrice + taxPrice;
 
-            if (form.flightTrainGuideSelectorContainer?.[0]?.flightTrainGuideSelector === "Yes") {
+            if (form.flightTrainGuideSelectorContainer?.[0]?.flightTrainGuideSelector === "Guide: Yes") {
                 return sum + totalPerPerson + Math.round(totalPerPerson / pax);
             } else {
                 return sum + totalPerPerson;
@@ -411,7 +411,7 @@ function FormComplete() {
     const applyFlightTrainGuideExpensesArray = flightTrainFormData.map((form) => form.flightTrainGuideSelectorContainer?.[0]?.flightTrainGuideSelector);
 
     const flightTrainGuideExpenses = flightTrainFormData.reduce((sum, form, idx) => {
-        if (applyFlightTrainGuideExpensesArray[idx] === "Yes") {
+        if (applyFlightTrainGuideExpensesArray[idx] === "Guide: Yes") {
             const farePrice = parseFloat(form.fareContainer[0]?.fare || 0);
             const taxPrice = parseFloat(form.taxContainer[0]?.tax || 0);
             return sum + farePrice + taxPrice;
@@ -497,6 +497,10 @@ function FormComplete() {
                         formIndex={index}
                         hotelFormData={hotelFormData}
                         setHotelFormData={setHotelFormData}
+                        days={hotelFormData
+                            .slice(0, index)
+                            .reduce((sum, form) => sum + form.dateContainer.length, 0)
+                        }
                         cityContainer={form.cityContainer}
                         hotelContainer={form.hotelContainer}
                         hotelPriceContainer={form.hotelPriceContainer}
@@ -570,7 +574,7 @@ function FormComplete() {
             <div className="activities_transportation_form_complete">
                 <div className="activities_form_complete">
                     <Bar 
-                        barContent = {["Admissions included"]}
+                        barContent = {["Admissions"]}
                     />
                     {activitiesFormData.map((form, index) => (
                         <ActivitiesForm 
@@ -696,7 +700,7 @@ function FormComplete() {
 
                 <div className="profit_margin_container">
                     <Bar 
-                        barContent = {["Profit Margin"]}
+                        barContent = {["Margin"]}
                     />    
                     <div className="margin_content">
                         {finalNetPerPayingPaxArray.map((_, idx) => (
@@ -717,7 +721,7 @@ function FormComplete() {
 
                 <div className="client_comission_container">
                     <Bar 
-                        barContent = {["Client Comission"]}
+                        barContent = {["C. Comission"]}
                     />    
                     <div className="comission_content">
                         {finalNetPerPayingPaxArray.map((_, idx) => (
