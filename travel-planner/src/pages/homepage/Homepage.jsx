@@ -9,15 +9,19 @@ import Footer from "./Footer"
 function Homepage() {
 
     return (
-        <>
+        <section id="homepage_wrap">
             <Header />
-            <HeroSection />
-            <PresentationSection />
-            <SolutionSection />
-            <FeaturesSection />
-            <ProsConsSection />
-            <Footer />
-        </>
+            <div className="homepage_content_wrap">
+                <HeroSection />
+                <PresentationSection />
+                <SolutionSection />
+                <FeaturesSection />
+                <ProsConsSection />
+            </div>    
+            <div className="homepage_footer_wrap">
+                <Footer />
+            </div>    
+        </section>
     )
 }
 

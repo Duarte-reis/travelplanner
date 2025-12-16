@@ -28,7 +28,8 @@
 --Shadow-hover: 0px 0px 4px 1.5008px #00000026;
 --Inner-Shadow-bar: inset 0px 16px 14px 0 #1E293B26;
 /* ---- H1 ---- */
---H1-font-size: 76px;
+--H1-font-size-1024px: 76px;
+--H1-font-size-1280px: 88px;
 --H1-color: #1E293B;
 --H1-line-height: 87%;
 --H1-letter-spacing: -5px;
@@ -96,7 +97,7 @@ body {
 /* ---- Typography ---- */
 
 h1 {
-    font-size: var(--H1-font-size);
+    font-size: var(--H1-font-size-1024px);
     font-weight: var(--H1-weight);
     font-style: var(--H1-font-style);
     line-height: var(--H1-line-height);
@@ -693,6 +694,12 @@ li {
     width: 80px
 }
 
+/* ---- Homepage ---- */
+
+.homepage_content_wrap {
+    padding-inline: 32px;
+}
+
 /* ---- Header ---- */
 
 #header {
@@ -840,11 +847,11 @@ li {
     border-bottom: 0.5008px solid var(--Btn-hover);
 }
 
-/* ---- HeroSection ---- */
+/* ---- Hero Section ---- */
 
 #hero_section {
     display: flex;
-    margin: 80px 32px;
+    margin-block: 80px;
 }
 
 #hero_section > img {
@@ -867,7 +874,7 @@ li {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    margin: 120px 32px;
+    margin-block: 120px;
 }
 
 #presentation_section > img {
@@ -902,7 +909,7 @@ li {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    margin: 120px 32px;
+    margin-block: 120px;
 }
 
 #solution_section > .cta_container {
@@ -948,14 +955,14 @@ li {
 .solution_card {
     display: flex;
     flex-direction: column;
-    gap: 8px;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px;
+    justify-content: space-around;
     text-align: center;
     background-color: var(--Neutral);
     box-shadow: var(--Shadow-default);
     border-radius: 8px;
-    padding: 24px;
+    padding: 32px;
     height: 200px;
 }
 
@@ -973,12 +980,12 @@ li {
 .problem_cards_container > .problem_card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 16px;
+    justify-content: space-around;
     background-color: var(--Neutral);
     height: 100%;
-    padding: 24px;
+    padding: 32px 24px;
     border-radius: 8px;
+    gap: 8px;
     box-shadow: var(--Shadow-default);
 }
 
@@ -1004,12 +1011,6 @@ li {
     justify-content: center;
 }
 
-
-#simplify_problem_card {
-    padding: 24px 12px;
-
-}
-
 #simplify_problem_card .title {
     line-height: 1.2;
 }
@@ -1021,7 +1022,7 @@ li {
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    margin: 120px 32px;
+    margin-block: 120px;
 }
 
 #features_section > .title {
@@ -1109,7 +1110,7 @@ li {
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    margin: 120px 32px;
+    margin-block: 120px;
 }
 
 #pros_cons_section > h2 {
@@ -1120,7 +1121,7 @@ li {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 48px 32px;
+    padding: 48px;
     gap: 32px;
     background-color: var(--Footer-bg);
     border-radius: 10px;
@@ -1136,11 +1137,12 @@ li {
 .pros_container {
     background-color: var(--Pros-bg);
     border-radius: 10px;
+    height: 100%;
 }
 
-.pros_container, .cons_container {
+.pros_container, 
+.cons_container {
     padding: 48px;
-    width: 400px;
 }
 
 .cons_container, .pros_container {
@@ -1155,17 +1157,22 @@ li {
     gap: 8px;
 }
 
-.cons_container > .title h4, .cons_container li > p, .pros_container > .title h4, .pros_container li > p {
+.cons_container > .title h4, 
+.cons_container li > p, 
+.pros_container > .title h4, 
+.pros_container li > p {
     color: var(--Neutral);
 }
 
-.cons_container ul, .pros_container ul {
+.cons_container ul, 
+.pros_container ul {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.cons_container li, .pros_container li {
+.cons_container li, 
+.pros_container li {
     display: flex;
     gap: 8px;
 }
@@ -1176,14 +1183,15 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 48px 32px;
+    padding-block: 48px;
     background-color: var(--Footer-bg);
 }
 
 footer > .content_container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 64px;
+    padding-inline: 32px;
     border-bottom: 1px solid var(--Borders)
 }
 
@@ -3142,6 +3150,47 @@ footer .legal_section .legal_section_links > a {
 }
 
 @media (min-width: 1280px) {
+
+    #header {
+        padding-inline: 48px;
+    }
+
+    h1 {
+        font-size: var(--H1-font-size-1280px);
+    }
+
+    .homepage_content_wrap {
+        padding-inline: 48px;
+    }
+
+    #footer > .content_container {
+        padding-inline: 48px; 
+    }
+
+    .solution_cards_container {
+        grid-column: span 6;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));        justify-content: center;
+    }
+    
+    .solution_card {
+        padding: 40px;
+    }
+
+    .problem_cards_container {
+        grid-column: span 6;
+    }
+
+    .problem_cards_container > .problem_card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 16px;
+        background-color: var(--Neutral);
+        height: 100%;
+        padding: 40px 24px;
+        border-radius: 8px;
+        box-shadow: var(--Shadow-default);
+    }
 
     #hotel_form .guide_driver_dropdown {
         flex: 3;
