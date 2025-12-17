@@ -7,7 +7,8 @@ import NavigationLinks from "./HeaderNavigationLinks"
 function Header() {
     return (
         <header id="header">
-            <img src="./src/images/logo-original.png" alt="logo" id="header_logo" />
+            <div className="header_content">
+                <img src="./src/images/logo-original.png" alt="logo" id="header_logo" />
                 <nav className="header_navbar_container">
                     <div className="navbar_tools">
                         <Login />
@@ -18,6 +19,7 @@ function Header() {
                         <CtaBtns />
                     </div>         
                 </nav>
+            </div>
         </header>
     )
 }
