@@ -5,14 +5,16 @@ import FormComplete from "../../components/form/FormComplete"
 
 function BudgetForm() {
     return (
-        <>
-            <FeaturesHeader />
-            <BudgetNavigation 
-                page="budgetform"
-                pageTitle="Budget Form"
-            />
-            <FormComplete />
-        </>
+        <section className="budget_form_wrap">
+            <div className="budget_form_content">
+                <FeaturesHeader />
+                <BudgetNavigation 
+                    page="budgetform"
+                    pageTitle="Budget Form"
+                />
+                <FormComplete />
+            </div>
+        </section>
     )
 }
 

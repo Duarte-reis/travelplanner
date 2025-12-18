@@ -4,14 +4,16 @@ import FinalOfferComplete from "../../components/final_offer_components/FinalOff
 
 function FinalOffer() {
     return (
-        <>
-            <FeaturesHeader />
-            <BudgetNavigation 
-                page="finaloffer"
-                pageTitle="Final Offer"
-            />
-            <FinalOfferComplete />
-        </>
+        <section className="final_offer_wrap">
+            <div className="final_offer_wrap_content">
+                <FeaturesHeader />
+                <BudgetNavigation 
+                    page="finaloffer"
+                    pageTitle="Final Offer"
+                />
+                <FinalOfferComplete />
+            </div>
+        </section>
     )
 }
 

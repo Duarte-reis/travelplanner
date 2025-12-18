@@ -117,8 +117,8 @@ function FinalOfferItinerary() {
                                     .reduce((sum, form) => sum + form.dateContainer.length, 0) + (dayIdx + 1)
 
                                 return (
-                                    <div key={dayIdx} className="itinerary_content_container">
-                                        <div className="itinerary_title">
+                                    <div key={dayIdx} className="final_offer_itinerary_content_container">
+                                        <div className="final_offer_itinerary_title">
                                             <TextBox 
                                                 value={`Day ${String(dayNumber).padStart(2, "0")}: ${dayObj.date}`} 
                                                 readOnly 

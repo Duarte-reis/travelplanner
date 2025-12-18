@@ -4,14 +4,16 @@ import DetailsComplete from "../../components/details/DetailsComplete"
 
 function Details() {
     return (
-        <>
-            <FeaturesHeader />
-            <BudgetNavigation 
-                page="details"
-                pageTitle="Details"
-            />
-            <DetailsComplete />
-        </>
+        <section className="details_wrap">
+            <div className="details_container">
+                <FeaturesHeader />
+                <BudgetNavigation 
+                    page="details"
+                    pageTitle="Details"
+                />
+                <DetailsComplete />
+            </div>
+        </section>
     )
 }
 

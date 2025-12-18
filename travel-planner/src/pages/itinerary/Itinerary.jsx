@@ -4,14 +4,16 @@ import ItineraryComplete from "../../components/itinerary_components/ItineraryCo
 
 function Itinerary() {
     return (
-        <>
-            <FeaturesHeader />
-            <BudgetNavigation 
-                page="itinerary"
-                pageTitle="Itinerary"
-            />
-            <ItineraryComplete />
-        </>
+        <section className="itinerary_wrap">
+            <div className="itinerary_wrap_container">
+                <FeaturesHeader />
+                <BudgetNavigation 
+                    page="itinerary"
+                    pageTitle="Itinerary"
+                />
+                <ItineraryComplete />
+            </div>
+        </section>
     )
 }
 
