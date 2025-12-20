@@ -1318,7 +1318,8 @@ footer .legal_section .legal_section_links > a {
     cursor: pointer;
 }
 
-.btn_log_in_google {
+.btn_log_in_google,
+.btn_log_in_apple {
     display: flex;
     align-items: center;
     justify-content: center;
