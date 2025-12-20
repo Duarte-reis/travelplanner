@@ -68,7 +68,7 @@ function FinalOfferCover() {
             <div
                 className="final_offer_cover"
                 style={{
-                    backgroundImage: defaultImg ? `url(${defaultImg})` : undefined
+                    backgroundImage: `url(${coverImage || defaultImg})`
                 }}
             >
                 <div className="search_container">

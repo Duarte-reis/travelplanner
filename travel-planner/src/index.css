@@ -177,24 +177,23 @@ button {
     box-shadow: var(--Shadow-default);
 }
 
-.btns_cta_container #get_started {
+#get_started {
     display: flex;
     align-items: center;
     gap: 8px;
     background-color: var(--Btn-main);
-    color: var(--Neutral)
 }
 
-.btns_cta_container #get_started > p {
-    color: var(--Neutral)
-}
-
-.btns_cta_container #get_a_demo {
+#contact_us {
     display: flex;
     align-items: center;
     gap: 8px;
     background-color: var(--Neutral);
     color: var(--Btn-main)
+}
+
+#get_started > p {
+    color: var(--Neutral);
 }
 
 /* ---- Learn More Btns ---- */
@@ -724,6 +723,7 @@ li {
 
 #header .navbar_links p {
     margin-inline: 8px;
+    font-weight: 500;
 }
 
 /* ---- Homepage ---- */
@@ -3346,6 +3346,11 @@ ul * {
         padding-inline: 48px;
     }
 
+    #get_started > p,
+    #contact_us {
+        font-size: 18px;
+        font-weight: 500;
+    }
     h1 {
         font-size: var(--H1-font-size-1280-1440);
     }
