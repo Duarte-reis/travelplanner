@@ -5,7 +5,17 @@ import AddNewElementBtn from "../AddNewElementBtn";
 import Multiplication from "../Multiplication";
 import CheckButton from "../CheckButton";
 
-function TransportationForm({formIndex, updateTransportationData, priceOfVehicleContainer = [], multiplicationDriverMeals = [], driverLandExpensesContainer = [], multiplicationDriverAccommodation = [], checkButtonContainer = [], addTransportationForm, hotelExpenses}) {
+function TransportationForm({
+    formIndex,
+    updateTransportationData, 
+    priceOfVehicleContainer = [], 
+    multiplicationDriverMeals = [], 
+    driverLandExpensesContainer = [], 
+    multiplicationDriverAccommodation = [], 
+    checkButtonContainer = [], 
+    addTransportationForm, 
+    hotelExpenses
+}) {
    
   return (
     <section id="transportation_form_container">
@@ -17,36 +27,48 @@ function TransportationForm({formIndex, updateTransportationData, priceOfVehicle
                             value={data.typeOfVehicle}
                             placeholder={"Vehicle type"}
                             onChange={(value) =>
-                                updateTransportationData(formIndex, "priceOfVehicleContainer", "typeOfVehicle", index, value)
+                                updateTransportationData(
+                                    formIndex, 
+                                    "priceOfVehicleContainer", 
+                                    "typeOfVehicle", 
+                                    index, 
+                                    value
+                                )
                             }
                         />
                         <TextBox 
                             value={data.priceOfVehicle}
                             onChange={(value) =>
-                                updateTransportationData(formIndex, "priceOfVehicleContainer", "priceOfVehicle", index, value)
+                                updateTransportationData(
+                                    formIndex, 
+                                    "priceOfVehicleContainer", 
+                                    "priceOfVehicle", 
+                                    index, 
+                                    value
+                                )
                             }
                             placeholder={"€"}
                         />
                     </div>
-                    ))}
-                    {checkButtonContainer.map((data, index) => (
-                        <CheckButton
-                            key={index}
-                            active={data.checkButton}
-                            onToggle={() =>
-                                updateTransportationData(
-                                    formIndex,
-                                    "checkButtonContainer",
-                                    "checkButton",
-                                    index,
-                                    !data.checkButton
-                                )
-                            }
-                        />
-                    ))}
+                ))}
+                {checkButtonContainer.map((data, index) => (
+                    <CheckButton
+                        key={index}
+                        active={data.checkButton}
+                        onToggle={() =>
+                            updateTransportationData(
+                                formIndex,
+                                "checkButtonContainer",
+                                "checkButton",
+                                index,
+                                !data.checkButton
+                            )
+                        }
+                    />
+                ))}
             </div>
 
-      <div id="driver_expenses_form">
+        <div id="driver_expenses_form">
             <div className="transportation_expenses_form">
                 <Bar barContent={["Driver Expenses"]} />
                 <div className="land">
@@ -69,7 +91,13 @@ function TransportationForm({formIndex, updateTransportationData, priceOfVehicle
                             data={data}
                             placeholder={"Meals"}
                             updateMultiplicationData={(key, value) =>
-                                updateTransportationData(formIndex, "multiplicationDriverMeals", key, index, value) 
+                                updateTransportationData(
+                                    formIndex, 
+                                    "multiplicationDriverMeals", 
+                                    key, 
+                                    index, 
+                                    value
+                                ) 
                             }
                         />
                     ))}
@@ -83,7 +111,13 @@ function TransportationForm({formIndex, updateTransportationData, priceOfVehicle
                             data={data}
                             placeholder={"Nights"}
                             updateMultiplicationData={(key, value) =>
-                                updateTransportationData(formIndex, "multiplicationDriverAccommodation", key, index, value)
+                                updateTransportationData(
+                                    formIndex, 
+                                    "multiplicationDriverAccommodation", 
+                                    key, 
+                                    index, 
+                                    value
+                                )
                             }
                         />
                     ))}

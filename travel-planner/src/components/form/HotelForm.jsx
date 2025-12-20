@@ -2,7 +2,23 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import Selector from "../Selector" 
 
-function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, dateContainer = [], cityContainer = [], hotelContainer = [], hotelPriceContainer = [], singleSupplementContainer = [], mealPlanContainer = [], dinnerContainer = [], dinnerPriceContainer = [], lunchContainer = [], lunchPriceContainer = [], guideSelectorContainer = [], driverSelectorContainer = [] }) {
+function HotelForm({ 
+    formIndex, 
+    days = 1, 
+    updateHotelFormData, 
+    dateContainer = [], 
+    cityContainer = [], 
+    hotelContainer = [], 
+    hotelPriceContainer = [], 
+    singleSupplementContainer = [], 
+    mealPlanContainer = [], 
+    dinnerContainer = [], 
+    dinnerPriceContainer = [], 
+    lunchContainer = [], 
+    lunchPriceContainer = [], 
+    guideSelectorContainer = [], 
+    driverSelectorContainer = [] 
+}) {
 
     const mealPlan = [
         {value:"", label:"MP", disabled: true}, 
@@ -35,7 +51,14 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                             value={data.date}
                             placeholder={"Date"}
                             onChange={(value) => 
-                                updateHotelFormData(formIndex, "dateContainer", "date", index, value)}
+                                updateHotelFormData(
+                                    formIndex, 
+                                    "dateContainer", 
+                                    "date", 
+                                    index, 
+                                    value
+                                )
+                            }
                         />
                     </div>
                 ))}
@@ -47,7 +70,15 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                         key={index}
                         value={data.city}
                         placeholder={"City"}
-                        onChange={(value) => updateHotelFormData(formIndex, "cityContainer", "city", index, value)}
+                        onChange={(value) => 
+                            updateHotelFormData(
+                                formIndex, 
+                                "cityContainer", 
+                                "city", 
+                                index, 
+                                value
+                            )
+                        }
                     />
                 ))}
             </div>
@@ -58,7 +89,15 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                         key={index}
                         value={data.hotel}
                         placeholder={"Hotel"}
-                        onChange={(value) => updateHotelFormData(formIndex, "hotelContainer", "hotel", index, value)}
+                        onChange={(value) => 
+                            updateHotelFormData(
+                                formIndex, 
+                                "hotelContainer", 
+                                "hotel", 
+                                index, 
+                                value
+                            )
+                        }
                     />
                 ))}
 
@@ -67,19 +106,35 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                         key={index}
                         value={data.hotelPrice}
                         placeholder={"€"}
-                        onChange={(value) => updateHotelFormData(formIndex, "hotelPriceContainer", "hotelPrice", index, value)}
+                        onChange={(value) => 
+                            updateHotelFormData(
+                                formIndex, 
+                                "hotelPriceContainer", 
+                                "hotelPrice", 
+                                index, 
+                                value
+                            )
+                        }
                     />
                 ))}
                 
                 <div className="single_suplement">
                     {singleSupplementContainer.map((data, index) => (
-                    <TextBox 
-                        key={index}
-                        value={data.singleSupplement}
-                        placeholder={"SS"}
-                        onChange={(value) => updateHotelFormData(formIndex, "singleSupplementContainer", "singleSupplement", index, value)}
-                    />
-                ))}
+                        <TextBox 
+                            key={index}
+                            value={data.singleSupplement}
+                            placeholder={"SS"}
+                            onChange={(value) => 
+                                updateHotelFormData(
+                                    formIndex, 
+                                    "singleSupplementContainer", 
+                                    "singleSupplement", 
+                                    index, 
+                                    value
+                                )
+                            }
+                        />
+                    ))}
 
                 </div>
                 <div className="meal_plan">
@@ -88,8 +143,16 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                             key={index} 
                             value={data.mealPlan}
                             options={mealPlan}
-                            onChange={(value) => updateHotelFormData(formIndex, "mealPlanContainer", "mealPlan", index, value)}
-                    />
+                            onChange={(value) => 
+                                updateHotelFormData(
+                                    formIndex, 
+                                    "mealPlanContainer", 
+                                    "mealPlan", 
+                                    index, 
+                                    value
+                                )
+                            }
+                        />
                     ))}
                 </div>
             </div>
@@ -100,7 +163,15 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                         key={index}
                         value={data.dinner}
                         placeholder={"Dinner"}
-                        onChange={(value) => updateHotelFormData(formIndex, "dinnerContainer", "dinner", index, value)}
+                        onChange={(value) => 
+                            updateHotelFormData(
+                                formIndex, 
+                                "dinnerContainer", 
+                                "dinner", 
+                                index, 
+                                value
+                            )
+                        }
                     />
                 ))}
 
@@ -109,7 +180,15 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                         key={index}
                         value={data.dinnerPrice}
                         placeholder={"€"}
-                        onChange={(value) => updateHotelFormData(formIndex, "dinnerPriceContainer", "dinnerPrice", index, value)}
+                        onChange={(value) => 
+                            updateHotelFormData(
+                                formIndex, 
+                                "dinnerPriceContainer", 
+                                "dinnerPrice", 
+                                index, 
+                                value
+                            )
+                        }
                     />
                 ))}
                 
@@ -121,7 +200,15 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                         key={index}
                         value={data.lunch}
                         placeholder={"Lunch"}
-                        onChange={(value) => updateHotelFormData(formIndex, "lunchContainer", "lunch", index, value)}
+                        onChange={(value) => 
+                            updateHotelFormData(
+                                formIndex, 
+                                "lunchContainer", 
+                                "lunch", 
+                                index, 
+                                value
+                            )
+                        }
                     />
                 ))}
 
@@ -130,7 +217,15 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                         key={index}
                         value={data.lunchPrice}
                         placeholder={"€"}
-                        onChange={(value) => updateHotelFormData(formIndex, "lunchPriceContainer", "lunchPrice", index, value)}
+                        onChange={(value) => 
+                            updateHotelFormData(
+                                formIndex, 
+                                "lunchPriceContainer", 
+                                "lunchPrice", 
+                                index, 
+                                value
+                            )
+                        }
                     />
                 ))}
                 
@@ -142,7 +237,15 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                         key={index}
                         value={data.guideSelector}
                         options={guideSelector}
-                        onChange={(value) => updateHotelFormData(formIndex, "guideSelectorContainer", "guideSelector", index, value)}
+                        onChange={(value) => 
+                            updateHotelFormData(
+                                formIndex, 
+                                "guideSelectorContainer", 
+                                "guideSelector", 
+                                index, 
+                                value
+                            )
+                        }
                     />
                 ))}
                 {driverSelectorContainer.map((data, index) => (
@@ -150,7 +253,15 @@ function HotelForm({ formIndex, hotelFormData, days = 1, updateHotelFormData, da
                         key={index}
                         value={data.driverSelector}
                         options={driverSelector}
-                        onChange={(value) => updateHotelFormData(formIndex, "driverSelectorContainer", "driverSelector", index, value)}
+                        onChange={(value) => 
+                            updateHotelFormData(
+                                formIndex, 
+                                "driverSelectorContainer", 
+                                "driverSelector", 
+                                index, 
+                                value
+                            )
+                        }
                     />
                 ))}
             </div>

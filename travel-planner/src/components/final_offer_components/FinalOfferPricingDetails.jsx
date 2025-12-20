@@ -17,7 +17,7 @@ function FinalOfferPricingDetails() {
     return (
         <section id="final_offer_pricing_details">
         <div className="final_offer_price_tiers">
-            <Bar barContent={[`Price per person in ${selectRoomType?.label} (minimum pax + free)`]} />
+            <Bar barContent={[`Price per person in ${selectRoomType?.label || "single room"} (minimum pax + free)`]} />
 
             <div className="final_offer_price_per_pax_container">
                 {Object.entries(numOfPaxData[0]).map(([tierName, values], index) => {

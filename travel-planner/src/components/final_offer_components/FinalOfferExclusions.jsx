@@ -5,9 +5,7 @@ import { CounterContext } from "../context/CounterContext"
 
 function FinalOfferExclusions() {
 
-    const { hotelInclusionsExtras } = useContext(CounterContext);
-
-    const { servicesInclusions } = useContext(CounterContext);
+    const { hotelInclusionsExtras, servicesInclusions } = useContext(CounterContext);
 
     return (
         <section id="final_offer_exclusions_container">
@@ -77,13 +75,13 @@ function FinalOfferExclusions() {
                 )}
 
                 {servicesInclusions.freeInclusionsContainer?.freeSelector === "Free description: no" && (
-                    <div className="final_offer_inclusions_free">
+                    <div className="final_offer_exclusions_free">
                         <p>Frees</p>
                     </div>    
                 )}
 
                 {servicesInclusions.childDiscountInsclusionsContainer?.childDiscountSelector === "Child discount description: No" && (
-                    <div className="final_offer_inclusions_child_discount">
+                    <div className="final_offer_exclusions_child_discount">
                         <p>Child discount</p>
                     </div>    
                 )}

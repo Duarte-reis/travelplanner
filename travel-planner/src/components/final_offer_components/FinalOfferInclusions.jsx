@@ -79,8 +79,6 @@ function FinalOfferInclusions({ tierName }) {
                     </div>
                 )}
 
-                
-
                 {servicesInclusions.transportationInclusionsContainer?.transportationSelector === "Transportation: Yes" && (
                     <div className="final_offer_inclusions_transportation">
                         <p>Transportation:</p>

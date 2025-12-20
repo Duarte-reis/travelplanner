@@ -4,7 +4,11 @@ import OptionalButton from "./OptionalButton";
 import { useContext } from "react";
 import { CounterContext } from "./context/CounterContext";
 
-function SelectPaxAndFree({ numOfPax, free, tierName }) {
+function SelectPaxAndFree({ 
+    numOfPax, 
+    free, 
+    tierName 
+}) {
 
     const { includeOptions, setIncludeOptions } = useContext(CounterContext);
 

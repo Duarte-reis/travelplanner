@@ -1,6 +1,9 @@
 import "../index.css";
 
-function OptionalButton({ active, onToggle }) {
+function OptionalButton({ 
+    active, 
+    onToggle 
+}) {
 
     return (
         <button

@@ -3,7 +3,17 @@ import TextBox from "../TextBox"
 import CheckButton from "../CheckButton"
 import Selector from "../Selector"
 
-function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSelectorContainer = [], companyContainer = [], routeContainer = [], fareContainer = [], taxContainer = [], checkButtonContainer = [], flightTrainGuideSelectorContainer = []}) {
+function FlightTrainForm({
+    formIndex, 
+    updateFlightTrainFormData, 
+    flightOrTrainSelectorContainer = [], 
+    companyContainer = [], 
+    routeContainer = [], 
+    fareContainer = [], 
+    taxContainer = [], 
+    checkButtonContainer = [], 
+    flightTrainGuideSelectorContainer = []
+}) {
 
     const selectFlightTrain = [
         {value:"", label:"Flight/Train", disabled: true},
@@ -83,7 +93,6 @@ function FlightTrainForm({formIndex, updateFlightTrainFormData, flightOrTrainSel
                     />
                 ))}
             </div>
-            
         </section>
     )
 }

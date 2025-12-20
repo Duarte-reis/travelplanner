@@ -2,7 +2,13 @@ import "../../index.css"
 import TextBox from "../TextBox"
 import CheckButton from "../CheckButton"
 
-function ActivitiesForm({formIndex, nameOfActivityContainer = [], pricePerPersonContainer = [], checkButtonContainer = [], updateActivityField}) {
+function ActivitiesForm({
+  formIndex, 
+  nameOfActivityContainer = [], 
+  pricePerPersonContainer = [], 
+  checkButtonContainer = [], 
+  updateActivityField
+}) {
 
   return (
     <section id="activities_form">

@@ -3,7 +3,6 @@ import Header from "../../components/website_header/Header"
 import TextBox from "../../components/TextBox"
 import { useLocalStorage } from "../../hooks/useLocalStorage"
 import { Link } from "wouter"
-import { useState } from "react"
 import CheckBtn from "../../components/login_signup/CheckBtn"
 
 function LogInSignUp() {
@@ -12,8 +11,6 @@ function LogInSignUp() {
         const updateValue = (id, value) => {
             setValues({...values, [id]: value})
         }
-    
-    const [activeTab, setActiveTab] = useState("login")
 
     return (
         <section id="log_in">
@@ -24,20 +21,10 @@ function LogInSignUp() {
                     <div className="log_in_container">
                         <div className="log_in_content">
                             <div className="title_container">
-                                <div 
-                                    className={`log_in_text_container ${
-                                        activeTab === "login" ? "active" : ""
-                                    }`}
-                                    onClick={() => setActiveTab("login")}
-                                >
+                                <div className="log_in_text_container">
                                     <p>Log in</p>
                                 </div>   
-                                <div 
-                                    className={`sign_up_text_container ${
-                                        activeTab === "signup" ? "active" : ""
-                                    }`}
-                                    onClick={() => setActiveTab("signup")}
-                                >
+                                <div className="sign_up_text_container">
                                     <p>Sign up</p>
                                 </div>   
                             </div>
@@ -75,19 +62,18 @@ function LogInSignUp() {
                             <div className="log_in_social">
                                 <Link to="budgetform">
                                     <button className="btn_log_in_google">
-                                        <img src="./src/images/google-logo.png" alt="google icon" />
+                                        <img src="/images/google-logo.png" alt="google icon" />
                                         <p>Log in with Google</p>
                                     </button>
                                 </Link>
                                 <Link to="budgetform">
                                         <button className="btn_log_in_apple">
-                                            <img src="./src/images/apple-white-logo.png" alt="apple icon" />
+                                            <img src="/images/apple-white-logo.png" alt="apple icon" />
                                             <p>Log in with Apple</p>
                                         </button>
                                 </Link>
                             </div>
                         </div>
-
                 </div>
             </div>
         </section>

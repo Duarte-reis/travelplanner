@@ -5,7 +5,18 @@ import Bar from "../Bar"
 import TextBox from "../TextBox"; 
 import AddNewElementBtn from "../AddNewElementBtn";
 
-function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeals = [], multiplicationAccommodation = [], guideLandExpensesContainer = [], checkButtonContainer = [], updateMultiplicationData, addTourGuideForm, hotelExpenses, flightTrainGuideExpenses }) {
+function TourGuideForm({ 
+  formIndex, 
+  multiplicationPrice = [], 
+  multiplicationMeals = [], 
+  multiplicationAccommodation = [], 
+  guideLandExpensesContainer = [], 
+  checkButtonContainer = [], 
+  updateMultiplicationData, 
+  addTourGuideForm, 
+  hotelExpenses, 
+  flightTrainGuideExpenses 
+}) {
 
   return (
     <section id="tour_guide_form">
@@ -18,7 +29,13 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
             data={data}
             placeholder={"Days"}
             updateMultiplicationData={(key, value) =>
-              updateMultiplicationData(formIndex, "multiplicationPrice", key, index, value)
+              updateMultiplicationData(
+                formIndex, 
+                "multiplicationPrice", 
+                key, 
+                index, 
+                value
+              )
             }
           />
         ))}
@@ -62,7 +79,13 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
               data={data}
               placeholder={"Meals"}
               updateMultiplicationData={(key, value) =>
-                updateMultiplicationData(formIndex, "multiplicationMeals", key, index, value)
+                updateMultiplicationData(
+                  formIndex, 
+                  "multiplicationMeals", 
+                  key, 
+                  index, 
+                  value
+                )
               }
             />
           ))}
@@ -77,7 +100,13 @@ function TourGuideForm({ formIndex, multiplicationPrice = [], multiplicationMeal
               data={data}
               placeholder={"Nights"}
               updateMultiplicationData={(key, value) =>
-                updateMultiplicationData(formIndex, "multiplicationAccommodation", key, index, value)
+                updateMultiplicationData(
+                  formIndex, 
+                  "multiplicationAccommodation", 
+                  key, 
+                  index, 
+                  value
+                )
               }
             />
           ))}

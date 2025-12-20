@@ -1,10 +1,13 @@
 import "../index.css"
 
-function AddNewElementBtn({onAdd, text}) {
+function AddNewElementBtn({
+    onAdd, 
+    text
+}) {
     return (
-        <button onClick={onAdd} className="add_new_element">
+        <button onClick={onAdd} id="add_new_element">
             {text}
-            <img src="./src/images/add-new-element.svg" />
+            <img src="/images/add-new-element.svg" />
         </button>
     )
 }

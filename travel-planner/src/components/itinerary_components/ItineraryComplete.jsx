@@ -15,7 +15,6 @@ function ItineraryComplete() {
                     hotelFormData={hotelForm}
                     formIndex={formIndex}
                     allHotelForms={hotelFormData}
-
                 />
             ))}
         </section>

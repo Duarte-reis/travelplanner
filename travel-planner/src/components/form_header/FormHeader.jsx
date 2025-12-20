@@ -64,7 +64,6 @@ function FormHeader({pageTitle}) {
                                 className="currency_selector"
                             />
                         </div>
-
                     </div> 
                     <div className="middle_section">
                         <TextBox 
@@ -83,7 +82,6 @@ function FormHeader({pageTitle}) {
                             placeholder = "Client name" 
                         />
                     </div>
-
                     <div className="bottom_section">
                         <TextBox 
                             value={formHeaderValues.bottomSection.tripTitle || ""}
@@ -92,7 +90,6 @@ function FormHeader({pageTitle}) {
                         />
                     </div>   
                 </div>
-
                 <div className="notes_box">
                     <TextBox 
                         value={formHeaderValues.notesSection.notes || ""}

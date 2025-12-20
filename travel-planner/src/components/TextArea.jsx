@@ -1,6 +1,10 @@
 import "../index.css"
 
-function TextArea({value, placeholder, onChange}) {
+function TextArea({
+    value, 
+    placeholder, 
+    onChange
+}) {
 
     return (
         <textarea

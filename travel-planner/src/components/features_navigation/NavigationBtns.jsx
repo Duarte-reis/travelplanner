@@ -6,10 +6,10 @@ function NavigationBtns() {
         <div className="navigation_btns">
             <div className="btns">
                 <button>
-                    <img src="./src/images/arrow-left-black.svg" alt="" />
+                    <img src="/images/arrow-left-black.svg" alt="" />
                 </button>
                 <button>
-                    <img src="./src/images/arrow-right-black.svg" alt="" />
+                    <img src="/images/arrow-right-black.svg" alt="" />
                 </button>
             </div>
 

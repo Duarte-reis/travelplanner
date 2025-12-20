@@ -8,22 +8,20 @@ function Navigation() {
           </div>
           <div className="nav_btns">
               <div className="icon-btn" id="settings">
-                <img src="./src/images/cog-outline.svg" alt="settings" />
+                <img src="/images/cog-outline.svg" alt="settings" />
               </div>
               <div className="icon-btn"  id="notifications">
-                <img src="./src/images/bell-outline.svg" alt="notifications" />
+                <img src="/images/bell-outline.svg" alt="notifications" />
               </div>
-            </div>
-            <div className="profile">
-              <img alt="avatar" src="./src/images/avatar.png" />
-              <div className="profile_name">
-                <p>Tom Scott</p>
-                <p>Global Travel</p>
-              </div>
+          </div>
+          <div className="profile">
+            <img alt="avatar" src="/images/avatar.png" />
+            <div className="profile_name">
+              <p>Tom Scott</p>
+              <p>Global Travel</p>
             </div>
           </div>
-
-
+        </div>
     )
 }
 

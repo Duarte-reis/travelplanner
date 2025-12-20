@@ -2,7 +2,10 @@ import "../../index.css"
 import Selector from "../Selector"
 import TextArea from "../TextArea"
 
-function GeneralTermsDetails({generalTerms, setGeneralTerms}) {
+function GeneralTermsDetails({
+    generalTerms, 
+    setGeneralTerms
+}) {
 
     const cancelation = [
         {value:"", label:"Cancelation policy", disabled: true},

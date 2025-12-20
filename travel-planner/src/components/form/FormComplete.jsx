@@ -11,7 +11,6 @@ import PaxTiers from "./PaxTiers"
 import FreeButton from "../FreeButton"
 import TextBox from "../TextBox"
 import AddNewElementBtn from "../AddNewElementBtn"
-import ComissionTextBox from "../ComissionTextBox"
 import { useLocalStorage } from "../../hooks/useLocalStorage"
 import { useContext } from "react";
 import { CounterContext } from "../context/CounterContext";
@@ -24,7 +23,7 @@ function FormComplete() {
     const { numOfPaxData, setNumOfPaxData } = useContext(CounterContext);
     
     /* ---- Update Hotel Form - Save information and allow creating new forms --- */
-    
+
     const { hotelFormData, setHotelFormData } = useContext(CounterContext);
 
     const updateHotelFormData = (formIndex, section, key, index, value) => {
@@ -68,13 +67,13 @@ function FormComplete() {
     }, 0);
 
     // Single supplement is calculated separately
+    
+    const { setSingleSupplementTotal } = useContext(CounterContext);
+
     const singleSupplementTotal = hotelFormData.reduce((sum, form) => {
         const singleSupplement = parseFloat(form.singleSupplementContainer[0]?.singleSupplement || 0);
         return sum + singleSupplement
     }, 0);
-
-    // Send singleSupplement result to Context to share with other components
-    const { setSingleSupplementTotal } = useContext(CounterContext);
 
     useEffect(() => {
         setSingleSupplementTotal(singleSupplementTotal);
@@ -84,11 +83,31 @@ function FormComplete() {
 
     const { localGuidesFormData, setLocalGuidesFormData } = useContext(CounterContext) 
 
-    const updateLocalGuidesFormData = (formIndex, section, key, index, value) => {
-        const updated = [...localGuidesFormData];
-        updated[formIndex] = {...updated[formIndex], [section]: updated[formIndex] [section].map ((line, i) => i === index ? {...line, [key]: value } : line)};
-        setLocalGuidesFormData(updated)
-    }
+    const updateLocalGuidesFormData = (
+        formIndex,
+        section,
+        key,
+        lineIndex,
+        value
+        ) => {
+        const updatedForms = [...localGuidesFormData];
+
+        const form = updatedForms[formIndex];
+        const sectionData = form[section];
+
+        const updatedSection = sectionData.map((line, i) =>
+            i === lineIndex
+            ? { ...line, [key]: value }
+                : line
+            );
+
+            updatedForms[formIndex] = {
+                ...form,
+                [section]: updatedSection,
+            };
+
+        setLocalGuidesFormData(updatedForms);
+    };
 
     const addLocalGuidesForm = () => {
         setLocalGuidesFormData([
@@ -109,7 +128,10 @@ function FormComplete() {
 
     /* ---- Divide each Local Guides tier for the respective number of pax. Ignore the ones marked as "optional" ---- */
 
-    const getLocalGuidesPerPax = (priceContainerKey, tierKey) => {
+    const getLocalGuidesPerPax = (
+        priceContainerKey, 
+        tierKey
+        ) => {
         const total = localGuidesFormData.reduce((sum, form) => {
             const isChecked = form.checkButtonContainer[0]?.checkButton; // There's only one CheckButton
             if (isChecked) return sum; // If it's checked, ignore it
@@ -134,22 +156,34 @@ function FormComplete() {
 
     const {tourGuideFormData, setTourGuideFormData} = useContext(CounterContext)
 
-    const updateMultiplicationData = (formIndex, section, key, index, value) => {
+    const updateMultiplicationData = (
+        formIndex,
+        section,
+        key,
+        index,
+        value
+        ) => {
         const updated = [...tourGuideFormData];
-        updated[formIndex] = {...updated[formIndex], [section]: updated[formIndex][section].map ((line, i) => i === index ? { ...line, [key]: value } : line)};
-            setTourGuideFormData(updated);
+
+        updated[formIndex] = {
+            ...updated[formIndex],
+            [section]: updated[formIndex][section].map((line, i) =>
+            i === index ? { ...line, [key]: value }: line),
+        };
+
+        setTourGuideFormData(updated);
     };
 
     const addTourGuideForm = () => {
         setTourGuideFormData([
-        ...tourGuideFormData,
-        {
-            multiplicationPrice: [{ pricePerDay: "", numOfDays: "" }],
-            guideLandExpensesContainer: [{guideLandExpenses: ""}],
-            multiplicationMeals: [{ pricePerDay: "", numOfDays: "" }],
-            multiplicationAccommodation: [{ pricePerDay: "", numOfDays: "" }],
-            checkButtonContainer: [{checkButtonContainer: false}],
-        }
+            ...tourGuideFormData,
+            {
+                multiplicationPrice: [{ pricePerDay: "", numOfDays: "" }],
+                guideLandExpensesContainer: [{guideLandExpenses: ""}],
+                multiplicationMeals: [{ pricePerDay: "", numOfDays: "" }],
+                multiplicationAccommodation: [{ pricePerDay: "", numOfDays: "" }],
+                checkButtonContainer: [{checkButtonContainer: false}],
+            }
         ]);
     };
 
@@ -178,7 +212,7 @@ function FormComplete() {
             return sum + roomPrice + singleSupplement + dinnerPrice + lunchPrice;
         }
         return sum;
-        }, 0);
+    }, 0);
     
     /* ---- If the selector is "Yes", the Land TextBox value is added to the Meals and Accommodation TextBoxes. Note: Meals and Accommodation are not affected by the selector ---- */
 
@@ -209,10 +243,12 @@ function FormComplete() {
 
     const updateActivityField = (formIndex, section, key, index, value) => {
         const updated = [...activitiesFormData];
-        updated[formIndex] = {...updated[formIndex], [section]: updated[formIndex][section].map((item, i) => i === index ? { ...item, [key]: value } : item ),
+            updated[formIndex] = {...updated[formIndex], 
+                [section]: updated[formIndex][section].map((item, i) => 
+                    i === index ? { ...item, [key]: value } : item ),
         };
         setActivitiesFormData(updated);
-        };
+    };
 
     const addActivityForm = () => {
         setActivitiesFormData([
@@ -241,8 +277,11 @@ function FormComplete() {
 
     const updateTransportationData = (formIndex, section, key, index, value) => {
         const updated = [...transportationFormData];
-        updated[formIndex] = {...updated[formIndex], [section]: updated[formIndex][section].map ((line, i) => i === index ? { ...line, [key]: value } : line)};
-            setTransportationFormData(updated);
+        updated[formIndex] = {
+            ...updated[formIndex], 
+            [section]: updated[formIndex][section].map ((line, i) => 
+                i === index ? { ...line, [key]: value } : line )};
+        setTransportationFormData(updated);
     };
 
     const addTransportationForm = () => {
@@ -377,7 +416,8 @@ function FormComplete() {
     const updateFlightTrainFormData = (formIndex, section, key, index, value) => {
         const updated = [...flightTrainFormData];
         updated[formIndex] = {
-            ...updated[formIndex], [section]: updated[formIndex][section].map((item, i) =>
+            ...updated[formIndex], 
+            [section]: updated[formIndex][section].map((item, i) =>
                 i === index ? { ...item, [key]: value } : item
             )
         };
@@ -436,7 +476,6 @@ function FormComplete() {
     const finalNetPerPayingPaxArray = Object.values(numOfPaxData[0]).map((tier, idx) => {
         const numOfPax = Number(tier.numOfPax);
         const free = Number(tier.free);
-
         // Sum all the values inserted in each component to generate the NET value per paying pax
         let netPerPayingPax =
             hotelPriceTotal +
@@ -452,12 +491,10 @@ function FormComplete() {
             (idx === 6 ? localGuidesPerPaxTier7 : 0) +
             tourGuidePerTier[idx] +
             transportationPerTier[idx];
-
         // If we choose "sgl", in the FreeType, we have to calculate the singleSupplement * the number of Free and divide by the number of paying pax. This means that the Frees will stay in a single room
         if (activeIndex === 0 && free > 0) { // 0 = sgl
             netPerPayingPax += singleSupplementTotal * (free / numOfPax); // += adds the calculated single supplement for the Free passengers to the existing netPerPayingPax instead of replacing it.
         }
-
         // Add the cost of the free passengers and distribute it evenly among the corresponding number of paying passengers.
         return netPerPayingPax + (netPerPayingPax * free) / numOfPax;
     });
@@ -477,7 +514,6 @@ function FormComplete() {
         netValue + marginPerTier[idx] + comissionPerTier[idx]
     );
 
-    // Send Rrp result to Context to share with other components
     const { setFinalRrpPerTier } = useContext(CounterContext);
 
     useEffect(() => { // Whenever finalRrpPerTier changes, the useEffect triggers, calls setFinalRrpPerTier(finalRrpPerTier), and updates the global Context so other components can access the updated RRP values.
@@ -673,7 +709,7 @@ function FormComplete() {
                         barContent = {["Free type"]}
                     />    
                     <div className="type_of_free_content">
-                        {Object.values(numOfPaxData[0]).map((tier, idx) => (
+                        {Object.values(numOfPaxData[0]).map((_,idx) => (
                             <FreeButton
                                 key={idx}
                                 activeIndex={activeIndex}
@@ -768,7 +804,6 @@ function FormComplete() {
                     ))}
                 </div>
             </div> 
-      
         </section>
     )
 }

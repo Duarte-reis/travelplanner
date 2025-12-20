@@ -1,6 +1,10 @@
 import "../index.css"
 
-function TextBox({value, placeholder, onChange}) {
+function TextBox({
+    value, 
+    placeholder, 
+    onChange
+}) {
 
     return (
         <input 

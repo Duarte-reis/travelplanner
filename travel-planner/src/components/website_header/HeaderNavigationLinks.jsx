@@ -1,5 +1,5 @@
 import "../../index.css"
-import {Link} from "wouter"
+import { Link } from "wouter"
 
 function NavigationLinks() {
     return (

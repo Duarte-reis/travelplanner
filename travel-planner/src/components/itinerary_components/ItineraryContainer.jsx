@@ -12,8 +12,7 @@ function ItineraryContainer({ hotelFormData, allHotelForms, formIndex }) {
     const storageKey = `itinerarydata-${formIndex}`;
 
     const [itineraryData, setItineraryData] = useLocalStorage(
-        storageKey,
-        hotelFormData.dateContainer.map(() => ({
+        storageKey, hotelFormData.dateContainer.map(() => ({
             itineraryTitle: "",
             itineraryDescription: ""
         }))
@@ -22,8 +21,7 @@ function ItineraryContainer({ hotelFormData, allHotelForms, formIndex }) {
     // This useEffect updates the global context (setGlobalItineraries) whenever the local itineraryData changes, keeping the context in sync with the component’s state.
     useEffect(() => {
         setGlobalItineraries(prev => ({
-            ...prev,
-            [storageKey]: itineraryData
+            ...prev, [storageKey]: itineraryData
         }));
     }, [itineraryData]);
 

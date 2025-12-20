@@ -2,18 +2,18 @@ import "../../index.css"
 import { useContext, useState } from "react"
 import { CounterContext } from "../context/CounterContext"
 import { useLocalStorage } from "../../hooks/useLocalStorage"
-import defaultCover from "../../images/final-offer-cover.png"
 
 function FinalOfferCover() {
 
     const { formHeaderValues } = useContext(CounterContext)
 
-    const [coverImage, setCoverImage] = useLocalStorage("coverimage", defaultCover) // Save selected cover image in localStorage
+    const [coverImage, setCoverImage] = useLocalStorage("coverimage", null) // Save selected cover image in localStorage
 
     const [unsplashSearch, setUnsplashSearch] = useState("") // Search box
     const [unsplashResults, setUnsplashResults] = useState([]) // Search results
 
-    
+    const defaultImg = "/images/final-offer-cover.png";
+
     const handleUnsplashSearch = () => { // Fetch images from Unsplash
         if (!unsplashSearch) return // If search input is empty, don't fetch
         fetch(
@@ -68,12 +68,12 @@ function FinalOfferCover() {
             <div
                 className="final_offer_cover"
                 style={{
-                    backgroundImage: coverImage ? `url(${coverImage})` : undefined
+                    backgroundImage: defaultImg ? `url(${defaultImg})` : undefined
                 }}
             >
                 <div className="search_container">
                     <button className="img_search_btn" onClick={handleUnsplashSearch}>
-                        <img src="./src/images/magnify.svg" alt="search button" />
+                        <img src="/images/magnify.svg" alt="search button" />
                     </button>
                     <input
                         type="text"
@@ -88,7 +88,7 @@ function FinalOfferCover() {
                         className="img_search_input"
                     />
                     <button className="close_search_btn" onClick={handleCloseSearch}>
-                        <img src="./src/images/close.svg" alt="close search" />
+                        <img src="/images/close.svg" alt="close search" />
                     </button>
                 </div>
                 {unsplashResults.length > 0 && (

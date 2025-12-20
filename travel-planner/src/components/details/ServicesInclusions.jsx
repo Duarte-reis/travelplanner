@@ -209,7 +209,7 @@ function ServicesInclusions() {
                             localGuidesInclusionsContainer: {
                                 localGuidesSelector: value,
                                 localGuidesText: value === "Local Guides: Yes" ? filteredLocalGuides
-                                    .join(" | ") : "" || "" // .join puts all serviceName in one string separated by "|"
+                                    .join(" ") : "" || "" // .join puts all serviceName in one string
                             }
                         })
                     }}
@@ -243,7 +243,8 @@ function ServicesInclusions() {
                             ...servicesInclusions,
                             activitiesInclusionsContainer: {
                                 activitiesSelector: value,
-                                activitiesText: value === "Admissions: Yes" ? filteredActivities : []
+                                activitiesText: value === "Admissions: Yes" ? filteredActivities
+                                    .join(" ") : "" || ""
                             }
                         });
                     }}

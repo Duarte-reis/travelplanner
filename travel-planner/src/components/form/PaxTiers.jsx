@@ -1,7 +1,11 @@
 import "../../index.css";
 import TextBox from "../TextBox";
 
-function PaxTiers({ index, numOfPaxData, setNumOfPaxData }) {
+function PaxTiers({ 
+  index, 
+  numOfPaxData, 
+  setNumOfPaxData 
+}) {
 
   const defaultData = {
     paxTier1: { numOfPax: "15", free: "1" },
@@ -19,7 +23,10 @@ function PaxTiers({ index, numOfPaxData, setNumOfPaxData }) {
     const updated = [...numOfPaxData];
     updated[index] = {
       ...updated[index],
-      [tierKey]: { ...updated[index][tierKey], [field]: value },
+      [tierKey]: { 
+        ...updated[index][tierKey], 
+        [field]: value 
+      },
     };
     setNumOfPaxData(updated);
   };
@@ -30,12 +37,22 @@ function PaxTiers({ index, numOfPaxData, setNumOfPaxData }) {
         <div className="tier-row" key={tierName}>
           <TextBox
             value={values.numOfPax}
-            onChange={(value) => updateValue(tierName, "numOfPax", value)}
+            onChange={(value) => 
+              updateValue(
+                tierName, 
+                "numOfPax", 
+                value
+              )}
           />
           <p>+</p>
           <TextBox
             value={values.free}
-            onChange={(value) => updateValue(tierName, "free", value)}
+            onChange={(value) => 
+              updateValue(
+                tierName, 
+                "free", 
+                value
+              )}
           />
         </div>
       ))}

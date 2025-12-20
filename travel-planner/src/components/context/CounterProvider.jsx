@@ -20,39 +20,41 @@ function CounterProvider({ children }) {
             dateContainer: [{day:"", date:""}],
             cityContainer: [{city: ""}], 
             hotelContainer: [{hotel: ""}], 
-            hotelPriceContainer: [{hotelPrice: ""}], //price per person
-            singleSupplementContainer: [{singleSupplement: ""}], //price per person
+            hotelPriceContainer: [{hotelPrice: ""}], 
+            singleSupplementContainer: [{singleSupplement: ""}], 
             mealPlanContainer: [{mealPlan: ""}], 
             dinnerContainer: [{dinner: ""}], 
-            dinnerPriceContainer: [{dinnerPrice: ""}], //price per person
+            dinnerPriceContainer: [{dinnerPrice: ""}], 
             lunchContainer: [{lunch: ""}], 
-            lunchPriceContainer: [{lunchPrice: ""}], //price per person
+            lunchPriceContainer: [{lunchPrice: ""}], 
             guideSelectorContainer: [{guideSelector: ""}], 
             driverSelectorContainer: [{driverSelector: ""}],
         }    
     ])
 
-    const [localGuidesFormData, setLocalGuidesFormData] = useLocalStorage("localguidesformdata", [
-        {
-            serviceNameContainer: [{serviceName: ""}],
-            price1Container: [{price1: ""}], // price per pax tier
-            price2Container: [{price2: ""}], // price per pax tier
-            price3Container: [{price3: ""}], // price per pax tier
-            price4Container: [{price4: ""}], // price per pax tier
-            price5Container: [{price5: ""}], // price per pax tier
-            price6Container: [{price6: ""}], // price per pax tier
-            price7Container: [{price7: ""}], // price per pax tier
-            checkButtonContainer: [{checkButton: false}]
-        } 
-    ])
+    const [localGuidesFormData, setLocalGuidesFormData] = useLocalStorage(
+        "localguidesformdata",
+        Array.from({ length: 7 }, () => ({
+            serviceNameContainer: [{ serviceName: "" }],
+            price1Container: [{ price1: "" }],
+            price2Container: [{ price2: "" }],
+            price3Container: [{ price3: "" }],
+            price4Container: [{ price4: "" }],
+            price5Container: [{ price5: "" }],
+            price6Container: [{ price6: "" }],
+            price7Container: [{ price7: "" }],
+            checkButtonContainer: [{ checkButton: false }],
+        }))
+    );
 
-    const [activitiesFormData, setActivitiesFormData] = useLocalStorage("activitiesformdata", [
-        {
+    const [activitiesFormData, setActivitiesFormData] = useLocalStorage(
+        "activitiesformdata",
+        Array.from({ length: 7 }, () => ({
             nameOfActivityContainer: [{ nameOfActivity: "" }],
             pricePerPersonContainer: [{ pricePerPerson: "" }],
             checkButtonContainer: [{checkButton: false}]
-        }
-    ])
+        }))
+    )
 
     const [formHeaderValues, setFormHeaderValues] = useLocalStorage("formheadervalues", {
         topSection: { year: "", startDate: "", endDate: "" },
@@ -177,8 +179,9 @@ function CounterProvider({ children }) {
         setCheckedLocalGuides(selected); // Update the localStorage state with only the checked local guides
     }, [localGuidesFormData, setCheckedLocalGuides]); // Run when localGuidesFormData or setCheckedLocalGuides changes
 
-    const [flightTrainFormData, setFlightTrainFormData] = useLocalStorage("flighttrainformdata", [
-        {
+    const [flightTrainFormData, setFlightTrainFormData] = useLocalStorage(
+        "flighttrainformdata",
+        Array.from({ length: 4 }, () => ({
             flightOrTrainSelectorContainer: [{flightOrTrainSelector: ""}],
             companyContainer: [{company:""}],
             routeContainer: [{route:""}],
@@ -186,8 +189,8 @@ function CounterProvider({ children }) {
             taxContainer: [{tax:""}],
             flightTrainGuideSelectorContainer: [{flightTrainGuideSelector:""}],
             checkButtonContainer: [{checkButton: false}]
-        }
-    ])
+        }))
+    )
 
     const [checkedFlightTrain, setCheckedFlightTrain] = useLocalStorage("checkedflighttrain", []);
 
@@ -352,15 +355,15 @@ function CounterProvider({ children }) {
                             sum +
                             (parseFloat(item.pricePerDay) || 0) *
                             (parseFloat(item.numOfDays) || 0),
-                        0
+                            0
                     );
 
                     const accPrice = form.multiplicationAccommodation.reduce(
                         (sum, item) =>
                             sum +
-                            (parseFloat(item.pricePerDay) || 0) *
+                            (parseFloat(item.pricePerDay) || 0) * 
                             (parseFloat(item.numOfDays) || 0),
-                        0
+                            0
                     );
 
                     const totalForm =

@@ -4,18 +4,19 @@ import TextBox from "../TextBox";
 import { useContext, useState } from "react";
 import { CounterContext } from "../context/CounterContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import defaultImg from "../../images/final-offer-cover.png";
 
 function FinalOfferItinerary() {
 
     const { hotelFormData, globalItineraries } = useContext(CounterContext);
 
     const [images, setImages] = useLocalStorage("images", [
-        defaultImg,
-        defaultImg,
-        defaultImg,
-        defaultImg,
+        null,
+        null,
+        null,
+        null,
     ]);
+
+    const defaultImg = "/images/final-offer-cover.png";
 
     const updateImages = (index, url) => {
         const updated = [...images];
@@ -54,7 +55,7 @@ function FinalOfferItinerary() {
             <div className="final_offer_itinerary_pictures">
                 {images.map((img, index) => (
                     <div key={index} className="itinerary_img_wrapper">
-                        <img src={img} alt={`itinerary ${index}`} />
+                        <img src={img || defaultImg} alt={`itinerary ${index}`} />
 
                         <button
                             className="itinerary_img_search_btn"
@@ -62,7 +63,7 @@ function FinalOfferItinerary() {
                                 setActiveSearchIndex(activeSearchIndex === index ? null : index)
                             }
                         >
-                            <img src="./src/images/magnify.svg" alt="search button" />
+                            <img src="/images/magnify.svg" alt="search button" />
                         </button>
                     </div>
                 ))}
@@ -84,7 +85,7 @@ function FinalOfferItinerary() {
                                     className="itinerary_img_search_input"
                                 />
                                 <button className="itinerary_close_search_btn" onClick={handleCloseSearch}>
-                                    <img src="./src/images/close.svg" alt="close search" />
+                                    <img src="/images/close.svg" alt="close search" />
                                 </button>
                             </div>
                             
@@ -94,7 +95,12 @@ function FinalOfferItinerary() {
                                     key={image.id}
                                     src={image.urls.thumb}
                                     className="itinerary_unsplash_thumb"
-                                    onClick={() => handleUnsplashSelect(image.urls.regular, activeSearchIndex)}
+                                    onClick={() => 
+                                        handleUnsplashSelect(
+                                            image.urls.regular, 
+                                            activeSearchIndex
+                                        )
+                                    }
                                 />
                             ))}
                             </div>

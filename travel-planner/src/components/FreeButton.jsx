@@ -1,7 +1,10 @@
 import "../index.css";
 import OptionalButton from "./OptionalButton";
 
-function FreeButton({activeIndex, setActiveIndex}) {
+function FreeButton({
+    activeIndex, 
+    setActiveIndex
+}) {
 
     return (
         <div id="free_button">

@@ -1,7 +1,12 @@
 import "../index.css";
 import TextBox from "./TextBox";
 
-function Multiplication({ data, updateMultiplicationData, placeholder }) {
+function Multiplication({ 
+  data, 
+  updateMultiplicationData, 
+  placeholder 
+}) {
+
   const safe = data || { pricePerDay: "", numOfDays: "" };
 
   const price = parseFloat(safe.pricePerDay) || 0;
@@ -13,13 +18,19 @@ function Multiplication({ data, updateMultiplicationData, placeholder }) {
     <div id="multiplication">
       <TextBox
         value={safe.pricePerDay}
-        onChange={(value) => updateMultiplicationData("pricePerDay", value)}
+        onChange={(value) => updateMultiplicationData(
+          "pricePerDay", 
+          value
+        )}
         placeholder="€"
       />
       <p>x</p>
       <TextBox
         value={safe.numOfDays}
-        onChange={(value) => updateMultiplicationData("numOfDays", value)}
+        onChange={(value) => updateMultiplicationData(
+          "numOfDays", 
+          value
+        )}
         placeholder={placeholder}
       />
       <p>=</p>
